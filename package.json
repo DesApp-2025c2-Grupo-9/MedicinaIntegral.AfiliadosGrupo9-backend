@@ -1,0 +1,35 @@
+{
+  "name": "medicinaintegral.afiliadosgrupo9-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DesApp-2025c2-Grupo-9/MedicinaIntegral.AfiliadosGrupo9-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DesApp-2025c2-Grupo-9/MedicinaIntegral.AfiliadosGrupo9-backend/issues"
+  },
+  "homepage": "https://github.com/DesApp-2025c2-Grupo-9/MedicinaIntegral.AfiliadosGrupo9-backend#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.0",
+    "zod": "^4.0.17"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.3.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
