@@ -1,5 +1,7 @@
 import { Schema, model, Document } from "mongoose";
+import { RolAfiliado } from "../enums/RolAfiliado";
 
+//falta terminar de implementar la logica del rol- con enum y permisos
 export interface IAfiliado extends Document {
   afiliadoId: string; // Ej: "0000001-01"
   grupoFamiliar: string; // Ej: "0000001"
@@ -18,6 +20,7 @@ export interface IAfiliado extends Document {
   situacionTerapeutica: string;
   planMedico: "100" | "200" | "300" | "400";
   cbu?: string;
+  rol: RolAfiliado;
 }
 
 const afiliadoSchema = new Schema<IAfiliado>(
@@ -59,12 +62,47 @@ const afiliadoSchema = new Schema<IAfiliado>(
       required: true,
     },
     cbu: { type: String },
+    rol: {
+      type: String,
+      enum: Object.values(RolAfiliado),
+      default: RolAfiliado.TITULAR,
+    },
   },
+
   {
     timestamps: true,
   }
 );
 
+//para poder asignar rol al afiliado antes de guardarlo
+//ver si lo ponemos en
+afiliadoSchema.pre("save", function (next) {
+  const afiliado = this as IAfiliado;
+
+  // Calcular edad
+  const hoy = new Date();
+  let edad = hoy.getFullYear() - afiliado.fechaNacimiento.getFullYear();
+  const m = hoy.getMonth() - afiliado.fechaNacimiento.getMonth();
+  if (
+    m < 0 ||
+    (m === 0 && hoy.getDate() < afiliado.fechaNacimiento.getDate())
+  ) {
+    edad--;
+  }
+
+  // Asignar rol según parentesco + edad
+  if (afiliado.parentesco === "Titular") {
+    afiliado.rol = RolAfiliado.TITULAR;
+  } else if (afiliado.parentesco === "Cónyuge") {
+    afiliado.rol = RolAfiliado.CONYUGE;
+  } else if (afiliado.parentesco === "Hijo") {
+    afiliado.rol = edad < 18 ? RolAfiliado.HIJO_MENOR : RolAfiliado.HIJO_MAYOR;
+  } else {
+    afiliado.rol = RolAfiliado.OTRO;
+  }
+
+  next();
+});
 const Afiliado = model<IAfiliado>("Afiliado", afiliadoSchema);
 
 export default Afiliado;

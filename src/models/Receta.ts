@@ -1,5 +1,5 @@
 import { Schema, model, Document } from "mongoose";
-import { EstadoTramite } from "./EstadoTramite";
+import { EstadoTramite } from "../enums/EstadoTramite";
 
 export interface ISolicitudReceta extends Document {
   afiliadoId: Schema.Types.ObjectId; // clave foránea a Afiliado
