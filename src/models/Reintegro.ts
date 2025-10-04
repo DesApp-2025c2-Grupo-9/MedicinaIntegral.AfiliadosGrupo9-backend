@@ -1,43 +1,42 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model } from "mongoose";
+import { IReintegroDocument } from "../interfaces/IReintegro";
 import { EstadoTramite } from "../enums/EstadoTramite";
+import { FormaPago } from "../enums/FormaPago";
 
-export interface IReintegro extends Document {
-  afiliadoId: Schema.Types.ObjectId; // clave foránea a Afiliado
-  fechaPrestacion: Date;
-  integranteCredencial: string;
-  medicoId: string;
-  especialidad: string;
-  lugarAtencion: string;
-  factura: {
-    fecha: Date;
-    CUIT: string;
-    valorTotal: number;
-    personaAFacturar: string;
-  };
-  formaPago: string;
-  observaciones?: string;
-  estado: EstadoTramite;
-}
-
-const reintegroSchema = new Schema<IReintegro>(
+const reintegroSchema = new Schema<IReintegroDocument>(
   {
-    afiliadoId: {
-      type: Schema.Types.ObjectId,
+    nroAfiliado: {
+      type: String,
       required: true,
-      ref: "Afiliado", // referencia al modelo Afiliado
+      ref: "Afiliado", // referencia al  Afiliado que lo solicita
     },
     fechaPrestacion: { type: Date, required: true },
-    integranteCredencial: { type: String, required: true },
-    medicoId: { type: String, required: true },
+
+    medico: { type: String, required: true },
     especialidad: { type: String, required: true },
     lugarAtencion: { type: String, required: true },
     factura: {
       fecha: { type: Date, required: true },
-      CUIT: { type: String, required: true },
+      cuit: {
+        type: String,
+        required: function () {
+          //requerido solo para transferencia
+          return this.formaPago === FormaPago.TRANSFERENCIA;
+        },
+      },
       valorTotal: { type: Number, required: true },
-      personaAFacturar: { type: String, required: true },
+      personaAFacturar: {
+        //ver si lo vamos a relacionar con un afiliado o no
+        type: Schema.Types.String,
+        ref: "Afiliado",
+        required: true,
+      },
     },
-    formaPago: { type: String, required: true },
+    formaPago: {
+      type: String,
+      enum: Object.values(FormaPago),
+      default: FormaPago.TRANSFERENCIA,
+    },
     observaciones: { type: String },
     estado: {
       type: String,
@@ -48,4 +47,4 @@ const reintegroSchema = new Schema<IReintegro>(
   { timestamps: true }
 );
 
-export default model<IReintegro>("Reintegro", reintegroSchema);
+export default model<IReintegroDocument>("Reintegro", reintegroSchema);

@@ -1,22 +1,15 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model } from "mongoose";
+import { ITurnoDocument } from "../interfaces/ITurno";
+import { EstadoTurno } from "../enums/EstadoTurno";
 
-export interface ITurno extends Document {
-  afiliadoId: Schema.Types.ObjectId; // referencia al Afiliado
-  prestadorId: Schema.Types.ObjectId; // referencia al Prestador
-  especialidad: string;
-  lugarAtencion: string;
-  fechaTurno: Date;
-  estado: "disponible" | "reservado" | "cancelado" | "asistido" | "noAsistido";
-}
-
-const turnoSchema = new Schema<ITurno>(
+const turnoSchema = new Schema<ITurnoDocument>(
   {
-    afiliadoId: {
-      type: Schema.Types.ObjectId,
+    nroAfiliado: {
+      type: String,
       ref: "Afiliado",
       required: true,
     },
-    prestadorId: {
+    prestador: {
       type: Schema.Types.ObjectId,
       ref: "Prestador",
       required: true,
@@ -26,11 +19,11 @@ const turnoSchema = new Schema<ITurno>(
     fechaTurno: { type: Date, required: true },
     estado: {
       type: String,
-      enum: ["disponible", "reservado", "cancelado", "asistido", "noAsistido"],
-      default: "disponible",
+      enum: EstadoTurno,
+      default: EstadoTurno.DISPONIBLE,
     },
   },
   { timestamps: true }
 );
 
-export default model<ITurno>("Turno", turnoSchema);
+export default model<ITurnoDocument>("Turno", turnoSchema);

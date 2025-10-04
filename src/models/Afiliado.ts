@@ -1,38 +1,21 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model } from "mongoose";
 import { RolAfiliado } from "../enums/RolAfiliado";
+import { IAfiliadoDocument } from "../interfaces/IAfiliado";
+import { TipoDocumento } from "../enums/TipoDocumento";
+import { Parentesco } from "../enums/Parentesco";
+import { PlanMedico } from "../enums/PlanMedico";
 
-//falta terminar de implementar la logica del rol- con enum y permisos
-export interface IAfiliado extends Document {
-  afiliadoId: string; // Ej: "0000001-01"
-  grupoFamiliar: string; // Ej: "0000001"
-  nombre: string;
-  apellido: string;
-  fechaNacimiento: Date;
-  tipoDocumento: "dni" | "pasaporte" | "ci";
-  nroDocumento: string;
-  email: string;
-  telefono?: string;
-  direccion?: string;
-  parentesco: "Titular" | "Cónyuge" | "Hijo" | "Otro";
-  password: string;
-  fechaAlta: Date;
-  estado: "Activo" | "Inactivo";
-  situacionTerapeutica: string;
-  planMedico: "100" | "200" | "300" | "400";
-  cbu?: string;
-  rol: RolAfiliado;
-}
-
-const afiliadoSchema = new Schema<IAfiliado>(
+const afiliadoSchema = new Schema<IAfiliadoDocument>(
   {
-    afiliadoId: { type: String, required: true, unique: true },
+    nroAfiliado: { type: String, required: true, unique: true },
     grupoFamiliar: { type: String, required: true },
     nombre: { type: String, required: true },
     apellido: { type: String, required: true },
     tipoDocumento: {
       type: String,
-      enum: ["dni", "pasaporte", "ci"],
+      enum: Object.values(TipoDocumento),
       required: true,
+      default: TipoDocumento.DNI,
     },
     nroDocumento: { type: String, required: true, unique: true },
     fechaNacimiento: { type: Date, required: true },
@@ -41,16 +24,13 @@ const afiliadoSchema = new Schema<IAfiliado>(
     direccion: { type: String },
     parentesco: {
       type: String,
-      enum: ["Titular", "Cónyuge", "Hijo", "Otro"],
+      enum: Object.values(Parentesco),
       required: true,
+      default: Parentesco.TITULAR,
     },
-    password: { type: String, required: true },
-    fechaAlta: { type: Date, default: Date.now },
-    estado: {
-      type: String,
-      enum: ["Activo", "Inactivo"],
-      default: "Activo",
-    },
+    password: { type: String, required: true, default: "123456" },
+    fechaAlta: { type: Date, required: true, default: Date.now },
+    registrado: { type: Boolean, default: false },
     situacionTerapeutica: {
       type: String,
       required: true,
@@ -58,8 +38,9 @@ const afiliadoSchema = new Schema<IAfiliado>(
     },
     planMedico: {
       type: String,
-      enum: ["100", "200", "300", "400"],
+      enum: Object.values(PlanMedico),
       required: true,
+      default: PlanMedico.PLAN_100,
     },
     cbu: { type: String },
     rol: {
@@ -75,9 +56,10 @@ const afiliadoSchema = new Schema<IAfiliado>(
 );
 
 //para poder asignar rol al afiliado antes de guardarlo
-//ver si lo ponemos en
+//despues ver si va en carpeta middlewares o hooks
+
 afiliadoSchema.pre("save", function (next) {
-  const afiliado = this as IAfiliado;
+  const afiliado = this as IAfiliadoDocument;
 
   // Calcular edad
   const hoy = new Date();
@@ -91,11 +73,11 @@ afiliadoSchema.pre("save", function (next) {
   }
 
   // Asignar rol según parentesco + edad
-  if (afiliado.parentesco === "Titular") {
+  if (afiliado.parentesco === "titular") {
     afiliado.rol = RolAfiliado.TITULAR;
-  } else if (afiliado.parentesco === "Cónyuge") {
+  } else if (afiliado.parentesco === "conyuge") {
     afiliado.rol = RolAfiliado.CONYUGE;
-  } else if (afiliado.parentesco === "Hijo") {
+  } else if (afiliado.parentesco === "hijo") {
     afiliado.rol = edad < 18 ? RolAfiliado.HIJO_MENOR : RolAfiliado.HIJO_MAYOR;
   } else {
     afiliado.rol = RolAfiliado.OTRO;
@@ -103,6 +85,5 @@ afiliadoSchema.pre("save", function (next) {
 
   next();
 });
-const Afiliado = model<IAfiliado>("Afiliado", afiliadoSchema);
 
-export default Afiliado;
+export default model<IAfiliadoDocument>("Afiliado", afiliadoSchema);

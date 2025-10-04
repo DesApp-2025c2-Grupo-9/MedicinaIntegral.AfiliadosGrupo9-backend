@@ -1,27 +1,15 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model } from "mongoose";
 import { EstadoTramite } from "../enums/EstadoTramite";
+import { IAutorizacionDocument } from "../interfaces/IAutorizacion";
 
-export interface IAutorizacion extends Document {
-  afiliadoId: Schema.Types.ObjectId; // referencia al Afiliado
-  integranteCredencial: string; // número de credencial del integrante del que se pide
-  fechaSolicitud: Date;
-  practica: string;
-  especialidad: string;
-  medicoSolicitante: string;
-  lugarAtencion: string;
-  diagnostico?: string;
-  observaciones?: string;
-  estado: EstadoTramite;
-}
-
-const autorizacionSchema = new Schema<IAutorizacion>(
+const autorizacionSchema = new Schema<IAutorizacionDocument>(
   {
-    afiliadoId: {
-      type: Schema.Types.ObjectId,
+    nroAfiliado: {
+      type: String,
       required: true,
       ref: "Afiliado",
     },
-    integranteCredencial: { type: String, required: true },
+
     fechaSolicitud: { type: Date, required: true, default: Date.now },
     practica: { type: String, required: true },
     especialidad: { type: String, required: true },
@@ -38,4 +26,4 @@ const autorizacionSchema = new Schema<IAutorizacion>(
   { timestamps: true }
 );
 
-export default model<IAutorizacion>("Autorizacion", autorizacionSchema);
+export default model<IAutorizacionDocument>("Autorizacion", autorizacionSchema);

@@ -1,12 +1,7 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model } from "mongoose";
+import { IPrestadorDocument } from "../interfaces/IPrestador";
 
-export interface IPrestador extends Document {
-  nombre: string;
-  especialidad: string[]; //puede tener varias especialidades
-  lugarAtencion: string[]; //puede atender en varios lugares
-}
-
-const prestadorSchema = new Schema<IPrestador>(
+const prestadorSchema = new Schema<IPrestadorDocument>(
   {
     nombre: { type: String, required: true },
     especialidad: { type: [String], required: true },
@@ -15,4 +10,4 @@ const prestadorSchema = new Schema<IPrestador>(
   { timestamps: true }
 );
 
-export default model<IPrestador>("Prestador", prestadorSchema);
+export default model<IPrestadorDocument>("Prestador", prestadorSchema);

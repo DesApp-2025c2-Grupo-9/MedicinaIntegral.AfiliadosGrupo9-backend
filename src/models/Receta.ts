@@ -1,24 +1,15 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model } from "mongoose";
 import { EstadoTramite } from "../enums/EstadoTramite";
+import { IRecetaDocument } from "../interfaces/IReceta";
 
-export interface ISolicitudReceta extends Document {
-  afiliadoId: Schema.Types.ObjectId; // clave foránea a Afiliado
-  integranteCredencial: string;
-  medicamento: string;
-  cantidad: number;
-  presentacion: string;
-  observaciones?: string;
-  estado: EstadoTramite;
-}
-
-const solicitudRecetaSchema = new Schema<ISolicitudReceta>(
+const recetaSchema = new Schema<IRecetaDocument>(
   {
-    afiliadoId: {
-      type: Schema.Types.ObjectId,
+    nroAfiliado: {
+      type: String,
       required: true,
       ref: "Afiliado", // referencia al modelo Afiliado
     },
-    integranteCredencial: { type: String, required: true },
+
     medicamento: { type: String, required: true },
     cantidad: { type: Number, required: true },
     presentacion: { type: String, required: true },
@@ -32,7 +23,4 @@ const solicitudRecetaSchema = new Schema<ISolicitudReceta>(
   { timestamps: true }
 );
 
-export default model<ISolicitudReceta>(
-  "SolicitudReceta",
-  solicitudRecetaSchema
-);
+export default model<IRecetaDocument>("Receta", recetaSchema);
