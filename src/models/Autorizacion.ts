@@ -26,4 +26,4 @@ const autorizacionSchema = new Schema<IAutorizacionDocument>(
   { timestamps: true }
 );
 
-export default model<IAutorizacionDocument>("Autorizacion", autorizacionSchema);
+export default model<IAutorizacionDocument>("Autorizacion", autorizacionSchema, "Autorizaciones");

@@ -10,4 +10,4 @@ const prestadorSchema = new Schema<IPrestadorDocument>(
   { timestamps: true }
 );
 
-export default model<IPrestadorDocument>("Prestador", prestadorSchema);
+export default model<IPrestadorDocument>("Prestador", prestadorSchema, "Prestadores");

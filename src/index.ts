@@ -14,8 +14,8 @@ connectDatabase();
 app.use(express.json());
 
 //
-app.get('/', (req, res) => {
-  return res.json({ message: 'Hola mundo' });
+app.get('/', async (req, res) => {
+  return res.json({ message: 'Hola mundo.' });
 });
 
 // Escuchar puerto
