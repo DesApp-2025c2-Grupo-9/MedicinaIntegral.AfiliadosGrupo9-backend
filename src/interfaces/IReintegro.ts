@@ -4,12 +4,12 @@ import { FormaPago } from "../enums/FormaPago";
 
 export interface IReintegro {
   nroAfiliado: string;
-  fechaPrestacion: Date;
+  fechaPrestacion: string;
   medico: string;
   especialidad: string;
   lugarAtencion: string;
   factura: {
-    fecha: Date;
+    fecha: string;
     cuit?: string;
     valorTotal: number;
     personaAFacturar: string | Types.ObjectId; //para poder relacionar o no con un afiliado

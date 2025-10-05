@@ -10,13 +10,13 @@ const reintegroSchema = new Schema<IReintegroDocument>(
       required: true,
       ref: "Afiliado", // referencia al  Afiliado que lo solicita
     },
-    fechaPrestacion: { type: Date, required: true },
+    fechaPrestacion: { type: String, required: true },
 
     medico: { type: String, required: true },
     especialidad: { type: String, required: true },
     lugarAtencion: { type: String, required: true },
     factura: {
-      fecha: { type: Date, required: true },
+      fecha: { type: String, required: true },
       cuit: {
         type: String,
         required: function () {

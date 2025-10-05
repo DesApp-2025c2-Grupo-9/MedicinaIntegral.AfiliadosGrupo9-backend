@@ -8,8 +8,8 @@ const connectDatabase = async () => {
       dbName: 'MedIntegralAfiliadosDB'
     });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Error desconocido.'
-    console.log('Error en la conexión a MongoDB', message);
+    const message = error instanceof Error ? error.message : 'Error desconocido.';
+    console.log('Error en la conexión a MongoDB. ', message);
   }
 };
 
