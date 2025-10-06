@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { EstadoTramite } from "../enums/EstadoTramite";
+import { EstadoTramite } from "../enums/EstadoDeTramite";
 import { IAutorizacionDocument } from "../interfaces/IAutorizacion";
 
 const autorizacionSchema = new Schema<IAutorizacionDocument>(

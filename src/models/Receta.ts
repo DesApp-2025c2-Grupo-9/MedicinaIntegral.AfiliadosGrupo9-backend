@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { EstadoTramite } from "../enums/EstadoTramite";
+import { EstadoTramite } from "../enums/EstadoDeTramite";
 import { IRecetaDocument } from "../interfaces/IReceta";
 
 const recetaSchema = new Schema<IRecetaDocument>(

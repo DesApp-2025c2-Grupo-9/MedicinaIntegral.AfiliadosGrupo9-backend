@@ -1,50 +1,117 @@
-import { Schema, model } from "mongoose";
-import { IReintegroDocument } from "../interfaces/IReintegro";
-import { EstadoTramite } from "../enums/EstadoTramite";
-import { FormaPago } from "../enums/FormaPago";
+import { Schema, Document, model } from 'mongoose';
+import IReintegro from '../interfaces/IReintegro';
+import { FormaDePago } from '../enums/FormaDePago';
+import { EstadoDeTramite } from '../enums/EstadoDeTramite';
+
+interface IReintegroDocument extends IReintegro, Document {}
 
 const reintegroSchema = new Schema<IReintegroDocument>(
+  {
+    paraAfiliado: {
+      type: String,
+      required: true
+    },
+    fechaDePrestacion: {
+      type: Date,
+      required: true
+    },
+    medico: {
+      type: String,
+      required: true
+    },
+    especialidad: {
+      type: String,
+      required: true
+    },
+    lugarDeAtencion: {
+      type: String,
+      required: true
+    },
+    factura: {
+      type: {
+        fecha: {
+          type: Date,
+          required: true
+        },
+        cuit: {
+          type: String,
+          required: true
+        },
+        valorTotal: {
+          type: Number,
+          required: true
+        },
+        personaAFacturar: {
+          type: String,
+          required: true
+        }
+      },
+      required: true
+    },
+    formaDePago: {
+      type: String,
+      enum: Object.values(FormaDePago),
+      required: true
+    },
+    cbu: {
+      type: String,
+      required: function () {
+        return this.formaDePago === FormaDePago.TRANSFERENCIA;
+      }
+    },
+    observaciones: String,
+    estado: {
+      type: String,
+      enum: Object.values(EstadoDeTramite),
+      required: true,
+      default: EstadoDeTramite.PENDIENTE
+    }
+  },
+  { timestamps: true }
+);
+
+/* const reintegroSchema = new Schema<IReintegroDocument>(
   {
     nroAfiliado: {
       type: String,
       required: true,
-      ref: "Afiliado", // referencia al  Afiliado que lo solicita
+      ref: 'Afiliado' // referencia al  Afiliado que lo solicita
     },
-    fechaPrestacion: { type: String, required: true },
+    fechaPrestacion: { type: Date, required: true },
 
     medico: { type: String, required: true },
     especialidad: { type: String, required: true },
     lugarAtencion: { type: String, required: true },
     factura: {
-      fecha: { type: String, required: true },
+      fecha: { type: Date, required: true },
       cuit: {
         type: String,
         required: function () {
           //requerido solo para transferencia
-          return this.formaPago === FormaPago.TRANSFERENCIA;
-        },
+          return this.formaPago === FormaDePago.TRANSFERENCIA;
+        }
       },
       valorTotal: { type: Number, required: true },
       personaAFacturar: {
         //ver si lo vamos a relacionar con un afiliado o no
         type: Schema.Types.String,
-        ref: "Afiliado",
-        required: true,
-      },
+        ref: 'Afiliado',
+        required: true
+      }
     },
     formaPago: {
       type: String,
-      enum: Object.values(FormaPago),
-      default: FormaPago.TRANSFERENCIA,
+      enum: Object.values(FormaDePago),
+      default: FormaDePago.TRANSFERENCIA
     },
     observaciones: { type: String },
     estado: {
       type: String,
       enum: Object.values(EstadoTramite),
-      default: EstadoTramite.PENDIENTE,
-    },
+      default: EstadoTramite.PENDIENTE
+    }
   },
   { timestamps: true }
-);
+); */
 
-export default model<IReintegroDocument>("Reintegro", reintegroSchema);
+export default model<IReintegroDocument>('Reintegro', reintegroSchema);

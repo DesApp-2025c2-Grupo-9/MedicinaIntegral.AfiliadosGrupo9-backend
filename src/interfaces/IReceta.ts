@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import { EstadoTramite } from "../enums/EstadoTramite";
+import { EstadoTramite } from "../enums/EstadoDeTramite";
 
 export interface IReceta {
   nroAfiliado: string; // clave foránea a Afiliado

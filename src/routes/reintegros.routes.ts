@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { postReintegro } from '../controllers/reintegros.controller';
+import reintegroController from '../controllers/reintegro.controller';
 
 const router = Router();
 
-router.post('/reintegros', postReintegro);
+router.post('/reintegros', reintegroController.createReintegro);
 
 export default router;

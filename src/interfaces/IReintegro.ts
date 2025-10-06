@@ -1,22 +1,22 @@
-import { Document, Types } from "mongoose";
-import { EstadoTramite } from "../enums/EstadoTramite";
-import { FormaPago } from "../enums/FormaPago";
+import { EstadoDeTramite } from '../enums/EstadoDeTramite';
+import { FormaDePago } from '../enums/FormaDePago';
 
-export interface IReintegro {
-  nroAfiliado: string;
-  fechaPrestacion: string;
-  medico: string;
+interface IReintegro {
+  paraAfiliado: string;
+  fechaDePrestacion: Date;
   especialidad: string;
-  lugarAtencion: string;
+  medico: string;
+  lugarDeAtencion: string;
   factura: {
-    fecha: string;
-    cuit?: string;
+    fecha: Date;
+    cuit: string;
     valorTotal: number;
-    personaAFacturar: string | Types.ObjectId; //para poder relacionar o no con un afiliado
+    personaAFacturar: string;
   };
-  formaPago: FormaPago;
+  formaDePago: FormaDePago;
+  cbu?: string;
   observaciones?: string;
-  estado: EstadoTramite;
+  estado: EstadoDeTramite;
 }
 
-export interface IReintegroDocument extends IReintegro, Document {}
+export default IReintegro;
