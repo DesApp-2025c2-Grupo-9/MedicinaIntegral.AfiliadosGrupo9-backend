@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { EstadoTramite } from "../enums/EstadoDeTramite";
+import { EstadoDeTramite } from "../enums/EstadoDeTramite";
 import { IAutorizacionDocument } from "../interfaces/IAutorizacion";
 
 const autorizacionSchema = new Schema<IAutorizacionDocument>(
@@ -19,8 +19,8 @@ const autorizacionSchema = new Schema<IAutorizacionDocument>(
     observaciones: { type: String },
     estado: {
       type: String,
-      enum: Object.values(EstadoTramite),
-      default: EstadoTramite.PENDIENTE,
+      enum: Object.values(EstadoDeTramite),
+      default: EstadoDeTramite.PENDIENTE,
     },
   },
   { timestamps: true }

@@ -4,6 +4,7 @@ import express from 'express';
 import connectDatabase from './config/dbConnect';
 import mongoose from 'mongoose';
 import reintegrosRoutes from './routes/reintegros.routes';
+import { autorizacionesRoutes } from './routes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,8 @@ connectDatabase();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Rutas
+app.use('/autorizaciones', autorizacionesRoutes);
 //
 // app.get('/', async (req, res) => {
 //   return res.json({ message: 'Hola mundo.' });
