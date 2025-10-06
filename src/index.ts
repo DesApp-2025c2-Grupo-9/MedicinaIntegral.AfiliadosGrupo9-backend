@@ -1,9 +1,11 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
+import cors from 'cors';
 import connectDatabase from './config/dbConnect';
 import mongoose from 'mongoose';
 import reintegrosRoutes from './routes/reintegros.routes';
+import corsOptions from './config/corsOptions';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 connectDatabase();
 
 // Middlewares
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
