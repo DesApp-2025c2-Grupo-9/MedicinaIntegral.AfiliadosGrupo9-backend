@@ -1,5 +1,5 @@
-import { EstadoDeTramite } from '../enums/EstadoDeTramite';
-import { FormaDePago } from '../enums/FormaDePago';
+import { EstadoTramite } from "../enums/EstadoTramite";
+import { FormaPago } from "../enums/FormaPago";
 
 interface IReintegro {
   paraAfiliado: string;
@@ -13,10 +13,10 @@ interface IReintegro {
     valorTotal: number;
     personaAFacturar: string;
   };
-  formaDePago: FormaDePago;
+  formaDePago: FormaPago;
   cbu?: string;
   observaciones?: string;
-  estado: EstadoDeTramite;
+  estado: EstadoTramite;
 }
 
 export default IReintegro;

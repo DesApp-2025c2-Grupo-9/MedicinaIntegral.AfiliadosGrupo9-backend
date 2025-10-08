@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
-import { EstadoDeTramite } from "../enums/EstadoDeTramite";
+import { EstadoTramite } from "../enums/EstadoTramite";
 
 export interface IAutorizacion {
   nroAfiliado: string; // referencia al Afiliado
@@ -10,7 +10,7 @@ export interface IAutorizacion {
   lugarAtencion: string;
   diagnostico?: string;
   observaciones?: string;
-  estado: EstadoDeTramite;
+  estado: EstadoTramite;
 }
 
 export interface IAutorizacionDocument extends IAutorizacion, Document {}

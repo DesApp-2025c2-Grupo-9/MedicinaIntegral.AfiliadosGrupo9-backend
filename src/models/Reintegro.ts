@@ -1,7 +1,7 @@
-import { Schema, Document, model } from 'mongoose';
-import IReintegro from '../interfaces/IReintegro';
-import { FormaDePago } from '../enums/FormaDePago';
-import { EstadoDeTramite } from '../enums/EstadoDeTramite';
+import { Schema, Document, model } from "mongoose";
+import IReintegro from "../interfaces/IReintegro";
+import { FormaPago } from "../enums/FormaPago";
+import { EstadoTramite } from "../enums/EstadoTramite";
 
 interface IReintegroDocument extends IReintegro, Document {}
 
@@ -9,63 +9,63 @@ const reintegroSchema = new Schema<IReintegroDocument>(
   {
     paraAfiliado: {
       type: String,
-      required: true
+      required: true,
     },
     fechaDePrestacion: {
       type: Date,
-      required: true
+      required: true,
     },
     medico: {
       type: String,
-      required: true
+      required: true,
     },
     especialidad: {
       type: String,
-      required: true
+      required: true,
     },
     lugarDeAtencion: {
       type: String,
-      required: true
+      required: true,
     },
     factura: {
       type: {
         fecha: {
           type: Date,
-          required: true
+          required: true,
         },
         cuit: {
           type: String,
-          required: true
+          required: true,
         },
         valorTotal: {
           type: Number,
-          required: true
+          required: true,
         },
         personaAFacturar: {
           type: String,
-          required: true
-        }
+          required: true,
+        },
       },
-      required: true
+      required: true,
     },
     formaDePago: {
       type: String,
-      enum: Object.values(FormaDePago),
-      required: true
+      enum: Object.values(FormaPago),
+      required: true,
     },
     cbu: {
       type: String,
       required: function () {
-        return this.formaDePago === FormaDePago.TRANSFERENCIA;
-      }
+        return this.formaDePago === FormaPago.TRANSFERENCIA;
+      },
     },
     observaciones: String,
     estado: {
       type: String,
-      enum: Object.values(EstadoDeTramite),
+      enum: Object.values(EstadoTramite),
       required: true,
-      default: EstadoDeTramite.PENDIENTE
-    }
+      default: EstadoTramite.PENDIENTE,
+    },
   },
   { timestamps: true }
 );
@@ -114,4 +114,4 @@ const reintegroSchema = new Schema<IReintegroDocument>(
   { timestamps: true }
 ); */
 
-export default model<IReintegroDocument>('Reintegro', reintegroSchema);
+export default model<IReintegroDocument>("Reintegro", reintegroSchema);

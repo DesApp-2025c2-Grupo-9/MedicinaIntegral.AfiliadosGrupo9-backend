@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { EstadoDeTramite } from "../enums/EstadoDeTramite";
+import { EstadoTramite } from "../enums/EstadoTramite";
 import { IAutorizacionDocument } from "../interfaces/IAutorizacion";
 
 const autorizacionSchema = new Schema<IAutorizacionDocument>(
@@ -19,11 +19,15 @@ const autorizacionSchema = new Schema<IAutorizacionDocument>(
     observaciones: { type: String },
     estado: {
       type: String,
-      enum: Object.values(EstadoDeTramite),
-      default: EstadoDeTramite.PENDIENTE,
+      enum: Object.values(EstadoTramite),
+      default: EstadoTramite.PENDIENTE,
     },
   },
   { timestamps: true }
 );
 
-export default model<IAutorizacionDocument>("Autorizacion", autorizacionSchema, "Autorizaciones");
+export default model<IAutorizacionDocument>(
+  "Autorizacion",
+  autorizacionSchema,
+  "Autorizaciones"
+);
