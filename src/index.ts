@@ -20,12 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Rutas
-app.use('/autorizaciones', autorizacionesRoutes);
-//
-// app.get('/', async (req, res) => {
-//   return res.json({ message: 'Hola mundo.' });
-// });
-
+app.use('/api', autorizacionesRoutes);
 app.use('/api', reintegrosRoutes);
 
 // Escuchar puerto

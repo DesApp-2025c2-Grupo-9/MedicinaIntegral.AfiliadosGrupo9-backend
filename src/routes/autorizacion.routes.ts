@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import { obtenerAutorizaciones, crearAutorizacion, modificarAutorizacion, eliminarAutorizacion } from '../controllers/autorizacion.controller'
+import autorizacionController from '../controllers/autorizacion.controller'
 
 const autorizacionesRoutes = Router();
 
-autorizacionesRoutes.route('/')
-    .get(obtenerAutorizaciones)
-    .post(crearAutorizacion);
+autorizacionesRoutes.route('/autorizaciones')
+    .get(autorizacionController.getAllAutorizaciones)
+    .post(autorizacionController.createAutorizacion);
 
-autorizacionesRoutes.route('/:id')
-    .put(modificarAutorizacion)
-    .delete(eliminarAutorizacion);
+autorizacionesRoutes.route('/autorizaciones/:id')
+    .put(autorizacionController.updateAutorizacion)
+    .delete(autorizacionController.deleteAutorizacion);
 
 export default autorizacionesRoutes; 
