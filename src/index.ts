@@ -1,11 +1,13 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-import express from 'express';
-import cors from 'cors';
-import connectDatabase from './config/dbConnect';
-import mongoose from 'mongoose';
-import reintegrosRoutes from './routes/reintegros.routes';
-import corsOptions from './config/corsOptions';
+import express from "express";
+import cors from "cors";
+import connectDatabase from "./config/dbConnect";
+import mongoose from "mongoose";
+import reintegrosRoutes from "./routes/reintegros.routes";
+import recetasRoutes from "./routes/recetas.routes";
+import corsOptions from "./config/corsOptions";
+import expressListEndpoints from "express-list-endpoints";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,16 +20,13 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//
-// app.get('/', async (req, res) => {
-//   return res.json({ message: 'Hola mundo.' });
-// });
+app.use("/api/reintegros", reintegrosRoutes);
+app.use("/api/recetas", recetasRoutes);
 
-app.use('/api', reintegrosRoutes);
-
+console.log("Rutas cargadas:", expressListEndpoints(app));
 // Escuchar puerto
-mongoose.connection.once('open', () => {
-  console.log('Conectado exitosamente a MongoDB');
+mongoose.connection.once("open", () => {
+  console.log("Conectado exitosamente a MongoDB");
   app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}...`);
   });

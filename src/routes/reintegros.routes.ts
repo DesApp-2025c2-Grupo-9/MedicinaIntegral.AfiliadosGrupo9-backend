@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import reintegroController from '../controllers/reintegros.controller';
+import { Router } from "express";
+import reintegroController from "../controllers/reintegros.controller";
 
 const router = Router();
 
-router.get('/reintegros', reintegroController.getAllReintegros);
-router.post('/reintegros', reintegroController.createReintegro);
+router.get("/", reintegroController.getAllReintegros);
+router.post("/", reintegroController.createReintegro);
 
 export default router;
