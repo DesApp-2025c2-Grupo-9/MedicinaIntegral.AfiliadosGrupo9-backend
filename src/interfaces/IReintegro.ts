@@ -2,6 +2,7 @@ import { EstadoDeTramite } from '../enums/EstadoDeTramite';
 import { FormaDePago } from '../enums/FormaDePago';
 
 interface IReintegro {
+  id: string;
   paraAfiliado: string;
   fechaDePrestacion: Date;
   especialidad: string;

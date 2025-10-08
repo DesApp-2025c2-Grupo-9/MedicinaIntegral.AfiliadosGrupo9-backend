@@ -1,9 +1,11 @@
-import { Schema, Document, model } from 'mongoose';
+import { Schema, Document, model, Types } from 'mongoose';
 import IReintegro from '../interfaces/IReintegro';
 import { FormaDePago } from '../enums/FormaDePago';
 import { EstadoDeTramite } from '../enums/EstadoDeTramite';
 
-interface IReintegroDocument extends IReintegro, Document {}
+export interface IReintegroDocument extends Omit<IReintegro, 'id'>, Document {
+  _id: Types.ObjectId;
+}
 
 const reintegroSchema = new Schema<IReintegroDocument>(
   {
