@@ -57,7 +57,9 @@ const recetaController: IRecetaController = {
     try {
       const receta = await Receta.findById(req.params.id);
       if (!receta) {
-        return res.status(404).json({ message: "Receta no encontrada" });
+        return res
+          .status(404)
+          .json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
       }
       return res.status(200).json({ data: receta });
     } catch (error) {
@@ -89,10 +91,12 @@ const recetaController: IRecetaController = {
         { new: true }
       );
       if (!recetaActualizada) {
-        return res.status(404).json({ message: "Receta no encontrada" });
+        return res
+          .status(404)
+          .json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
       }
       return res.status(200).json({
-        message: "Receta actualizada correctamente",
+        message: SUCCESS_MESSAGES.RECETA.UPDATED,
         data: recetaActualizada,
       });
     } catch (error) {
@@ -110,10 +114,12 @@ const recetaController: IRecetaController = {
         { new: true }
       );
       if (!recetaActualizada) {
-        return res.status(404).json({ message: "Receta no encontrada" });
+        return res
+          .status(404)
+          .json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
       }
       return res.status(200).json({
-        message: "Receta modificada parcialmente",
+        message: SUCCESS_MESSAGES.RECETA.UPDATED,
         data: recetaActualizada,
       });
     } catch (error) {
@@ -127,11 +133,11 @@ const recetaController: IRecetaController = {
     try {
       const recetaEliminada = await Receta.findByIdAndDelete(req.params.id);
       if (!recetaEliminada) {
-        return res.status(404).json({ message: "Receta no encontrada" });
+        return res
+          .status(404)
+          .json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
       }
-      return res
-        .status(200)
-        .json({ message: "Receta eliminada correctamente" });
+      return res.status(200).json({ message: SUCCESS_MESSAGES.RECETA.DELETED });
     } catch (error) {
       return res
         .status(500)
