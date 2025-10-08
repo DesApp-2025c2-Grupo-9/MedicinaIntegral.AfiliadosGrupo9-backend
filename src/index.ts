@@ -7,7 +7,6 @@ import mongoose from "mongoose";
 import reintegrosRoutes from "./routes/reintegros.routes";
 import recetasRoutes from "./routes/recetas.routes";
 import corsOptions from "./config/corsOptions";
-import expressListEndpoints from "express-list-endpoints";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,10 +19,9 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/reintegros", reintegrosRoutes);
-app.use("/api/recetas", recetasRoutes);
+app.use("/api", reintegrosRoutes);
+app.use("/api", recetasRoutes);
 
-console.log("Rutas cargadas:", expressListEndpoints(app));
 // Escuchar puerto
 mongoose.connection.once("open", () => {
   console.log("Conectado exitosamente a MongoDB");

@@ -3,9 +3,11 @@ import recetaController from "../controllers/recetas.controller";
 
 const router = Router();
 
-router.get("/", recetaController.getAllRecetas);
-router.post("/", recetaController.createReceta);
-
-console.log("Recetas routes cargadas");
+router.get("/recetas", recetaController.getAllRecetas);
+router.get("/recetas/:id", recetaController.getRecetaById);
+router.post("/recetas", recetaController.createReceta);
+router.put("/recetas/:id", recetaController.updateReceta);
+router.patch("/recetas/:id", recetaController.patchReceta);
+router.delete("/recetas/:id", recetaController.deleteReceta);
 
 export default router;
