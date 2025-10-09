@@ -1,6 +1,10 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import { EstadoTramite } from "../enums/EstadoTramite";
-import { IAutorizacionDocument } from "../interfaces/IAutorizacion";
+import  IAutorizacion  from '../interfaces/IAutorizacion';
+
+export interface IAutorizacionDocument extends Omit<IAutorizacion, 'id'>, Document {
+  _id: Types.ObjectId;
+}
 
 const autorizacionSchema = new Schema<IAutorizacionDocument>(
   {
@@ -17,6 +21,7 @@ const autorizacionSchema = new Schema<IAutorizacionDocument>(
     lugarAtencion: { type: String, required: true },
     diagnostico: { type: String },
     observaciones: { type: String },
+    diasDeInternacion: { type: Number, required: true },
     estado: {
       type: String,
       enum: Object.values(EstadoTramite),

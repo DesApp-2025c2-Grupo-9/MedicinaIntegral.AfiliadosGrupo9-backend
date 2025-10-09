@@ -1,8 +1,9 @@
-import  Autorizacion  from "../models/Autorizacion";
 import { Request, Response } from "express";
+import  Autorizacion  from "../models/Autorizacion";
 import { IAutorizacion } from '../interfaces/IAutorizacion';
 import { SUCCESS_MESSAGES } from "../utils/successMessages";
-import { ERROR_MESSAGES } from './../utils/errorMessages';
+import { ERROR_MESSAGES } from "../utils/errorMessages";
+import { GetAutorizacionesDTO, IdAutorizacionDTO } from "../dtos/autorizaciones.dto";
 
 interface ResBody {
     message?: string,
@@ -10,10 +11,10 @@ interface ResBody {
 }
 
 interface IAutorizacionController {
-    getAllAutorizaciones: (req: Request, res: Response<ResBody>) => Promise<Response>;
-    createAutorizacion: (req: Request<{}, {}, IAutorizacion>, res: Response<ResBody>) => Promise<Response>;
-    updateAutorizacion: (req: Request<{id: string}, {}, IAutorizacion>, res: Response<ResBody>) => Promise<Response>;
-    deleteAutorizacion: (req: Request<{id: string}>, res: Response<ResBody>) => Promise<Response>;
+    getAllAutorizaciones: (req: Request, res: Response<ResBody>) => Promise<void>;
+    createAutorizacion: (req: Request<{}, {}, IAutorizacion>, res: Response<ResBody>) => Promise<void>;
+    updateAutorizacion: (req: Request<{id: string}, {}, Omit<IAutorizacion, 'id'>>, res: Response<ResBody>) => Promise<void>;
+    deleteAutorizacion: (req: Request<{id: string}>, res: Response<ResBody>) => Promise<void>;
 }
 
 
@@ -21,19 +22,20 @@ const autorizacionController: IAutorizacionController = {
     getAllAutorizaciones : async (req, res) => {
         try {
             const autorizaciones = await Autorizacion.find()
-            return res.status(200).json({ data: autorizaciones });
+            const autorizacionesDTO = autorizaciones.map(a => new GetAutorizacionesDTO(a))
+            res.status(200).json({ data: autorizacionesDTO });
         } catch(error) {
             const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
-            return res.status(500).json({ message });
+           res.status(500).json({ message });
         }
     },
     createAutorizacion : async (req, res) => {
         try {
             const nuevaAutorizacion = await Autorizacion.create(req.body);
-            return res.status(200).json({ data: nuevaAutorizacion, message: SUCCESS_MESSAGES.AUTORIZACION.CREATED });
+            res.status(200).json({ data: new IdAutorizacionDTO(nuevaAutorizacion), message: SUCCESS_MESSAGES.AUTORIZACION.CREATED });
         } catch(error) {
             const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
-            return res.status(500).json({ message });
+            res.status(500).json({ message });
         }
     },
     updateAutorizacion : async (req, res) => {
@@ -42,13 +44,14 @@ const autorizacionController: IAutorizacionController = {
           const autorizacionActualizada = await Autorizacion.findByIdAndUpdate(id, req.body, { new: true });
 
           if (!autorizacionActualizada) {
-            return res.status(404).json({ message: "Autorización no encontrada" });
+            res.status(404).json({ message: ERROR_MESSAGES.AUTORIZACION.NOT_FOUND });
+            return;
           }
 
-          return res.status(200).json({ data: autorizacionActualizada, message: SUCCESS_MESSAGES.AUTORIZACION.UPDATED });
+          res.status(200).json({ data: new IdAutorizacionDTO(autorizacionActualizada), message: SUCCESS_MESSAGES.AUTORIZACION.UPDATED });
         } catch(error) {
           const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
-          return res.status(500).json({ message });
+          res.status(500).json({ message });
         }
     },
     deleteAutorizacion : async (req, res) => {
@@ -57,14 +60,15 @@ const autorizacionController: IAutorizacionController = {
             const autorizacionEliminada = await Autorizacion.findByIdAndDelete(id);
 
             if (!autorizacionEliminada) {
-                return res.status(404).json({ message: "Autorización no encontrada" });
+                res.status(404).json({ message: ERROR_MESSAGES.AUTORIZACION.NOT_FOUND });
+                return;
             }
 
-            return res.status(200).json({ data: autorizacionEliminada, message: SUCCESS_MESSAGES.AUTORIZACION.DELETED });
+            res.status(200).json({ data: new IdAutorizacionDTO(autorizacionEliminada), message: SUCCESS_MESSAGES.AUTORIZACION.DELETED });
         } catch(error) {
             const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
-            return res.status(500).json({ message });
-        }   
+            res.status(500).json({ message });
+        }
     }
 };
 

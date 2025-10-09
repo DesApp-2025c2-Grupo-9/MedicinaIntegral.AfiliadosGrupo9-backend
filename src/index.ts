@@ -5,7 +5,7 @@ import cors from 'cors';
 import connectDatabase from './config/dbConnect';
 import mongoose from 'mongoose';
 import reintegrosRoutes from './routes/reintegros.routes';
-import { autorizacionesRoutes } from './routes';
+import autorizacionesRoutes from './routes/autorizaciones.routes';
 import recetasRoutes from './routes/recetas.routes';
 import corsOptions from './config/corsOptions';
 

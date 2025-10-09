@@ -8,4 +8,7 @@ export const ERROR_MESSAGES = {
   RECETA: {
     NOT_FOUND: "Receta no encontrada",
   },
+  AUTORIZACION: {
+    NOT_FOUND: "Autorización no encontrada",
+  },
 };
