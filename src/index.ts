@@ -7,8 +7,8 @@ import mongoose from 'mongoose';
 import reintegrosRoutes from './routes/reintegros.routes';
 import corsOptions from './config/corsOptions';
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+export const app = express();
+export const PORT = process.env.PORT || 3000;
 
 // Conectar base de datos
 connectDatabase();
@@ -18,11 +18,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//
-// app.get('/', async (req, res) => {
-//   return res.json({ message: 'Hola mundo.' });
-// });
-
+// Base route
 app.use('/api', reintegrosRoutes);
 
 // Escuchar puerto

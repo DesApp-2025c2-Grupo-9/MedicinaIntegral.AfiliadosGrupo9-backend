@@ -14,10 +14,10 @@ interface IReintegro {
     valorTotal: number;
     personaAFacturar: string;
   };
-  formaDePago: FormaDePago;
-  cbu?: string;
+  formaDePago: FormaDePago; // 'transferencia' | 'efectivo' | 'cheque'
+  cbu?: string; // Si formaDePago === 'transferencia', cbu es required
   observaciones?: string;
-  estado: EstadoDeTramite;
+  estado: EstadoDeTramite; // 'pendiente' | 'observado' | 'aprobado' | 'rechazado'
 }
 
 export default IReintegro;

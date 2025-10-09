@@ -1,0 +1,145 @@
+[
+  {
+    "paraAfiliado": "Carlos López",
+    "fechaDePrestacion": "2024-03-10",
+    "especialidad": "Oftalmología",
+    "medico": "Laura Pérez",
+    "lugarDeAtencion": "Clínica San Martín",
+    "factura": {
+      "fecha": "2024-03-11",
+      "cuit": "20-12345678-3",
+      "valorTotal": 18000,
+      "personaAFacturar": "Carlos López"
+    },
+    "formaDePago": "transferencia",
+    "cbu": "0170106040000001234567",
+    "observaciones": "Consulta y estudios de control",
+    "estado": "pendiente"
+  },
+  {
+    "paraAfiliado": "María González",
+    "fechaDePrestacion": "2024-04-05",
+    "especialidad": "Dermatología",
+    "medico": "José Martínez",
+    "lugarDeAtencion": "Centro Médico Pueyrredón",
+    "factura": {
+      "fecha": "2024-04-06",
+      "cuit": "27-98765432-1",
+      "valorTotal": 12500,
+      "personaAFacturar": "María González"
+    },
+    "formaDePago": "efectivo",
+    "estado": "aprobado"
+  },
+  {
+    "paraAfiliado": "Ricardo Díaz",
+    "fechaDePrestacion": "2024-05-15",
+    "especialidad": "Traumatología",
+    "medico": "Sebastián Torres",
+    "lugarDeAtencion": "Hospital Italiano",
+    "factura": {
+      "fecha": "2024-05-16",
+      "cuit": "20-34567890-7",
+      "valorTotal": 32000,
+      "personaAFacturar": "Ricardo Díaz"
+    },
+    "formaDePago": "cheque",
+    "observaciones": "Consulta y radiografía",
+    "estado": "observado"
+  },
+  {
+    "paraAfiliado": "Lucía Fernández",
+    "fechaDePrestacion": "2024-06-22",
+    "especialidad": "Ginecología",
+    "medico": "Sofía Morales",
+    "lugarDeAtencion": "Clínica del Sol",
+    "factura": {
+      "fecha": "2024-06-23",
+      "cuit": "23-56789012-9",
+      "valorTotal": 15000,
+      "personaAFacturar": "Lucía Fernández"
+    },
+    "formaDePago": "transferencia",
+    "cbu": "2850590940090412345678",
+    "estado": "pendiente"
+  },
+  {
+    "paraAfiliado": "Pedro Ramírez",
+    "fechaDePrestacion": "2024-02-18",
+    "especialidad": "Cardiología",
+    "medico": "Gustavo Herrera",
+    "lugarDeAtencion": "Sanatorio Belgrano",
+    "factura": {
+      "fecha": "2024-02-19",
+      "cuit": "20-67890123-4",
+      "valorTotal": 27000,
+      "personaAFacturar": "Pedro Ramírez"
+    },
+    "formaDePago": "efectivo",
+    "estado": "rechazado",
+    "observaciones": "Falta comprobante de pago"
+  },
+  {
+    "paraAfiliado": "Sofía Martínez",
+    "fechaDePrestacion": "2024-07-01",
+    "especialidad": "Pediatría",
+    "medico": "Verónica Castro",
+    "lugarDeAtencion": "Clínica Los Andes",
+    "factura": {
+      "fecha": "2024-07-02",
+      "cuit": "27-45678901-5",
+      "valorTotal": 9000,
+      "personaAFacturar": "Sofía Martínez"
+    },
+    "formaDePago": "cheque",
+    "estado": "aprobado"
+  },
+  {
+    "paraAfiliado": "Martín Suárez",
+    "fechaDePrestacion": "2024-08-09",
+    "especialidad": "Odontología",
+    "medico": "Carolina Pérez",
+    "lugarDeAtencion": "OdontoSmile",
+    "factura": {
+      "fecha": "2024-08-10",
+      "cuit": "20-90123456-8",
+      "valorTotal": 6000,
+      "personaAFacturar": "Martín Suárez"
+    },
+    "formaDePago": "transferencia",
+    "cbu": "0720000720000002345678",
+    "estado": "aprobado"
+  },
+  {
+    "paraAfiliado": "Laura Navarro",
+    "fechaDePrestacion": "2024-09-12",
+    "especialidad": "Neurología",
+    "medico": "Pablo Godoy",
+    "lugarDeAtencion": "Instituto de Neurociencias",
+    "factura": {
+      "fecha": "2024-09-13",
+      "cuit": "27-76543210-2",
+      "valorTotal": 42000,
+      "personaAFacturar": "Laura Navarro"
+    },
+    "formaDePago": "transferencia",
+    "cbu": "0110120340000012345678",
+    "estado": "observado",
+    "observaciones": "Requiere comprobante adicional"
+  },
+  {
+    "paraAfiliado": "Federico Pérez",
+    "fechaDePrestacion": "2024-10-03",
+    "especialidad": "Kinesiología",
+    "medico": "Andrés Vidal",
+    "lugarDeAtencion": "Centro de Rehabilitación Norte",
+    "factura": {
+      "fecha": "2024-10-04",
+      "cuit": "23-11223344-5",
+      "valorTotal": 21000,
+      "personaAFacturar": "Federico Pérez"
+    },
+    "formaDePago": "efectivo",
+    "estado": "pendiente"
+  }
+]

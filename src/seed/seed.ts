@@ -1,90 +1,47 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
-
-import Afiliado from "../models/Afiliado";
-import connectDB from "../config/dbConnect";
-import { TipoDocumento } from "../enums/TipoDocumento";
-import { Parentesco } from "../enums/Parentesco";
-import { PlanMedico } from "../enums/PlanMedico";
+import mongoose from 'mongoose';
+import connectDatabase from '../config/dbConnect';
+import path from 'path';
+import fs from 'fs';
+import Reintegro from '../models/Reintegro';
+import Afiliado from '../models/Afiliado';
 
 const seed = async () => {
   try {
-    await connectDB();
+    await connectDatabase();
+    console.log('Conectado exitosamente a MongoDB');
 
-    console.log(" Conexión a MongoDB establecida");
-
-    console.log("🗑 Eliminar datos previos");
-
-    // Esperar a que la conexión esté lista
-    await mongoose.connection.asPromise();
-
+    // Obtenemos las colecciones de la base de datos
     const db = mongoose.connection.db;
-    if (!db) throw new Error("No se pudo obtener la DB");
-
+    if (!db) throw new Error('Error al obtener la base de datos.');
     const collections = await db.collections();
 
+    // Vaciamos las colecciones de la base de datos
     for (let collection of collections) {
-      console.log(`Borrando colección: ${collection.collectionName}`);
+      console.log(`Vaciando la colección ${collection.collectionName}...`);
       await collection.deleteMany({});
     }
+    console.log('Todas las colecciones han sido vaciadas.');
 
-    console.log(" Insertar datos iniciales");
+    // Obtenemos los reintegros del JSON reintegros.json
+    const reintegrosfilePath = path.resolve('./src/json/reintegros.json');
+    const reintegros = JSON.parse(fs.readFileSync(reintegrosfilePath, 'utf8'));
 
-    const afiliados = await Afiliado.insertMany([
-      {
-        nroAfiliado: "000001-01",
-        grupoFamiliar: "000001",
-        nombre: "Juan",
-        apellido: "Pérez",
-        tipoDocumento: TipoDocumento.DNI,
-        nroDocumento: "12345678",
-        fechaNacimiento: new Date("1980-01-01"),
-        email: "juan.perez@email.com",
-        telefono: "123456789",
-        direccion: "Calle Uno 123",
-        parentesco: Parentesco.TITULAR,
-        situacionTerapeutica: "Sin enfermedades preexistentes",
-        planMedico: PlanMedico.PLAN_100,
-      },
-      {
-        nroAfiliado: "000002-02",
-        grupoFamiliar: "000002",
-        nombre: "María",
-        apellido: "Gómez",
-        tipoDocumento: TipoDocumento.DNI,
-        nroDocumento: "87654321",
-        fechaNacimiento: new Date("1990-05-12"),
-        email: "maria.gomez@email.com",
-        telefono: "987654321",
-        direccion: "Avenida Siempre Viva 742",
-        parentesco: Parentesco.CONYUGE,
-        situacionTerapeutica: "Sin enfermedades preexistentes",
-        planMedico: PlanMedico.PLAN_200,
-      },
-      {
-        nroAfiliado: "000003-03",
-        grupoFamiliar: "000003",
-        nombre: "Lucía",
-        apellido: "Pérez",
-        tipoDocumento: TipoDocumento.DNI,
-        nroDocumento: "11223344",
-        fechaNacimiento: new Date("2010-03-15"),
-        email: "lucia.perez@email.com",
-        telefono: "555555555",
-        direccion: "Calle Argentina 123",
-        parentesco: Parentesco.HIJO,
-        situacionTerapeutica: "Alergia estacional",
-        planMedico: PlanMedico.PLAN_100,
-      },
-    ]);
+    // Obtenemos los afiliados del JSON afiliados.json
+    const afiliadosfilePath = path.resolve('./src/json/afiliados.json');
+    const afiliados = JSON.parse(fs.readFileSync(afiliadosfilePath, 'utf8'));
 
-    console.log(` Afiliados creados: ${afiliados.length}`);
-    console.log(" Seed completado");
+    // Insertamos los datos JSON en la base de datos
+    await Reintegro.insertMany(reintegros);
+    console.log('Seed de Reintegros completado.');
+    await Afiliado.insertMany(afiliados);
+    console.log('Seed de Afiliados completado.');
 
+    console.log('El seed ha finalizado exitosamente.');
     process.exit(0);
   } catch (error) {
-    console.error(error);
+    console.error('Ha ocurrido un error al ejecutar el seed.', error);
     process.exit(1);
   }
 };
