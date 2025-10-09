@@ -1,9 +1,11 @@
-import { Schema, Document, model } from "mongoose";
-import IReintegro from "../interfaces/IReintegro";
-import { FormaPago } from "../enums/FormaPago";
-import { EstadoTramite } from "../enums/EstadoTramite";
+import { Schema, Document, model, Types } from 'mongoose';
+import IReintegro from '../interfaces/IReintegro';
+import { FormaPago } from '../enums/FormaPago';
+import { EstadoTramite } from '../enums/EstadoTramite';
 
-interface IReintegroDocument extends IReintegro, Document {}
+export interface IReintegroDocument extends Omit<IReintegro, 'id'>, Document {
+  _id: Types.ObjectId;
+}
 
 const reintegroSchema = new Schema<IReintegroDocument>(
   {
@@ -70,48 +72,4 @@ const reintegroSchema = new Schema<IReintegroDocument>(
   { timestamps: true }
 );
 
-/* const reintegroSchema = new Schema<IReintegroDocument>(
-  {
-    nroAfiliado: {
-      type: String,
-      required: true,
-      ref: 'Afiliado' // referencia al  Afiliado que lo solicita
-    },
-    fechaPrestacion: { type: Date, required: true },
-
-    medico: { type: String, required: true },
-    especialidad: { type: String, required: true },
-    lugarAtencion: { type: String, required: true },
-    factura: {
-      fecha: { type: Date, required: true },
-      cuit: {
-        type: String,
-        required: function () {
-          //requerido solo para transferencia
-          return this.formaPago === FormaDePago.TRANSFERENCIA;
-        }
-      },
-      valorTotal: { type: Number, required: true },
-      personaAFacturar: {
-        //ver si lo vamos a relacionar con un afiliado o no
-        type: Schema.Types.String,
-        ref: 'Afiliado',
-        required: true
-      }
-    },
-    formaPago: {
-      type: String,
-      enum: Object.values(FormaDePago),
-      default: FormaDePago.TRANSFERENCIA
-    },
-    observaciones: { type: String },
-    estado: {
-      type: String,
-      enum: Object.values(EstadoTramite),
-      default: EstadoTramite.PENDIENTE
-    }
-  },
-  { timestamps: true }
-); */
-
-export default model<IReintegroDocument>("Reintegro", reintegroSchema);
+export default model<IReintegroDocument>('Reintegro', reintegroSchema);
