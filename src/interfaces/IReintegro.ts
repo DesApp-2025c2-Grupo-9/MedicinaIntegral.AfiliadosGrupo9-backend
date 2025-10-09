@@ -17,7 +17,7 @@ interface IReintegro {
   formaDePago: FormaDePago; // 'transferencia' | 'efectivo' | 'cheque'
   cbu?: string; // Si formaDePago === 'transferencia', cbu es required
   observaciones?: string;
-  estado: EstadoDeTramite; // 'pendiente' | 'observado' | 'aprobado' | 'rechazado'
+  estado: EstadoDeTramite; // 'pendiente' | 'observado' | 'aceptado' | 'rechazado'
 }
 
 export default IReintegro;

@@ -29,7 +29,7 @@
       "personaAFacturar": "María González"
     },
     "formaDePago": "efectivo",
-    "estado": "aprobado"
+    "estado": "aceptado"
   },
   {
     "paraAfiliado": "Ricardo Díaz",
@@ -92,7 +92,7 @@
       "personaAFacturar": "Sofía Martínez"
     },
     "formaDePago": "cheque",
-    "estado": "aprobado"
+    "estado": "aceptado"
   },
   {
     "paraAfiliado": "Martín Suárez",
@@ -108,7 +108,7 @@
     },
     "formaDePago": "transferencia",
     "cbu": "0720000720000002345678",
-    "estado": "aprobado"
+    "estado": "aceptado"
   },
   {
     "paraAfiliado": "Laura Navarro",

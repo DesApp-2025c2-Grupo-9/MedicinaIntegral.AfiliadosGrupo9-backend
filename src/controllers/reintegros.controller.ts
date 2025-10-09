@@ -3,6 +3,7 @@ import IReintegro from '../interfaces/IReintegro';
 import Reintegro from '../models/Reintegro';
 import { SUCCESS_MESSAGES } from '../utils/successMessages';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
+import { DeleteReintegroDTO, GetReintegrosDTO, PostReintegroDTO, PutReintegroDTO } from '../dtos/reintegros.dto';
 
 type ApiResponse = {
   message?: string;
@@ -20,7 +21,8 @@ const reintegroController: IReintegroController = {
   getAllReintegros: async (req, res) => {
     try {
       const reintegros = await Reintegro.find({});
-      res.json({ data: reintegros });
+      const reintegrosDTO = reintegros.map(reintegro => new GetReintegrosDTO(reintegro));
+      res.json({ data: reintegrosDTO });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
@@ -29,7 +31,8 @@ const reintegroController: IReintegroController = {
   createReintegro: async (req, res) => {
     try {
       const newReintegro = await Reintegro.create(req.body);
-      res.json({ data: newReintegro, message: SUCCESS_MESSAGES.REINTEGRO.CREATED });
+      const newReintegroDTO = new PostReintegroDTO(newReintegro);
+      res.json({ data: newReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.CREATED });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
@@ -46,7 +49,8 @@ const reintegroController: IReintegroController = {
       }
       Object.assign(reintegro, req.body);
       const updatedReintegro = await reintegro.save();
-      res.json({ data: updatedReintegro, message: SUCCESS_MESSAGES.REINTEGRO.UPDATED });
+      const updatedReintegroDTO = new PutReintegroDTO(updatedReintegro);
+      res.json({ data: updatedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.UPDATED });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
@@ -61,7 +65,8 @@ const reintegroController: IReintegroController = {
         res.status(404).json({ message: ERROR_MESSAGES.REINTEGRO.NOT_FOUND });
         return;
       }
-      res.json({ data: deletedReintegro, message: SUCCESS_MESSAGES.REINTEGRO.DELETED });
+      const deletedReintegroDTO = new DeleteReintegroDTO(deletedReintegro);
+      res.json({ data: deletedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.DELETED });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });

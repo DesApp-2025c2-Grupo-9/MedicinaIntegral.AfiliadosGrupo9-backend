@@ -1,6 +1,6 @@
 export enum EstadoDeTramite {
   PENDIENTE = 'pendiente',
   OBSERVADO = 'observado',
-  APROBADO = 'aprobado',
+  ACEPTADO = 'aceptado',
   RECHAZADO = 'rechazado'
 }
