@@ -6,10 +6,11 @@ import connectDatabase from './config/dbConnect';
 import mongoose from 'mongoose';
 import reintegrosRoutes from './routes/reintegros.routes';
 import { autorizacionesRoutes } from './routes';
+import recetasRoutes from './routes/recetas.routes';
 import corsOptions from './config/corsOptions';
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+export const app = express();
+export const PORT = process.env.PORT || 3000;
 
 // Conectar base de datos
 connectDatabase();
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 // Rutas
 app.use('/api', autorizacionesRoutes);
 app.use('/api', reintegrosRoutes);
+app.use('/api', recetasRoutes);
 
 // Escuchar puerto
 mongoose.connection.once('open', () => {
