@@ -20,7 +20,17 @@ const autorizacionSchema = new Schema<IAutorizacionDocument>(
     medicoSolicitante: { type: String, required: true },
     lugarAtencion: { type: String, required: true },
     diagnostico: { type: String },
-    observaciones: { type: String },
+    observaciones: { 
+      type: [{
+        emisor: { type: Schema.Types.ObjectId, ref: "Afiliado"}, 
+        descripcion: { type: String },
+        fecha: { type: Date, default: Date.now }
+      },{
+        emisor: { type: Schema.Types.ObjectId, ref: "Prestador"}, 
+        descripcion: { type: String },
+        fecha: { type: Date, default: Date.now }
+      }]
+    },
     diasDeInternacion: { type: Number, required: true },
     estado: {
       type: String,

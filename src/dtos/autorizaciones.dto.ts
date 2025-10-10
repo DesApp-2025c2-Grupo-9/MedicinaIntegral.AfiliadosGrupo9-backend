@@ -1,4 +1,5 @@
 import { IAutorizacionDocument }  from "../models/Autorizacion";
+import { IObservacion } from "../interfaces/IObservacion";
 
 export class GetAutorizacionesDTO {
     id: string;
@@ -8,7 +9,7 @@ export class GetAutorizacionesDTO {
     especialidad: string;
     medicoSolicitante: string;
     lugarAtencion: string;
-    observaciones?: string;
+    observaciones?: IObservacion[];
     diasDeInternacion: number;
     estado: string;
 

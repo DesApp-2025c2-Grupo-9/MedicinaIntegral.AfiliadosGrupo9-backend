@@ -1,6 +1,7 @@
 import { Especialidad } from '../enums/Especialidad';
 import { EstadoTramite } from '../enums/EstadoTramite';
 import { FormaPago } from '../enums/FormaPago';
+import { IObservacion } from "./IObservacion";
 
 interface IReintegro {
   id: string;
@@ -17,7 +18,7 @@ interface IReintegro {
   };
   formaDePago: FormaPago; // 'transferencia' | 'efectivo' | 'cheque'
   cbu?: string; // Si formaDePago === 'transferencia', cbu es required
-  observaciones?: string;
+  observaciones?: IObservacion[];
   estado: EstadoTramite; // 'pendiente' | 'observado' | 'aceptado' | 'rechazado'
 }
 

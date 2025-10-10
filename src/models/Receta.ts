@@ -13,7 +13,17 @@ const recetaSchema = new Schema<IRecetaDocument>(
     medicamento: { type: String, required: true },
     cantidad: { type: Number, required: true },
     presentacion: { type: String, required: true },
-    observaciones: { type: String },
+    observaciones: { 
+      type: [{
+        emisor: { type: Schema.Types.ObjectId, ref: "Afiliado"}, 
+        descripcion: { type: String },
+        fecha: { type: Date, default: Date.now }
+      },{
+        emisor: { type: Schema.Types.ObjectId, ref: "Prestador"}, 
+        descripcion: { type: String },
+        fecha: { type: Date, default: Date.now }
+      }]
+    },
     estado: {
       type: String,
       enum: Object.values(EstadoTramite),

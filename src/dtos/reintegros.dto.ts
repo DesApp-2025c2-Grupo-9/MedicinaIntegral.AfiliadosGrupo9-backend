@@ -1,4 +1,5 @@
 import { IReintegroDocument } from '../models/Reintegro';
+import { IObservacion } from "../interfaces/IObservacion";
 
 export class GetReintegrosDTO {
   id: string;
@@ -6,6 +7,7 @@ export class GetReintegrosDTO {
   especialidad: string;
   medico: string;
   fechaDePrestacion: Date;
+  observaciones?: IObservacion[];
   lugarDeAtencion: string;
   factura: {
     valorTotal: number;
@@ -20,6 +22,7 @@ export class GetReintegrosDTO {
     this.medico = data.medico;
     this.fechaDePrestacion = data.fechaDePrestacion;
     this.lugarDeAtencion = data.lugarDeAtencion;
+    this.observaciones = data.observaciones;
     this.factura = { valorTotal: data.factura.valorTotal };
     this.estado = data.estado;
   }
