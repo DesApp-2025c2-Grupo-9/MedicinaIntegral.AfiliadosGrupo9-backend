@@ -2,6 +2,7 @@ import { Schema, Document, model, Types } from 'mongoose';
 import IReintegro from '../interfaces/IReintegro';
 import { FormaPago } from '../enums/FormaPago';
 import { EstadoTramite } from '../enums/EstadoTramite';
+import { Especialidad } from '../enums/Especialidad';
 
 export interface IReintegroDocument extends Omit<IReintegro, 'id'>, Document {
   _id: Types.ObjectId;
@@ -11,63 +12,64 @@ const reintegroSchema = new Schema<IReintegroDocument>(
   {
     paraAfiliado: {
       type: String,
-      required: true,
+      required: true
     },
     fechaDePrestacion: {
       type: Date,
-      required: true,
+      required: true
     },
     medico: {
       type: String,
-      required: true,
+      required: true
     },
     especialidad: {
       type: String,
-      required: true,
+      enum: Object.values(Especialidad),
+      required: true
     },
     lugarDeAtencion: {
       type: String,
-      required: true,
+      required: true
     },
     factura: {
       type: {
         fecha: {
           type: Date,
-          required: true,
+          required: true
         },
         cuit: {
           type: String,
-          required: true,
+          required: true
         },
         valorTotal: {
           type: Number,
-          required: true,
+          required: true
         },
         personaAFacturar: {
           type: String,
-          required: true,
-        },
+          required: true
+        }
       },
-      required: true,
+      required: true
     },
     formaDePago: {
       type: String,
       enum: Object.values(FormaPago),
-      required: true,
+      required: true
     },
     cbu: {
       type: String,
       required: function () {
         return this.formaDePago === FormaPago.TRANSFERENCIA;
-      },
+      }
     },
     observaciones: String,
     estado: {
       type: String,
       enum: Object.values(EstadoTramite),
       required: true,
-      default: EstadoTramite.PENDIENTE,
-    },
+      default: EstadoTramite.PENDIENTE
+    }
   },
   { timestamps: true }
 );

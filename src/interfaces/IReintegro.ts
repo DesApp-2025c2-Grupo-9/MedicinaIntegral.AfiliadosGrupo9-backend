@@ -1,11 +1,12 @@
-import { EstadoTramite } from "../enums/EstadoTramite";
-import { FormaPago } from "../enums/FormaPago";
+import { Especialidad } from '../enums/Especialidad';
+import { EstadoTramite } from '../enums/EstadoTramite';
+import { FormaPago } from '../enums/FormaPago';
 
 interface IReintegro {
   id: string;
   paraAfiliado: string;
   fechaDePrestacion: Date;
-  especialidad: string;
+  especialidad: Especialidad;
   medico: string;
   lugarDeAtencion: string;
   factura: {
