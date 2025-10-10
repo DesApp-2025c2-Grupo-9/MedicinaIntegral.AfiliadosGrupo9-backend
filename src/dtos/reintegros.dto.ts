@@ -1,15 +1,15 @@
 import { IReintegroDocument } from '../models/Reintegro';
-import pesosArg from '../utils/pesosArg';
-import capitalize from '../utils/capitalize';
 
 export class GetReintegrosDTO {
   id: string;
   paraAfiliado: string;
   especialidad: string;
   medico: string;
-  fecha: Date;
-  lugar: string;
-  valor: string;
+  fechaDePrestacion: Date;
+  lugarDeAtencion: string;
+  factura: {
+    valorTotal: number;
+  };
   estado: string;
 
   constructor(data: IReintegroDocument) {
@@ -18,10 +18,10 @@ export class GetReintegrosDTO {
     this.paraAfiliado = data.paraAfiliado;
     this.especialidad = data.especialidad;
     this.medico = data.medico;
-    this.fecha = data.fechaDePrestacion;
-    this.lugar = data.lugarDeAtencion;
-    this.valor = pesosArg.format(data.factura.valorTotal);
-    this.estado = capitalize(data.estado);
+    this.fechaDePrestacion = data.fechaDePrestacion;
+    this.lugarDeAtencion = data.lugarDeAtencion;
+    this.factura = { valorTotal: data.factura.valorTotal };
+    this.estado = data.estado;
   }
 }
 

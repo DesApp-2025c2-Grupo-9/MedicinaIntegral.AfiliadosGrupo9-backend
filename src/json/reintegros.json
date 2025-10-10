@@ -97,9 +97,9 @@
   {
     "paraAfiliado": "Martín Suárez",
     "fechaDePrestacion": "2024-08-09",
-    "especialidad": "Odontología",
+    "especialidad": "Cardiología",
     "medico": "Carolina Pérez",
-    "lugarDeAtencion": "OdontoSmile",
+    "lugarDeAtencion": "Clínica del Sol",
     "factura": {
       "fecha": "2024-08-10",
       "cuit": "20-90123456-8",
@@ -130,7 +130,7 @@
   {
     "paraAfiliado": "Federico Pérez",
     "fechaDePrestacion": "2024-10-03",
-    "especialidad": "Kinesiología",
+    "especialidad": "Psiquiatría",
     "medico": "Andrés Vidal",
     "lugarDeAtencion": "Centro de Rehabilitación Norte",
     "factura": {
