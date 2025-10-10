@@ -1,5 +1,5 @@
 import { IReintegroDocument } from '../models/Reintegro';
-import { IObservacion } from "../interfaces/IObservacion";
+import { IObservacion } from '../interfaces/IObservacion';
 
 export class GetReintegrosDTO {
   id: string;

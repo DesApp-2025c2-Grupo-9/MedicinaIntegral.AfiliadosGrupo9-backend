@@ -1,7 +1,7 @@
 import { Especialidad } from '../enums/Especialidad';
 import { EstadoTramite } from '../enums/EstadoTramite';
 import { FormaPago } from '../enums/FormaPago';
-import { IObservacion } from "./IObservacion";
+import { IObservacion } from './IObservacion';
 
 interface IReintegro {
   id: string;

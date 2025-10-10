@@ -4,19 +4,14 @@ import { IAutorizacion } from '../interfaces/IAutorizacion';
 import { SUCCESS_MESSAGES } from "../utils/successMessages";
 import { ERROR_MESSAGES } from "../utils/errorMessages";
 import { GetAutorizacionesDTO, IdAutorizacionDTO } from "../dtos/autorizaciones.dto";
-
-interface ResBody {
-    message?: string,
-    data?: object
-}
+import { ApiResponse } from '../types/ApiResponse';
 
 interface IAutorizacionController {
-    getAllAutorizaciones: (req: Request, res: Response<ResBody>) => Promise<void>;
-    createAutorizacion: (req: Request<{}, {}, IAutorizacion>, res: Response<ResBody>) => Promise<void>;
-    updateAutorizacion: (req: Request<{id: string}, {}, Omit<IAutorizacion, 'id'>>, res: Response<ResBody>) => Promise<void>;
-    deleteAutorizacion: (req: Request<{id: string}>, res: Response<ResBody>) => Promise<void>;
+    getAllAutorizaciones: (req: Request, res: Response<ApiResponse>) => Promise<void>;
+    createAutorizacion: (req: Request<{}, {}, IAutorizacion>, res: Response<ApiResponse>) => Promise<void>;
+    updateAutorizacion: (req: Request<{id: string}, {}, Omit<IAutorizacion, 'id'>>, res: Response<ApiResponse>) => Promise<void>;
+    deleteAutorizacion: (req: Request<{id: string}>, res: Response<ApiResponse>) => Promise<void>;
 }
-
 
 const autorizacionController: IAutorizacionController = {
     getAllAutorizaciones : async (req, res) => {

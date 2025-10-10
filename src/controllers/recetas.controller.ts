@@ -3,11 +3,7 @@ import { IReceta } from "../interfaces/IReceta";
 import Receta from "../models/Receta";
 import { SUCCESS_MESSAGES } from "../utils/successMessages";
 import { ERROR_MESSAGES } from "../utils/errorMessages";
-
-type ApiResponse<T = unknown> = {
-  message?: string;
-  data?: object;
-};
+import { ApiResponse } from '../types/ApiResponse';
 
 interface IRecetaController {
   getAllRecetas(

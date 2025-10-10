@@ -4,11 +4,7 @@ import Reintegro from '../models/Reintegro';
 import { SUCCESS_MESSAGES } from '../utils/successMessages';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { DeleteReintegroDTO, GetReintegrosDTO, PostReintegroDTO, PutReintegroDTO } from '../dtos/reintegros.dto';
-
-type ApiResponse = {
-  message?: string;
-  data?: object;
-};
+import { ApiResponse } from '../types/ApiResponse';
 
 interface IReintegroController {
   getAllReintegros: (req: Request, res: Response<ApiResponse>) => Promise<void>;

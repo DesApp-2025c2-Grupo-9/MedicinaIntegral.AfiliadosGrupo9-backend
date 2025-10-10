@@ -3,4 +3,3 @@ export interface IObservacion {
   descripcion: string;
   fecha: Date;
 }
-
