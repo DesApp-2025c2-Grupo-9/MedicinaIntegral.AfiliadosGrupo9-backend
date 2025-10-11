@@ -4,26 +4,39 @@ import { IObservacion } from '../interfaces/IObservacion';
 export class GetReintegrosDTO {
   id: string;
   paraAfiliado: string;
+  fechaDePrestacion: Date;
   especialidad: string;
   medico: string;
-  fechaDePrestacion: Date;
-  observaciones?: IObservacion[];
   lugarDeAtencion: string;
   factura: {
+    fecha: Date;
+    cuit: string;
     valorTotal: number;
+    personaAFacturar: string;
   };
+  formaDePago: string;
+  cbu?: string;
+  observaciones?: string;
+  // observaciones?: IObservacion[];
   estado: string;
 
   constructor(data: IReintegroDocument) {
     // Recibe un documento de Mongo
     this.id = data._id.toString();
     this.paraAfiliado = data.paraAfiliado;
+    this.fechaDePrestacion = data.fechaDePrestacion;
     this.especialidad = data.especialidad;
     this.medico = data.medico;
-    this.fechaDePrestacion = data.fechaDePrestacion;
     this.lugarDeAtencion = data.lugarDeAtencion;
+    this.factura = {
+      fecha: data.factura.fecha,
+      cuit: data.factura.cuit,
+      valorTotal: data.factura.valorTotal,
+      personaAFacturar: data.factura.personaAFacturar
+    };
+    this.formaDePago = data.formaDePago;
+    this.cbu = data.cbu;
     this.observaciones = data.observaciones;
-    this.factura = { valorTotal: data.factura.valorTotal };
     this.estado = data.estado;
   }
 }

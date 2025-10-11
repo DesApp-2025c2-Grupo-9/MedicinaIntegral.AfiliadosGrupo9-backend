@@ -63,7 +63,8 @@ const reintegroSchema = new Schema<IReintegroDocument>(
         return this.formaDePago === FormaPago.TRANSFERENCIA;
       }
     },
-    observaciones: {
+    observaciones: String,
+    /* observaciones: {
       type: [
         {
           emisor: { type: Schema.Types.ObjectId, ref: 'Afiliado' },
@@ -76,7 +77,7 @@ const reintegroSchema = new Schema<IReintegroDocument>(
           fecha: { type: Date, default: Date.now }
         }
       ]
-    },
+    }, */
     estado: {
       type: String,
       enum: Object.values(EstadoTramite),
