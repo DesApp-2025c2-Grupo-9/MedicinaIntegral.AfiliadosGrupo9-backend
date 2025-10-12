@@ -1,5 +1,4 @@
 import { IReintegroDocument } from '../models/Reintegro';
-import { IObservacion } from '../interfaces/IObservacion';
 
 export class GetReintegrosDTO {
   id: string;
@@ -17,7 +16,6 @@ export class GetReintegrosDTO {
   formaDePago: string;
   cbu?: string;
   observaciones?: string;
-  // observaciones?: IObservacion[];
   estado: string;
 
   constructor(data: IReintegroDocument) {
