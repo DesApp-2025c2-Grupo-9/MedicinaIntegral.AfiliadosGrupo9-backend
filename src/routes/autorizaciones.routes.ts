@@ -1,14 +1,36 @@
 import { Router } from 'express';
-import autorizacionController from '../controllers/autorizacion.controller'
+import autorizacionController from '../controllers/autorizacion.controller';
+import Autorizacion from '../models/Autorizacion';
+import {
+  logRequest,
+  existsModelById,
+  existsAnyByModel,
+  validarCamposExactos,
+} from '../middlewares/genericMiddleware';
 
 const router = Router();
 
-router.route('/autorizaciones')
-    .get(autorizacionController.getAllAutorizaciones)
-    .post(autorizacionController.createAutorizacion);
 
-router.route('/autorizaciones/:id')
-    .put(autorizacionController.updateAutorizacion)
-    .delete(autorizacionController.deleteAutorizacion);
+router.use(logRequest);
+
+router
+  .route('/autorizaciones')
+  .get(
+    existsAnyByModel(Autorizacion),//Middleware genérico
+    autorizacionController.getAllAutorizaciones
+)
+  .post(
+    validarCamposExactos(Autorizacion),
+    autorizacionController.createAutorizacion);
+
+router
+  .route('/autorizaciones/:id')
+  .put(
+    existsModelById(Autorizacion),//Middelware genérico
+    autorizacionController.updateAutorizacion
+    )
+  .delete(
+    existsModelById(Autorizacion),//Middelware genérico
+    autorizacionController.deleteAutorizacion);
 
 export default router;

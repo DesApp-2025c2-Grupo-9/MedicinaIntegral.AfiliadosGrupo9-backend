@@ -9,6 +9,7 @@ import autorizacionesRoutes from './routes/autorizaciones.routes';
 import recetasRoutes from './routes/recetas.routes';
 import especialidadesRoutes from './routes/especialidades.routes';
 import corsOptions from './config/corsOptions';
+import { manejoDeErroresGlobales } from './middlewares/genericMiddleware';
 
 export const app = express();
 export const PORT = process.env.PORT || 3000;
@@ -26,6 +27,9 @@ app.use('/api', autorizacionesRoutes);
 app.use('/api', reintegrosRoutes);
 app.use('/api', recetasRoutes);
 app.use('/api', especialidadesRoutes);
+
+//Middleware global
+app.use(manejoDeErroresGlobales)
 
 // Escuchar puerto
 mongoose.connection.once('open', () => {

@@ -1,0 +1,112 @@
+[
+  {
+    "nroAfiliado": "0000001-01",
+    "medicamento": "Ibuprofeno",
+    "cantidad": 5,
+    "presentacion": "Tabletas",
+    "observaciones": [
+      {
+        "emisor": "650f1d2a3b4c5d6e7f8a9012",
+        "descripcion": "Tomar después de las comidas",
+        "fecha": "2025-10-12T00:00:00.000Z"
+      }
+    ],
+    "estado": "pendiente"
+  },
+  {
+    "nroAfiliado": "0000001-02",
+    "medicamento": "Paracetamol",
+    "cantidad": 3,
+    "presentacion": "Jarabe",
+    "observaciones": [],
+    "estado": "pendiente"
+  },
+  {
+    "nroAfiliado": "0000002-01",
+    "medicamento": "Amoxicilina",
+    "cantidad": 10,
+    "presentacion": "Cápsulas",
+    "observaciones": [
+      {
+        "emisor": "650f1d2a3b4c5d6e7f8a9013",
+        "descripcion": "Paciente con alergia a penicilina",
+        "fecha": "2025-10-11T00:00:00.000Z"
+      }
+    ],
+    "estado": "observado"
+  },
+  {
+    "nroAfiliado": "0000003-01",
+    "medicamento": "Omeprazol",
+    "cantidad": 7,
+    "presentacion": "Tabletas",
+    "observaciones": [],
+    "estado": "aceptado"
+  },
+  {
+    "nroAfiliado": "0000003-02",
+    "medicamento": "Cetirizina",
+    "cantidad": 4,
+    "presentacion": "Jarabe",
+    "observaciones": [
+      {
+        "emisor": "650f1d2a3b4c5d6e7f8a9014",
+        "descripcion": "Tomar en la noche",
+        "fecha": "2025-10-10T00:00:00.000Z"
+      }
+    ],
+    "estado": "pendiente"
+  },
+  {
+    "nroAfiliado": "0000004-01",
+    "medicamento": "Metformina",
+    "cantidad": 6,
+    "presentacion": "Tabletas",
+    "observaciones": [],
+    "estado": "aceptado"
+  },
+  {
+    "nroAfiliado": "0000005-01",
+    "medicamento": "Amlodipino",
+    "cantidad": 2,
+    "presentacion": "Tabletas",
+    "observaciones": [
+      {
+        "emisor": "650f1d2a3b4c5d6e7f8a9015",
+        "descripcion": "Tomar siempre a la mañana",
+        "fecha": "2025-10-09T00:00:00.000Z"
+      }
+    ],
+    "estado": "rechazado"
+  },
+  {
+    "nroAfiliado": "0000006-01",
+    "medicamento": "Loratadina",
+    "cantidad": 1,
+    "presentacion": "Tabletas",
+    "observaciones": [],
+    "estado": "pendiente"
+  },
+  {
+    "nroAfiliado": "0000007-01",
+    "medicamento": "Clonazepam",
+    "cantidad": 8,
+    "presentacion": "Tabletas",
+    "observaciones": [
+      {
+        "emisor": "650f1d2a3b4c5d6e7f8a9016",
+        "descripcion": "Tomar con agua",
+        "fecha": "2025-10-08T00:00:00.000Z"
+      }
+    ],
+    "estado": "observado"
+  },
+  {
+    "nroAfiliado": "0000008-01",
+    "medicamento": "Simvastatina",
+    "cantidad": 9,
+    "presentacion": "Tabletas",
+    "observaciones": [],
+    "estado": "aceptado"
+  }
+]
