@@ -4,11 +4,13 @@ import express from 'express';
 import cors from 'cors';
 import connectDatabase from './config/dbConnect';
 import mongoose from 'mongoose';
+import authRoutes from './routes/api/auth.routes';
 import reintegrosRoutes from './routes/reintegros.routes';
 import autorizacionesRoutes from './routes/autorizaciones.routes';
 import recetasRoutes from './routes/recetas.routes';
 import especialidadesRoutes from './routes/especialidades.routes';
 import corsOptions from './config/corsOptions';
+import cookieParser from 'cookie-parser';
 
 export const app = express();
 export const PORT = process.env.PORT || 3000;
@@ -18,10 +20,14 @@ connectDatabase();
 
 // Middlewares
 app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Rutas
+// Rutas públicas
+app.use('/api/auth', authRoutes);
+
+// Rutas protegidas
 app.use('/api', autorizacionesRoutes);
 app.use('/api', reintegrosRoutes);
 app.use('/api', recetasRoutes);
