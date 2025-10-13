@@ -1,5 +1,5 @@
 import { RolAfiliado } from '../enums/RolAfiliado';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { TipoDocumento } from '../enums/TipoDocumento';
 import { Parentesco } from '../enums/Parentesco';
 import { PlanMedico } from '../enums/PlanMedico';
@@ -7,8 +7,10 @@ import { PlanMedico } from '../enums/PlanMedico';
 // Falta implementar la lógica del rol con enums y permisos;
 
 export interface IAfiliado {
+  id: string;
   nroAfiliado: string; // Por ejemplo, '000001-01'
-  grupoFamiliar: string; // Por ejemplo, '000001'
+  // grupoFamiliar: string; Por ejemplo, '000001'
+  grupoFamiliar: Types.ObjectId[];
   nombre: string;
   apellido: string;
   fechaNacimiento: Date;
@@ -27,4 +29,4 @@ export interface IAfiliado {
   rol: RolAfiliado; // 'Titular' | 'Cónyuge' | 'Hijo Menor' | 'Hijo Mayor' | 'Otro'
 }
 
-export interface IAfiliadoDocument extends IAfiliado, Document {}
+export default IAfiliado;

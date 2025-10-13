@@ -16,7 +16,6 @@ interface IUserController {
 const userController: IUserController = {
   registerUser: async (req, res) => {
     const user = req.body;
-    console.log(user);
 
     try {
       const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
@@ -50,6 +49,11 @@ const userController: IUserController = {
       const foundUser = await Afiliado.findOne({ nroDocumento });
       if (!foundUser) {
         res.status(401).json({ message: 'Usuario no existe.' });
+        return;
+      }
+
+      if (!foundUser.registrado) {
+        res.status(401).json({ message: 'Usuario no está registrado.' });
         return;
       }
 
