@@ -5,6 +5,7 @@ import { SUCCESS_MESSAGES } from '../utils/successMessages';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { DeleteReintegroDTO, GetReintegrosDTO, PostReintegroDTO, PutReintegroDTO } from '../dtos/reintegros.dto';
 import { ApiResponse } from '../types/ApiResponse';
+import Afiliado from '../models/Afiliado';
 
 interface IReintegroController {
   getAllReintegros: (req: Request, res: Response<ApiResponse>) => Promise<void>;
@@ -15,8 +16,11 @@ interface IReintegroController {
 
 const reintegroController: IReintegroController = {
   getAllReintegros: async (req, res) => {
+    const idsAfiliados = req.familiaresPermitidos;
+    console.log(idsAfiliados);
+
     try {
-      const reintegros = await Reintegro.find({});
+      const reintegros = await Reintegro.find({ idAfiliado: { $in: idsAfiliados } });
       const reintegrosDTO = reintegros.map(reintegro => new GetReintegrosDTO(reintegro));
       res.json({ data: reintegrosDTO });
     } catch (error) {

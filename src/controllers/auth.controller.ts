@@ -3,8 +3,9 @@ import jwt from 'jsonwebtoken';
 import { ApiResponse } from '../types/ApiResponse';
 import { Request, Response } from 'express';
 import { RegisterBody, LoginBody, RequestCookies } from '../types/AuthTypes';
-import Afiliado from '../models/Afiliado';
+import Afiliado, { IAfiliadoDocument } from '../models/Afiliado';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
+import { RolAfiliado } from '../enums/RolAfiliado';
 
 interface IUserController {
   registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<void>;
@@ -46,7 +47,9 @@ const userController: IUserController = {
     const { nroDocumento, password } = req.body;
 
     try {
-      const foundUser = await Afiliado.findOne({ nroDocumento });
+      // const foundUser = await Afiliado.findOne({ nroDocumento });
+      const foundUser = await Afiliado.findOne({ nroDocumento }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
+      console.log(foundUser);
       if (!foundUser) {
         res.status(401).json({ message: 'Usuario no existe.' });
         return;
@@ -63,8 +66,23 @@ const userController: IUserController = {
         return;
       }
 
-      const rol = foundUser.rol;
-      const accessToken = jwt.sign({ nroDocumento, rol }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '15m' });
+      let familiaresPermitidos; // Arreglo de _id de los afiliados de los cuales el usuario puede ver su información dependiendo el rol.
+
+      if (foundUser.rol === RolAfiliado.TITULAR) {
+        const arr = foundUser.grupoFamiliar.map(familiar => familiar._id);
+        familiaresPermitidos = [...arr];
+      }
+
+      if (foundUser.rol === RolAfiliado.CONYUGE) {
+        const arr = foundUser.grupoFamiliar.filter(familiar => familiar.rol !== RolAfiliado.TITULAR && familiar.rol !== RolAfiliado.HIJO_MAYOR).map(familiar => familiar._id);
+        familiaresPermitidos = [...arr];
+      }
+
+      if (foundUser.rol === RolAfiliado.HIJO_MAYOR || foundUser.rol === RolAfiliado.HIJO_MENOR || foundUser.rol === RolAfiliado.OTRO) {
+        familiaresPermitidos = [foundUser._id];
+      }
+
+      const accessToken = jwt.sign({ nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '15m' });
       const refreshToken = jwt.sign({ nroDocumento }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '1d' });
 
       foundUser.refreshToken = refreshToken;

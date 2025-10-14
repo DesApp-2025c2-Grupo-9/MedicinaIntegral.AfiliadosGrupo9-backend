@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 import connectDatabase from '../config/dbConnect';
 import path from 'path';
 import fs from 'fs';
@@ -20,41 +20,36 @@ const seed = async () => {
     const collections = await db.collections();
 
     // Vaciamos las colecciones de la base de datos
-    /* for (let collection of collections) {
+    for (let collection of collections) {
       console.log(`Vaciando la colección ${collection.collectionName}...`);
       await collection.deleteMany({});
     }
-    console.log('Todas las colecciones han sido vaciadas.'); */
     console.log('Todas las colecciones han sido vaciadas.');
 
     //Obtenemos las autorizaciones del JSON autorizaciones.json
-    const autorizacionesFilePath = path.resolve('./src/json/autorizaciones.json')
-    const autorizaciones = JSON.parse(fs.readFileSync(autorizacionesFilePath, 'utf-8'))
+    const autorizacionesFilePath = path.resolve('./src/json/autorizaciones.json');
+    const autorizaciones = JSON.parse(fs.readFileSync(autorizacionesFilePath, 'utf-8'));
 
     // Obtenemos las recetas del JSON recetas.json
     const recetasFilePath = path.resolve('./src/json/recetas.json');
-    const recetas = JSON.parse(fs.readFileSync(recetasFilePath, 'utf-8'))
+    const recetas = JSON.parse(fs.readFileSync(recetasFilePath, 'utf-8'));
 
     // Obtenemos los reintegros del JSON reintegros.json
-    /* const reintegrosfilePath = path.resolve('./src/json/reintegros.json');
-    const reintegros = JSON.parse(fs.readFileSync(reintegrosfilePath, 'utf8')); */
+    const reintegrosfilePath = path.resolve('./src/json/reintegros.json');
+    const reintegros = JSON.parse(fs.readFileSync(reintegrosfilePath, 'utf8'));
 
     // Obtenemos los afiliados del JSON afiliados.json
     const afiliadosfilePath = path.resolve('./src/json/afiliados.json');
     const afiliados = JSON.parse(fs.readFileSync(afiliadosfilePath, 'utf8'));
 
     // Insertamos los datos JSON en la base de datos
-    /* await Reintegro.insertMany(reintegros);
-    console.log('Seed de Reintegros completado.'); */
-    await Afiliado.deleteMany({});
-    
     await Reintegro.insertMany(reintegros);
     console.log('Seed de Reintegros completado.');
     await Afiliado.insertMany(afiliados);
     console.log('Seed de Afiliados completado.');
-    
+
     await Autorizacion.insertMany(autorizaciones);
-    console.log('Seed de autorizaciones Completado')
+    console.log('Seed de autorizaciones Completado');
     await Receta.insertMany(recetas);
     console.log('Seed de Recetas Completado');
 

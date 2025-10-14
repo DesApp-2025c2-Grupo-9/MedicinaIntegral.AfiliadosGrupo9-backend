@@ -83,6 +83,10 @@ const reintegroSchema = new Schema<IReintegroDocument>(
       enum: Object.values(EstadoTramite),
       required: true,
       default: EstadoTramite.PENDIENTE
+    },
+    idAfiliado: {
+      type: Schema.Types.ObjectId,
+      ref: 'Afiliado'
     }
   },
   { timestamps: true }
