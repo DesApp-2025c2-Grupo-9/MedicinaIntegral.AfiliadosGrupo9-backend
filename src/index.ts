@@ -28,6 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Rutas públicas
 app.use('/api/auth', authRoutes);
+app.use('/api', especialidadesRoutes);
 
 // Verificamos JWT
 app.use(verifyJWT);
@@ -37,7 +38,6 @@ app.use('/api', afiliadosRoutes);
 app.use('/api', autorizacionesRoutes);
 app.use('/api', reintegrosRoutes);
 app.use('/api', recetasRoutes);
-app.use('/api', especialidadesRoutes);
 
 // Escuchar puerto
 mongoose.connection.once('open', () => {

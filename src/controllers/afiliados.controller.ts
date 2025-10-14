@@ -17,6 +17,7 @@ const afiliadoController: IAfiliadoController = {
 
       if (!unAfiliado) {
         res.status(404).json({ message: 'No se encontró el afiliado.' });
+        return;
       }
 
       const unAfiliadoDTO = new GetAfiliadoDTO(unAfiliado);

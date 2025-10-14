@@ -59,6 +59,9 @@ const afiliadoSchema = new Schema<IAfiliadoDocument>(
       type: String,
       enum: Object.values(RolAfiliado),
       default: RolAfiliado.TITULAR
+    },
+    refreshToken: {
+      type: String
     }
   },
 

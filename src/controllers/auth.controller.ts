@@ -9,8 +9,8 @@ import { ERROR_MESSAGES } from '../utils/errorMessages';
 interface IUserController {
   registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<void>;
   login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<void>;
-  // logout: (req: Request, res: Response<ApiResponse>) => Promise<void>;
-  // refreshToken: (req: Request, res: Response) => Promise<void>;
+  logout: (req: Request, res: Response<ApiResponse>) => Promise<void>;
+  refresh: (req: Request, res: Response<ApiResponse>) => Promise<void>;
 }
 
 const userController: IUserController = {
@@ -64,20 +64,19 @@ const userController: IUserController = {
       }
 
       const rol = foundUser.rol;
-      const accessToken = jwt.sign({ nroDocumento, rol }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '30m' });
+      const accessToken = jwt.sign({ nroDocumento, rol }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '15m' });
       const refreshToken = jwt.sign({ nroDocumento }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '1d' });
 
-      // foundUser.refreshToken = refreshToken;
-      // await foundUser.save();
-
-      res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'none', secure: false, maxAge: 1000 * 60 * 60 * 24 });
+      foundUser.refreshToken = refreshToken;
+      await foundUser.save();
+      res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
       res.json({ accessToken, message: 'Inicio de sesión exitoso.' });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
     }
-  }
-  /* logout: async (req, res) => {
+  },
+  logout: async (req, res) => {
     const cookies: RequestCookies = req.cookies;
 
     if (!cookies.jwt) {
@@ -86,7 +85,7 @@ const userController: IUserController = {
     }
 
     const refreshToken = cookies.jwt;
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: false });
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'lax', secure: false });
 
     const foundUser = await Afiliado.findOne({ refreshToken });
     if (!foundUser) {
@@ -94,10 +93,51 @@ const userController: IUserController = {
       return;
     }
 
-    foundUser.refreshToken = undefined;
+    foundUser.refreshToken = '';
     await foundUser.save();
     res.sendStatus(204);
-  } */
+  },
+  refresh: async (req, res) => {
+    const cookies: RequestCookies = req.cookies;
+
+    if (!cookies?.jwt) {
+      res.status(401).json({ message: 'No hay cookie' });
+      return;
+    }
+    const refreshToken = cookies.jwt;
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'lax', secure: false });
+
+    try {
+      const foundUser = await Afiliado.findOne({ refreshToken });
+      if (!foundUser) {
+        res.status(401).json({ message: 'No hay usuario con esa cookie' });
+        return;
+      }
+
+      jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!, async (error, decoded) => {
+        const decodedPayload = decoded as { nroDocumento: string };
+        if (error || foundUser.nroDocumento !== decodedPayload?.nroDocumento) {
+          foundUser.refreshToken = '';
+          await foundUser.save();
+          res.status(401).json({ message: 'Cookie vencida' });
+          return;
+        }
+
+        const rol = foundUser.rol;
+        const accessToken = jwt.sign({ nroDocumento: foundUser.nroDocumento, rol }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '15m' });
+        const newRefreshToken = jwt.sign({ nroDocumento: foundUser.nroDocumento }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '1d' });
+
+        foundUser.refreshToken = newRefreshToken;
+        await foundUser.save();
+
+        res.cookie('jwt', newRefreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
+        res.json({ accessToken });
+      });
+    } catch (error) {
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
+    }
+  }
 };
 
 export default userController;

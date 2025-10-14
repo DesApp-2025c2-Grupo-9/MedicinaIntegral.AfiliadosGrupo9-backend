@@ -12,7 +12,7 @@ declare module 'express-serve-static-core' {
 export const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
   const formatedAuthHeader = authHeader as string;
-  console.log(formatedAuthHeader);
+  // console.log(formatedAuthHeader);
   if (!formatedAuthHeader?.startsWith('Bearer ')) return res.sendStatus(401); // Si no hay accessToken en el header 'authorization' de la petición, error 401;
 
   const token = formatedAuthHeader.split(' ')[1];

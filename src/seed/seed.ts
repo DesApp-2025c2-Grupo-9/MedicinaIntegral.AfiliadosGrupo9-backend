@@ -35,6 +35,7 @@ const seed = async () => {
     // Insertamos los datos JSON en la base de datos
     /* await Reintegro.insertMany(reintegros);
     console.log('Seed de Reintegros completado.'); */
+    await Afiliado.deleteMany({});
     await Afiliado.insertMany(afiliados);
     console.log('Seed de Afiliados completado.');
 
