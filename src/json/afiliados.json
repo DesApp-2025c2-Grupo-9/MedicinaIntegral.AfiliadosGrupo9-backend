@@ -35,7 +35,7 @@
     "parentesco": "conyuge",
     "password": "hashedPassword2",
     "fechaAlta": "2023-06-01T00:00:00.000Z",
-    "registrado": true,
+    "registrado": false,
     "situacionTerapeutica": "Control anual",
     "planMedico": "300",
     "rol": "Cónyuge"
@@ -73,7 +73,7 @@
     "parentesco": "titular",
     "password": "hashedPassword4",
     "fechaAlta": "2024-01-15T00:00:00.000Z",
-    "registrado": true,
+    "registrado": false,
     "situacionTerapeutica": "En control ginecológico",
     "planMedico": "200",
     "rol": "Titular"
@@ -93,7 +93,7 @@
     "parentesco": "conyuge",
     "password": "hashedPassword5",
     "fechaAlta": "2024-01-15T00:00:00.000Z",
-    "registrado": true,
+    "registrado": false,
     "situacionTerapeutica": "Sin tratamiento",
     "planMedico": "200",
     "rol": "Cónyuge"
@@ -113,7 +113,7 @@
     "parentesco": "titular",
     "password": "hashedPassword6",
     "fechaAlta": "2022-09-10T00:00:00.000Z",
-    "registrado": true,
+    "registrado": false,
     "situacionTerapeutica": "Bajo tratamiento cardíaco",
     "planMedico": "400",
     "cbu": "2850590940090418135202",
@@ -134,7 +134,7 @@
     "parentesco": "titular",
     "password": "hashedPassword7",
     "fechaAlta": "2024-03-20T00:00:00.000Z",
-    "registrado": true,
+    "registrado": false,
     "situacionTerapeutica": "Sin tratamiento",
     "planMedico": "100",
     "rol": "Titular"
