@@ -126,14 +126,15 @@ const userController: IUserController = {
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'lax', secure: false });
 
     try {
-      const foundUser = await Afiliado.findOne({ refreshToken });
+      const foundUser = await Afiliado.findOne({ refreshToken }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
+      // const foundUser = await Afiliado.findOne({ refreshToken });
       if (!foundUser) {
         res.status(401).json({ message: 'No hay usuario con esa cookie' });
         return;
       }
 
       jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!, async (error, decoded) => {
-        const decodedPayload = decoded as { nroDocumento: string };
+        const decodedPayload = decoded as { nroDocumento: string; familiaresPermitidos: string[] };
         if (error || foundUser.nroDocumento !== decodedPayload?.nroDocumento) {
           foundUser.refreshToken = '';
           await foundUser.save();
@@ -141,8 +142,24 @@ const userController: IUserController = {
           return;
         }
 
-        const rol = foundUser.rol;
-        const accessToken = jwt.sign({ nroDocumento: foundUser.nroDocumento, rol }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '15m' });
+        let familiaresPermitidos; // Arreglo de _id de los afiliados de los cuales el usuario puede ver su información dependiendo el rol.
+
+        if (foundUser.rol === RolAfiliado.TITULAR) {
+          const arr = foundUser.grupoFamiliar.map(familiar => familiar._id);
+          familiaresPermitidos = [...arr];
+        }
+
+        if (foundUser.rol === RolAfiliado.CONYUGE) {
+          const arr = foundUser.grupoFamiliar.filter(familiar => familiar.rol !== RolAfiliado.TITULAR && familiar.rol !== RolAfiliado.HIJO_MAYOR).map(familiar => familiar._id);
+          familiaresPermitidos = [...arr];
+        }
+
+        if (foundUser.rol === RolAfiliado.HIJO_MAYOR || foundUser.rol === RolAfiliado.HIJO_MENOR || foundUser.rol === RolAfiliado.OTRO) {
+          familiaresPermitidos = [foundUser._id];
+        }
+
+        // const rol = foundUser.rol;
+        const accessToken = jwt.sign({ nroDocumento: foundUser.nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '15m' });
         const newRefreshToken = jwt.sign({ nroDocumento: foundUser.nroDocumento }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '1d' });
 
         foundUser.refreshToken = newRefreshToken;

@@ -22,6 +22,13 @@ const afiliadoController: IAfiliadoController = {
 
       const unAfiliadoDTO = new GetAfiliadoDTO(unAfiliado);
       res.json({ data: unAfiliadoDTO });
+      /* res.json({
+        data: {
+          nombre: 'Pedro',
+          apellido: 'Sanchez',
+          grupoFamiliar: [{ nombre: 'Juan', apellido: 'Perez' }, { nombre: 'Martín', apellido: 'Dominguez' }]
+        }
+      }); */
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
