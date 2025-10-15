@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import multer from 'multer';
 import mongoose, { Model } from 'mongoose';
 
 /* ============= LOG DE PETICIONES ============= */
@@ -122,14 +121,6 @@ export const manejoDeErroresGlobales = (
   if (err.name === 'ValidationError') {
     const messages = Object.values(err.errors).map((e: any) => e.message);
     return res.status(400).json({ error: messages });
-  }
-  if (err instanceof multer.MulterError) {
-    if (err.code === 'LIMIT_FILE_SIZE') {
-      return res
-        .status(400)
-        .json({ error: 'La imagen excede el tamaño máximo permitido de 5MB' });
-    }
-    return res.status(400).json({ error: err.message });
   }
   if (err.status) {
     return res.status(err.status).json({ error: err.message });

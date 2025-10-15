@@ -4,11 +4,12 @@ import { EstadoTurno } from "../enums/EstadoTurno";
 
 const turnoSchema = new Schema<ITurnoDocument>(
   {
-    nroAfiliado: {
-      type: String,
+    idAfiliado: {
+      type: Schema.Types.ObjectId,
       ref: "Afiliado",
-      required: true,
+      required: false,
     },
+    nroAfiliado: { type: String, required: false },
     prestador: {
       type: Schema.Types.ObjectId,
       ref: "Prestador",
@@ -16,6 +17,7 @@ const turnoSchema = new Schema<ITurnoDocument>(
     },
     especialidad: { type: String, required: true },
     lugarAtencion: { type: String, required: true },
+    telefono: { type: Number, required: true },
     fechaTurno: { type: Date, required: true },
     estado: {
       type: String,

@@ -8,6 +8,8 @@ import Reintegro from '../models/Reintegro';
 import Afiliado from '../models/Afiliado';
 import Receta from '../models/Receta';
 import Autorizacion from '../models/Autorizacion';
+import Prestadores from '../models/Prestador';
+import Turno from '../models/Turno';
 
 const seed = async () => {
   try {
@@ -26,6 +28,14 @@ const seed = async () => {
     }
     console.log('Todas las colecciones han sido vaciadas.');
 
+     //Obtenemos los prestadores del JSON prestadores.json
+    const prestadoresFilePath = path.resolve('./src/json/prestadores.json');
+    const prestadores = JSON.parse(fs.readFileSync(prestadoresFilePath, 'utf-8'));
+
+    //Obtenemos los turnos del JSON turnos.json
+    const turnosFilePath = path.resolve('./src/json/turnos.json');
+    const turnos = JSON.parse(fs.readFileSync(turnosFilePath, 'utf-8'));
+
     //Obtenemos las autorizaciones del JSON autorizaciones.json
     const autorizacionesFilePath = path.resolve('./src/json/autorizaciones.json');
     const autorizaciones = JSON.parse(fs.readFileSync(autorizacionesFilePath, 'utf-8'));
@@ -43,6 +53,11 @@ const seed = async () => {
     const afiliados = JSON.parse(fs.readFileSync(afiliadosfilePath, 'utf8'));
 
     // Insertamos los datos JSON en la base de datos
+    await Prestadores.insertMany(prestadores);
+    console.log('Seed de Prestadores completado.');
+    await Turno.insertMany(turnos);
+    console.log('Seed de Turnos completado.');
+
     await Reintegro.insertMany(reintegros);
     console.log('Seed de Reintegros completado.');
     await Afiliado.insertMany(afiliados);
