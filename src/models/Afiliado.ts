@@ -12,68 +12,29 @@ export interface IAfiliadoDocument extends Omit<IAfiliado, 'id'> {
 const afiliadoSchema = new Schema<IAfiliadoDocument>(
   {
     nroAfiliado: { type: String, required: true, unique: true },
-    // grupoFamiliar: { type: String, required: true },
-    grupoFamiliar: {
-      type: [
-        {
-          type: Schema.Types.ObjectId,
-          ref: 'Afiliado'
-        }
-      ]
-    },
+    grupoFamiliar: { type: [{ type: Schema.Types.ObjectId, ref: 'Afiliado' }] },
     nombre: { type: String, required: true },
     apellido: { type: String, required: true },
-    tipoDocumento: {
-      type: String,
-      enum: Object.values(TipoDocumento),
-      required: true,
-      default: TipoDocumento.DNI
-    },
+    tipoDocumento: { type: String, enum: Object.values(TipoDocumento), required: true, default: TipoDocumento.DNI },
     nroDocumento: { type: String, required: true, unique: true },
     fechaNacimiento: { type: Date, required: true },
     email: { type: String, required: true, unique: true },
     telefono: { type: String },
     direccion: { type: String },
-    parentesco: {
-      type: String,
-      enum: Object.values(Parentesco),
-      required: true,
-      default: Parentesco.TITULAR
-    },
+    parentesco: { type: String, enum: Object.values(Parentesco), required: true, default: Parentesco.TITULAR },
     password: { type: String, required: true, default: '123456' },
     fechaAlta: { type: Date, required: true, default: Date.now },
     registrado: { type: Boolean, default: false },
-    situacionTerapeutica: {
-      type: String,
-      required: true,
-      default: 'Sin enfermedades preexistentes'
-    },
-    planMedico: {
-      type: String,
-      enum: Object.values(PlanMedico),
-      required: true,
-      default: PlanMedico.PLAN_100
-    },
+    situacionTerapeutica: { type: String, required: true, default: 'No presenta enfermedades preexistentes.' },
+    planMedico: { type: String, enum: Object.values(PlanMedico), required: true, default: PlanMedico.PLAN_100 },
     cbu: { type: String },
-    rol: {
-      type: String,
-      enum: Object.values(RolAfiliado),
-      default: RolAfiliado.TITULAR
-    },
-    refreshToken: {
-      type: String
-    }
+    rol: { type: String, enum: Object.values(RolAfiliado), default: RolAfiliado.TITULAR },
+    refreshToken: { type: String }
   },
-
-  {
-    timestamps: true
-  }
+  { timestamps: true }
 );
 
-//para poder asignar rol al afiliado antes de guardarlo
-//despues ver si va en carpeta middlewares o hooks
-
-afiliadoSchema.pre('save', function (next) {
+/* afiliadoSchema.pre('save', function (next) {
   const afiliado = this as IAfiliadoDocument;
 
   // Calcular edad
@@ -96,6 +57,6 @@ afiliadoSchema.pre('save', function (next) {
   }
 
   next();
-});
+}); */
 
 export default model<IAfiliadoDocument>('Afiliado', afiliadoSchema);

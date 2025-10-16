@@ -2,12 +2,13 @@ import { Types } from 'mongoose';
 import { Especialidad } from '../enums/Especialidad';
 import { EstadoTramite } from '../enums/EstadoTramite';
 import { FormaPago } from '../enums/FormaPago';
+import { IObservacion } from './IObservacion';
 
 interface IReintegro {
   id: string;
   paraAfiliado: string;
   fechaDePrestacion: Date;
-  especialidad: Especialidad;
+  especialidad: Especialidad; // 'Medicina General' | 'Pediatría' | 'Ginecología' | 'Cardiología' | 'Dermatología' | 'Neurología' | 'Psiquiatría' | 'Traumatología' | 'Oftalmología' | 'Cirugía General'
   medico: string;
   lugarDeAtencion: string;
   factura: {
@@ -18,10 +19,9 @@ interface IReintegro {
   };
   formaDePago: FormaPago; // 'transferencia' | 'efectivo' | 'cheque'
   cbu?: string; // Si formaDePago === 'transferencia', cbu es required
-  // observaciones?: IObservacion[];
   observaciones?: string;
   estado: EstadoTramite; // 'pendiente' | 'observado' | 'aceptado' | 'rechazado'
-  idAfiliado: Types.ObjectId
+  idAfiliado: Types.ObjectId;
 }
 
 export default IReintegro;

@@ -47,9 +47,8 @@ const userController: IUserController = {
     const { nroDocumento, password } = req.body;
 
     try {
-      // const foundUser = await Afiliado.findOne({ nroDocumento });
       const foundUser = await Afiliado.findOne({ nroDocumento }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
-      console.log(foundUser);
+
       if (!foundUser) {
         res.status(401).json({ message: 'Usuario no existe.' });
         return;
@@ -87,6 +86,7 @@ const userController: IUserController = {
 
       foundUser.refreshToken = refreshToken;
       await foundUser.save();
+
       res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
       res.json({ accessToken, message: 'Inicio de sesión exitoso.' });
     } catch (error) {
@@ -119,7 +119,7 @@ const userController: IUserController = {
     const cookies: RequestCookies = req.cookies;
 
     if (!cookies?.jwt) {
-      res.status(401).json({ message: 'No hay cookie' });
+      res.sendStatus(401);
       return;
     }
     const refreshToken = cookies.jwt;
@@ -127,9 +127,8 @@ const userController: IUserController = {
 
     try {
       const foundUser = await Afiliado.findOne({ refreshToken }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
-      // const foundUser = await Afiliado.findOne({ refreshToken });
       if (!foundUser) {
-        res.status(401).json({ message: 'No hay usuario con esa cookie' });
+        res.sendStatus(401);
         return;
       }
 
@@ -138,7 +137,7 @@ const userController: IUserController = {
         if (error || foundUser.nroDocumento !== decodedPayload?.nroDocumento) {
           foundUser.refreshToken = '';
           await foundUser.save();
-          res.status(401).json({ message: 'Cookie vencida' });
+          res.sendStatus(401);
           return;
         }
 
@@ -158,7 +157,6 @@ const userController: IUserController = {
           familiaresPermitidos = [foundUser._id];
         }
 
-        // const rol = foundUser.rol;
         const accessToken = jwt.sign({ nroDocumento: foundUser.nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '15m' });
         const newRefreshToken = jwt.sign({ nroDocumento: foundUser.nroDocumento }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '1d' });
 
