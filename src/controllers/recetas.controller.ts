@@ -1,51 +1,49 @@
 import { Request, Response } from "express";
-import { IReceta } from "../interfaces/IReceta";
 import Receta from "../models/Receta";
+import { IReceta } from "../interfaces/IReceta";
 import { SUCCESS_MESSAGES } from "../utils/successMessages";
 import { ERROR_MESSAGES } from "../utils/errorMessages";
-import { ApiResponse } from '../types/ApiResponse';
+import { GetRecetasDTO, IdRecetaDTO } from "../dtos/recetas.dto";
+import { ApiResponse } from "../types/ApiResponse";
 
 interface IRecetaController {
-  getAllRecetas(
-    req: Request,
-    res: Response<ApiResponse>
-  ): Promise<Response<ApiResponse>>;
+  getAllRecetas(req: Request, res: Response<ApiResponse>): Promise<void>;
 
   getRecetaById(
     req: Request<{ id: string }>,
     res: Response<ApiResponse>
-  ): Promise<Response<ApiResponse>>;
+  ): Promise<void>;
 
   createReceta(
     req: Request<{}, {}, IReceta>,
     res: Response<ApiResponse>
-  ): Promise<Response<ApiResponse>>;
+  ): Promise<void>;
 
   updateReceta(
     req: Request<{ id: string }, {}, Partial<IReceta>>,
     res: Response<ApiResponse>
-  ): Promise<Response<ApiResponse>>;
+  ): Promise<void>;
 
   patchReceta(
     req: Request<{ id: string }, {}, Partial<IReceta>>,
     res: Response<ApiResponse>
-  ): Promise<Response<ApiResponse>>;
+  ): Promise<void>;
 
   deleteReceta(
     req: Request<{ id: string }>,
     res: Response<ApiResponse>
-  ): Promise<Response<ApiResponse>>;
+  ): Promise<void>;
 }
 
 const recetaController: IRecetaController = {
   getAllRecetas: async (req, res) => {
     try {
-      const recetas = await Receta.find({});
-      return res.status(200).json({ data: recetas });
+      const recetas = await Receta.find();
+      const recetasDTO = recetas.map((r) => new GetRecetasDTO(r));
+      res.status(200).json({ data: recetasDTO });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ message: ERROR_MESSAGES.GENERAL.UNKNOWN(error) });
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
     }
   },
 
@@ -53,29 +51,26 @@ const recetaController: IRecetaController = {
     try {
       const receta = await Receta.findById(req.params.id);
       if (!receta) {
-        return res
-          .status(404)
-          .json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+        res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+        return;
       }
-      return res.status(200).json({ data: receta });
+      res.status(200).json({ data: new GetRecetasDTO(receta) });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ message: ERROR_MESSAGES.GENERAL.UNKNOWN(error) });
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
     }
   },
 
   createReceta: async (req, res) => {
     try {
       const newReceta = await Receta.create(req.body);
-      return res.status(201).json({
+      res.status(201).json({
+        data: new IdRecetaDTO(newReceta),
         message: SUCCESS_MESSAGES.RECETA.CREATED,
-        data: newReceta,
       });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ message: ERROR_MESSAGES.GENERAL.UNKNOWN(error) });
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
     }
   },
 
@@ -87,18 +82,16 @@ const recetaController: IRecetaController = {
         { new: true }
       );
       if (!recetaActualizada) {
-        return res
-          .status(404)
-          .json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+        res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+        return;
       }
-      return res.status(200).json({
+      res.status(200).json({
+        data: new IdRecetaDTO(recetaActualizada),
         message: SUCCESS_MESSAGES.RECETA.UPDATED,
-        data: recetaActualizada,
       });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ message: ERROR_MESSAGES.GENERAL.UNKNOWN(error) });
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
     }
   },
 
@@ -110,18 +103,16 @@ const recetaController: IRecetaController = {
         { new: true }
       );
       if (!recetaActualizada) {
-        return res
-          .status(404)
-          .json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+        res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+        return;
       }
-      return res.status(200).json({
+      res.status(200).json({
+        data: new IdRecetaDTO(recetaActualizada),
         message: SUCCESS_MESSAGES.RECETA.UPDATED,
-        data: recetaActualizada,
       });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ message: ERROR_MESSAGES.GENERAL.UNKNOWN(error) });
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
     }
   },
 
@@ -129,15 +120,16 @@ const recetaController: IRecetaController = {
     try {
       const recetaEliminada = await Receta.findByIdAndDelete(req.params.id);
       if (!recetaEliminada) {
-        return res
-          .status(404)
-          .json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+        res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+        return;
       }
-      return res.status(200).json({ message: SUCCESS_MESSAGES.RECETA.DELETED });
+      res.status(200).json({
+        data: new IdRecetaDTO(recetaEliminada),
+        message: SUCCESS_MESSAGES.RECETA.DELETED,
+      });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ message: ERROR_MESSAGES.GENERAL.UNKNOWN(error) });
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
     }
   },
 };

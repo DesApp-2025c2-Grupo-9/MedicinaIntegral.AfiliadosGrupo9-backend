@@ -1,6 +1,10 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import { EstadoTramite } from "../enums/EstadoTramite";
-import { IRecetaDocument } from "../interfaces/IReceta";
+import { IReceta } from "../interfaces/IReceta";
+
+export interface IRecetaDocument extends Omit<IReceta, "id">, Document {
+  _id: Types.ObjectId;
+}
 
 const recetaSchema = new Schema<IRecetaDocument>(
   {
@@ -13,16 +17,19 @@ const recetaSchema = new Schema<IRecetaDocument>(
     medicamento: { type: String, required: true },
     cantidad: { type: Number, required: true },
     presentacion: { type: String, required: true },
-    observaciones: { 
-      type: [{
-        emisor: { type: Schema.Types.ObjectId, ref: "Afiliado"}, 
-        descripcion: { type: String },
-        fecha: { type: Date, default: Date.now }
-      },{
-        emisor: { type: Schema.Types.ObjectId, ref: "Prestador"}, 
-        descripcion: { type: String },
-        fecha: { type: Date, default: Date.now }
-      }]
+    observaciones: {
+      type: [
+        {
+          emisor: { type: Schema.Types.ObjectId, ref: "Afiliado" },
+          descripcion: { type: String },
+          fecha: { type: Date, default: Date.now },
+        },
+        {
+          emisor: { type: Schema.Types.ObjectId, ref: "Prestador" },
+          descripcion: { type: String },
+          fecha: { type: Date, default: Date.now },
+        },
+      ],
     },
     estado: {
       type: String,

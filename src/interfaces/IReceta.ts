@@ -10,4 +10,5 @@ export interface IReceta {
   observaciones?: IObservacion[];
   estado: EstadoTramite;
 }
-export interface IRecetaDocument extends IReceta, Document {}
+
+export default IReceta;
