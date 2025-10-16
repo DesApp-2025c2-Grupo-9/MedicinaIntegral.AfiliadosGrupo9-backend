@@ -4,12 +4,9 @@ import { TipoDocumento } from '../enums/TipoDocumento';
 import { Parentesco } from '../enums/Parentesco';
 import { PlanMedico } from '../enums/PlanMedico';
 
-// Falta implementar la lógica del rol con enums y permisos;
-
 interface IAfiliado {
   id: string;
   nroAfiliado: string; // Por ejemplo, '000001-01'
-  // grupoFamiliar: string; Por ejemplo, '000001'
   grupoFamiliar: Types.ObjectId[];
   nombre: string;
   apellido: string;

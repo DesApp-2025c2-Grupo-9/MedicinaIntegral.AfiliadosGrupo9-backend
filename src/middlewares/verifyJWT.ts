@@ -21,6 +21,7 @@ export const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
     console.log('Decoded payload:', decodedPayload);
     req.nroDocumento = decodedPayload.nroDocumento;
     req.familiaresPermitidos = decodedPayload.familiaresPermitidos;
+
     next();
   });
 };

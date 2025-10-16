@@ -17,11 +17,11 @@ interface IReintegroController {
 const reintegroController: IReintegroController = {
   getAllReintegros: async (req, res) => {
     const idsAfiliados = req.familiaresPermitidos;
-    console.log(idsAfiliados);
 
     try {
       const reintegros = await Reintegro.find({ idAfiliado: { $in: idsAfiliados } });
       const reintegrosDTO = reintegros.map(reintegro => new GetReintegrosDTO(reintegro));
+      console.log(reintegrosDTO);
       res.json({ data: reintegrosDTO });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
@@ -29,8 +29,14 @@ const reintegroController: IReintegroController = {
     }
   },
   createReintegro: async (req, res) => {
+    const idAfiliado = req.familiaresPermitidos?.[0]; // El primer id corresponde a quien hizo la petición
+    const reintegroBody = {
+      ...req.body,
+      idAfiliado
+    };
+
     try {
-      const newReintegro = await Reintegro.create(req.body);
+      const newReintegro = await Reintegro.create(reintegroBody);
       const newReintegroDTO = new PostReintegroDTO(newReintegro);
       res.json({ data: newReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.CREATED });
     } catch (error) {

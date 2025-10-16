@@ -1,145 +1,157 @@
 [
   {
-    "paraAfiliado": "Carlos López",
-    "fechaDePrestacion": "2024-03-10",
-    "especialidad": "Oftalmología",
-    "medico": "Laura Pérez",
-    "lugarDeAtencion": "Clínica San Martín",
+    "paraAfiliado": "Carlos González",
+    "fechaDePrestacion": "2025-02-15T00:00:00.000Z",
+    "especialidad": "Cardiología",
+    "medico": "Ricardo López",
+    "lugarDeAtencion": "Sanatorio Mitre",
     "factura": {
-      "fecha": "2024-03-11",
-      "cuit": "20-12345678-3",
+      "fecha": "2025-02-16T00:00:00.000Z",
+      "cuit": "20234567891",
       "valorTotal": 18000,
-      "personaAFacturar": "Carlos López"
+      "personaAFacturar": "Carlos González"
     },
     "formaDePago": "transferencia",
-    "cbu": "0170106040000001234567",
-    "observaciones": "Consulta y estudios de control",
-    "estado": "pendiente"
+    "cbu": "2850590940090418135201",
+    "observaciones": "Paciente con antecedentes cardíacos",
+    "estado": "aceptado",
+    "idAfiliado": "6717b1234f1a2b0012a45678"
   },
   {
-    "paraAfiliado": "María González",
-    "fechaDePrestacion": "2024-04-05",
-    "especialidad": "Dermatología",
-    "medico": "José Martínez",
-    "lugarDeAtencion": "Centro Médico Pueyrredón",
+    "paraAfiliado": "Laura Martínez",
+    "fechaDePrestacion": "2025-03-10T00:00:00.000Z",
+    "especialidad": "Ginecología",
+    "medico": "Mariana Ruiz",
+    "lugarDeAtencion": "Clínica del Sol",
     "factura": {
-      "fecha": "2024-04-06",
-      "cuit": "27-98765432-1",
-      "valorTotal": 12500,
-      "personaAFacturar": "María González"
+      "fecha": "2025-03-11T00:00:00.000Z",
+      "cuit": "27345678901",
+      "valorTotal": 12000,
+      "personaAFacturar": "Laura Martínez"
     },
-    "formaDePago": "efectivo",
-    "estado": "aceptado"
+    "formaDePago": "transferencia",
+    "cbu": "2850590940090418135201",
+    "estado": "pendiente",
+    "idAfiliado": "6717b1234f1a2b0012a45679"
   },
   {
-    "paraAfiliado": "Ricardo Díaz",
-    "fechaDePrestacion": "2024-05-15",
-    "especialidad": "Traumatología",
-    "medico": "Sebastián Torres",
+    "paraAfiliado": "Sofía González",
+    "fechaDePrestacion": "2025-01-22T00:00:00.000Z",
+    "especialidad": "Pediatría",
+    "medico": "Juan Herrera",
     "lugarDeAtencion": "Hospital Italiano",
     "factura": {
-      "fecha": "2024-05-16",
-      "cuit": "20-34567890-7",
-      "valorTotal": 32000,
-      "personaAFacturar": "Ricardo Díaz"
-    },
-    "formaDePago": "cheque",
-    "observaciones": "Consulta y radiografía",
-    "estado": "observado"
-  },
-  {
-    "paraAfiliado": "Lucía Fernández",
-    "fechaDePrestacion": "2024-06-22",
-    "especialidad": "Ginecología",
-    "medico": "Sofía Morales",
-    "lugarDeAtencion": "Clínica del Sol",
-    "factura": {
-      "fecha": "2024-06-23",
-      "cuit": "23-56789012-9",
-      "valorTotal": 15000,
-      "personaAFacturar": "Lucía Fernández"
-    },
-    "formaDePago": "transferencia",
-    "cbu": "2850590940090412345678",
-    "estado": "pendiente"
-  },
-  {
-    "paraAfiliado": "Pedro Ramírez",
-    "fechaDePrestacion": "2024-02-18",
-    "especialidad": "Cardiología",
-    "medico": "Gustavo Herrera",
-    "lugarDeAtencion": "Sanatorio Belgrano",
-    "factura": {
-      "fecha": "2024-02-19",
-      "cuit": "20-67890123-4",
-      "valorTotal": 27000,
-      "personaAFacturar": "Pedro Ramírez"
+      "fecha": "2025-01-23T00:00:00.000Z",
+      "cuit": "20456789012",
+      "valorTotal": 8500,
+      "personaAFacturar": "Carlos González"
     },
     "formaDePago": "efectivo",
-    "estado": "rechazado",
-    "observaciones": "Falta comprobante de pago"
+    "observaciones": "Consulta de control",
+    "estado": "aceptado",
+    "idAfiliado": "6717b1234f1a2b0012a4567a"
   },
   {
-    "paraAfiliado": "Sofía Martínez",
-    "fechaDePrestacion": "2024-07-01",
-    "especialidad": "Pediatría",
-    "medico": "Verónica Castro",
-    "lugarDeAtencion": "Clínica Los Andes",
+    "paraAfiliado": "Mariana Pérez",
+    "fechaDePrestacion": "2025-04-05T00:00:00.000Z",
+    "especialidad": "Dermatología",
+    "medico": "Carla Méndez",
+    "lugarDeAtencion": "Centro Médico La Plata",
     "factura": {
-      "fecha": "2024-07-02",
-      "cuit": "27-45678901-5",
-      "valorTotal": 9000,
-      "personaAFacturar": "Sofía Martínez"
+      "fecha": "2025-04-06T00:00:00.000Z",
+      "cuit": "27456789013",
+      "valorTotal": 9500,
+      "personaAFacturar": "Mariana Pérez"
     },
-    "formaDePago": "cheque",
-    "estado": "aceptado"
-  },
-  {
-    "paraAfiliado": "Martín Suárez",
-    "fechaDePrestacion": "2024-08-09",
-    "especialidad": "Cardiología",
-    "medico": "Carolina Pérez",
-    "lugarDeAtencion": "Clínica del Sol",
-    "factura": {
-      "fecha": "2024-08-10",
-      "cuit": "20-90123456-8",
-      "valorTotal": 6000,
-      "personaAFacturar": "Martín Suárez"
-    },
-    "formaDePago": "transferencia",
-    "cbu": "0720000720000002345678",
-    "estado": "aceptado"
-  },
-  {
-    "paraAfiliado": "Laura Navarro",
-    "fechaDePrestacion": "2024-09-12",
-    "especialidad": "Neurología",
-    "medico": "Pablo Godoy",
-    "lugarDeAtencion": "Instituto de Neurociencias",
-    "factura": {
-      "fecha": "2024-09-13",
-      "cuit": "27-76543210-2",
-      "valorTotal": 42000,
-      "personaAFacturar": "Laura Navarro"
-    },
-    "formaDePago": "transferencia",
-    "cbu": "0110120340000012345678",
+    "formaDePago": "efectivo",
     "estado": "observado",
-    "observaciones": "Requiere comprobante adicional"
+    "observaciones": "Falta comprobante de pago",
+    "idAfiliado": "6717b1234f1a2b0012a4567b"
   },
   {
-    "paraAfiliado": "Federico Pérez",
-    "fechaDePrestacion": "2024-10-03",
-    "especialidad": "Psiquiatría",
-    "medico": "Andrés Vidal",
-    "lugarDeAtencion": "Centro de Rehabilitación Norte",
+    "paraAfiliado": "Hernán López",
+    "fechaDePrestacion": "2025-02-28T00:00:00.000Z",
+    "especialidad": "Traumatología",
+    "medico": "Pablo Iglesias",
+    "lugarDeAtencion": "Clínica del Oeste",
     "factura": {
-      "fecha": "2024-10-04",
-      "cuit": "23-11223344-5",
-      "valorTotal": 21000,
-      "personaAFacturar": "Federico Pérez"
+      "fecha": "2025-03-01T00:00:00.000Z",
+      "cuit": "20345678123",
+      "valorTotal": 16000,
+      "personaAFacturar": "Hernán López"
+    },
+    "formaDePago": "transferencia",
+    "cbu": "2850590940090418135202",
+    "estado": "pendiente",
+    "idAfiliado": "6717b1234f1a2b0012a4567c"
+  },
+  {
+    "paraAfiliado": "Julián Rossi",
+    "fechaDePrestacion": "2025-05-18T00:00:00.000Z",
+    "especialidad": "Cardiología",
+    "medico": "Enrique Ramos",
+    "lugarDeAtencion": "Sanatorio Central Rosario",
+    "factura": {
+      "fecha": "2025-05-19T00:00:00.000Z",
+      "cuit": "20234567119",
+      "valorTotal": 20000,
+      "personaAFacturar": "Julián Rossi"
+    },
+    "formaDePago": "transferencia",
+    "cbu": "2850590940090418135202",
+    "observaciones": "Control post tratamiento",
+    "estado": "aceptado",
+    "idAfiliado": "6717b1234f1a2b0012a4567d"
+  },
+  {
+    "paraAfiliado": "Valentina Fernández",
+    "fechaDePrestacion": "2025-06-22T00:00:00.000Z",
+    "especialidad": "Medicina General",
+    "medico": "Lucía Fernández",
+    "lugarDeAtencion": "Hospital Privado Córdoba",
+    "factura": {
+      "fecha": "2025-06-23T00:00:00.000Z",
+      "cuit": "27223344556",
+      "valorTotal": 11000,
+      "personaAFacturar": "Valentina Fernández"
+    },
+    "formaDePago": "transferencia",
+    "cbu": "2850590940090418135201",
+    "estado": "rechazado",
+    "observaciones": "Factura sin sello del prestador",
+    "idAfiliado": "6717b1234f1a2b0012a4567e"
+  },
+  {
+    "paraAfiliado": "Lucas Fernández",
+    "fechaDePrestacion": "2025-07-10T00:00:00.000Z",
+    "especialidad": "Pediatría",
+    "medico": "Paula Ríos",
+    "lugarDeAtencion": "Hospital Privado Córdoba",
+    "factura": {
+      "fecha": "2025-07-11T00:00:00.000Z",
+      "cuit": "27223344556",
+      "valorTotal": 9500,
+      "personaAFacturar": "Valentina Fernández"
     },
     "formaDePago": "efectivo",
-    "estado": "pendiente"
+    "estado": "aceptado",
+    "idAfiliado": "6717b1234f1a2b0012a4567f"
+  },
+  {
+    "paraAfiliado": "Carlos González",
+    "fechaDePrestacion": "2025-08-14T00:00:00.000Z",
+    "especialidad": "Oftalmología",
+    "medico": "María Torres",
+    "lugarDeAtencion": "Centro Óptico CABA",
+    "factura": {
+      "fecha": "2025-08-15T00:00:00.000Z",
+      "cuit": "20987654321",
+      "valorTotal": 15000,
+      "personaAFacturar": "Carlos González"
+    },
+    "formaDePago": "cheque",
+    "observaciones": "Reintegro parcial aprobado",
+    "estado": "observado",
+    "idAfiliado": "6717b1234f1a2b0012a45678"
   }
 ]
