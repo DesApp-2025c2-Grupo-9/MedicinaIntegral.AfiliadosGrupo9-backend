@@ -5,10 +5,15 @@ import { SUCCESS_MESSAGES } from "../utils/successMessages";
 import { ERROR_MESSAGES } from "../utils/errorMessages";
 import { GetRecetasDTO, IdRecetaDTO } from "../dtos/recetas.dto";
 import { ApiResponse } from "../types/ApiResponse";
+import { log } from "console";
+import Afiliado from "../models/Afiliado";
 
 interface IRecetaController {
   getAllRecetas(req: Request, res: Response<ApiResponse>): Promise<void>;
-
+  getRecetasByGrupoFamiliar(
+    req: Request,
+    res: Response<ApiResponse>
+  ): Promise<void>;
   getRecetaById(
     req: Request<{ id: string }>,
     res: Response<ApiResponse>
@@ -41,6 +46,28 @@ const recetaController: IRecetaController = {
       const recetas = await Receta.find();
       const recetasDTO = recetas.map((r) => new GetRecetasDTO(r));
       res.status(200).json({ data: recetasDTO });
+    } catch (error) {
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
+    }
+  },
+
+  getRecetasByGrupoFamiliar: async (req, res) => {
+    try {
+      const nroDocumentoUsuario = req.nroDocumento;
+      const usuario = await Afiliado.findOne({
+        nroDocumento: nroDocumentoUsuario,
+      });
+      const recetas = await Receta.find();
+      if (!usuario) {
+        throw new Error("No hay usuario");
+      }
+      const recetasDelGrupoFamiliar = await Receta.find({
+        nroAfiliado: usuario.nroAfiliado,
+      });
+      console.log(recetas, usuario.nroAfiliado, recetasDelGrupoFamiliar);
+
+      res.status(200).json({ data: recetasDelGrupoFamiliar });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });

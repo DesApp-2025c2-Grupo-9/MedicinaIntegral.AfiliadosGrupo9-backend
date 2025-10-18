@@ -2,7 +2,11 @@
   {
     "_id": "6717b1234f1a2b0012a45678",
     "nroAfiliado": "000001-01",
-    "grupoFamiliar": ["6717b1234f1a2b0012a45678", "6717b1234f1a2b0012a45679", "6717b1234f1a2b0012a4567a"],
+    "grupoFamiliar": [
+      "6717b1234f1a2b0012a45678",
+      "6717b1234f1a2b0012a45679",
+      "6717b1234f1a2b0012a4567a"
+    ],
     "nombre": "Carlos",
     "apellido": "González",
     "fechaNacimiento": "1980-03-15T00:00:00.000Z",
@@ -23,7 +27,11 @@
   {
     "_id": "6717b1234f1a2b0012a45679",
     "nroAfiliado": "000001-02",
-    "grupoFamiliar": ["6717b1234f1a2b0012a45678", "6717b1234f1a2b0012a45679", "6717b1234f1a2b0012a4567a"],
+    "grupoFamiliar": [
+      "6717b1234f1a2b0012a45678",
+      "6717b1234f1a2b0012a45679",
+      "6717b1234f1a2b0012a4567a"
+    ],
     "nombre": "Laura",
     "apellido": "Martínez",
     "fechaNacimiento": "1982-07-22T00:00:00.000Z",
@@ -43,7 +51,11 @@
   {
     "_id": "6717b1234f1a2b0012a4567a",
     "nroAfiliado": "000001-03",
-    "grupoFamiliar": ["6717b1234f1a2b0012a45678", "6717b1234f1a2b0012a45679", "6717b1234f1a2b0012a4567a"],
+    "grupoFamiliar": [
+      "6717b1234f1a2b0012a45678",
+      "6717b1234f1a2b0012a45679",
+      "6717b1234f1a2b0012a4567a"
+    ],
     "nombre": "Sofía",
     "apellido": "González",
     "fechaNacimiento": "2010-09-12T00:00:00.000Z",
