@@ -7,6 +7,7 @@ import Afiliado, { IAfiliadoDocument } from '../models/Afiliado';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { RolAfiliado } from '../enums/RolAfiliado';
 
+
 interface IUserController {
   registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<void>;
   login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<void>;
