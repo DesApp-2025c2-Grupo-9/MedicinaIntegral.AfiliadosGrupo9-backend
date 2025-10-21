@@ -10,7 +10,7 @@ interface IAfiliadoController {
 
 const afiliadoController: IAfiliadoController = {
   getAfiliado: async (req, res) => {
-    const nroDocumento = req.nroDocumento;
+    const nroDocumento = req.nroDocumento; //agregue params
 
     try {
       const unAfiliado = await Afiliado.findOne({ nroDocumento }).populate('grupoFamiliar');
