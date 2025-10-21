@@ -10,6 +10,10 @@ router.get(
 );
 router.get("/recetas/:id", recetaController.getRecetaById);
 router.post("/recetas", recetaController.createReceta);
+router.post(
+  "/recetas/grupo-familiar",
+  recetaController.createRecetaByGrupoFamiliar
+);
 router.put("/recetas/:id", recetaController.updateReceta);
 router.patch("/recetas/:id", recetaController.patchReceta);
 router.delete("/recetas/:id", recetaController.deleteReceta);

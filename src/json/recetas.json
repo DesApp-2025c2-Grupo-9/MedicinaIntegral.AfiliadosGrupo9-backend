@@ -14,6 +14,20 @@
     "estado": "pendiente"
   },
   {
+    "nroAfiliado": "000001-01",
+    "medicamento": "Ibupirac",
+    "cantidad": 5,
+    "presentacion": "Pastillas",
+    "observaciones": [
+      {
+        "emisor": "650f1d2a3b4c5d6e7f8a9012",
+        "descripcion": "Tomar cada 12 horas",
+        "fecha": "2025-10-12T00:00:00.000Z"
+      }
+    ],
+    "estado": "aceptado"
+  },
+  {
     "nroAfiliado": "000001-02",
     "medicamento": "Paracetamol",
     "cantidad": 3,
