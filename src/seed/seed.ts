@@ -52,6 +52,7 @@ const seed = async () => {
     const afiliadosfilePath = path.resolve('./src/json/afiliados.json');
     const afiliados = JSON.parse(fs.readFileSync(afiliadosfilePath, 'utf8'));
 
+  
     // Insertamos los datos JSON en la base de datos
     await Prestadores.insertMany(prestadores);
     console.log('Seed de Prestadores completado.');

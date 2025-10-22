@@ -9,6 +9,7 @@ import reintegrosRoutes from './routes/reintegros.routes';
 import autorizacionesRoutes from './routes/autorizaciones.routes';
 import recetasRoutes from './routes/recetas.routes';
 import especialidadesRoutes from './routes/especialidades.routes';
+import newPrestadoresRoutes from './routes/newPrestadors.routes'
 import corsOptions from './config/corsOptions';
 import cookieParser from 'cookie-parser';
 import { verifyJWT } from './middlewares/verifyJWT';
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 // Rutas públicas
 app.use('/api/auth', authRoutes);
 app.use('/api', especialidadesRoutes);
+app.use('/api', newPrestadoresRoutes)
 
 // Verificamos JWT
 app.use(verifyJWT);
