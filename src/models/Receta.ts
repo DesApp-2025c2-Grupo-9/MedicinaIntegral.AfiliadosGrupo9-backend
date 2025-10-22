@@ -11,7 +11,7 @@ const recetaSchema = new Schema<IRecetaDocument>(
     nroAfiliado: {
       type: String,
       required: true,
-      ref: "Afiliado", // referencia al modelo Afiliado
+      //ref: "Afiliado",
     },
 
     medicamento: { type: String, required: true },
@@ -35,6 +35,11 @@ const recetaSchema = new Schema<IRecetaDocument>(
       type: String,
       enum: Object.values(EstadoTramite),
       default: EstadoTramite.PENDIENTE,
+    },
+    idAfiliado: {
+      type: Schema.Types.ObjectId,
+      ref: "Afiliado",
+      //required: true,
     },
   },
   { timestamps: true }

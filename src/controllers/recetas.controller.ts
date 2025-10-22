@@ -6,6 +6,7 @@ import { ERROR_MESSAGES } from "../utils/errorMessages";
 import { GetRecetasDTO, IdRecetaDTO } from "../dtos/recetas.dto";
 import { ApiResponse } from "../types/ApiResponse";
 import { log } from "console";
+import mongoose from "mongoose";
 import Afiliado from "../models/Afiliado";
 
 interface IRecetaController {
@@ -13,7 +14,11 @@ interface IRecetaController {
   getRecetasByGrupoFamiliar(
     req: Request,
     res: Response<ApiResponse>
-  ): Promise<void>;
+  ): Promise<void | Response>;
+  /*getRecetasByGrupoFamiliar(
+    req: Request,
+    res: Response<ApiResponse>
+  ): Promise<void>;*/
   getRecetaById(
     req: Request<{ id: string }>,
     res: Response<ApiResponse>
@@ -55,8 +60,37 @@ const recetaController: IRecetaController = {
       res.status(500).json({ message });
     }
   },
-
+  //este no trae las recetas
   getRecetasByGrupoFamiliar: async (req, res) => {
+    try {
+      const idsAfiliados = req.familiaresPermitidos ?? [];
+
+      if (!idsAfiliados.length) {
+        return res
+          .status(400)
+          .json({ message: "No hay familiares permitidos en el token" });
+      }
+
+      const objectIds = idsAfiliados.map(
+        (id) => new mongoose.Types.ObjectId(id)
+      );
+
+      const recetas = await Receta.find({
+        idAfiliado: { $in: objectIds },
+      }).populate("idAfiliado");
+
+      const recetasDTO = recetas.map((r) => new GetRecetasDTO(r));
+
+      console.log("Recetas del grupo familiar:", recetasDTO);
+      res.status(200).json({ data: recetasDTO });
+    } catch (error) {
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
+    }
+  },
+
+  //este trae solo las del logueado
+  /*getRecetasByGrupoFamiliar: async (req, res) => {
     try {
       const nroDocumentoUsuario = req.nroDocumento;
       const usuario = await Afiliado.findOne({
@@ -76,8 +110,7 @@ const recetaController: IRecetaController = {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
     }
-  },
-
+  },*/
   getRecetaById: async (req, res) => {
     try {
       const receta = await Receta.findById(req.params.id);
