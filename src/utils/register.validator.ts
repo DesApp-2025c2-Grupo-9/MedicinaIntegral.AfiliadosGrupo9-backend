@@ -17,19 +17,7 @@ export function isValidDni(nroDocumento: string): boolean {
 
 }
 
-//que el usuario exista
-export async function userExistsByDNI(nroDocumento: string): Promise<boolean> {
-  const user = await Afiliado.findOne({ nroDocumento });
-  return !!user;
-}
-
-//que el usuario no este registrado ya
-export async function userExists(nroDocumento: string): Promise<boolean> {
-  const user = await Afiliado.findOne({ nroDocumento });
-  return !!user;
-}
-
-//chequear, validar que las contraseñas ingresadas coincidan
+// validar que las contraseñas ingresadas coincidan
 export function validatePasswordMatch(password: string, confirmPassword: string): boolean {
   return password === confirmPassword;
 }

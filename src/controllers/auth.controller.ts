@@ -6,10 +6,10 @@ import { RegisterBody, LoginBody, RequestCookies } from '../types/AuthTypes';
 import Afiliado, { IAfiliadoDocument } from '../models/Afiliado';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { RolAfiliado } from '../enums/RolAfiliado';
-
+import { validateUserRegistration } from "../validators/user.validator"
 
 interface IUserController {
-  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<void>;
+  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<Response|void>; //agregue response /
   login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<void>;
   logout: (req: Request, res: Response<ApiResponse>) => Promise<void>;
   refresh: (req: Request, res: Response<ApiResponse>) => Promise<void>;
@@ -19,19 +19,11 @@ const userController: IUserController = {
   registerUser: async (req, res) => {
     const user = req.body;
 
-    try {
-      const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
-      if (!foundUser) {
-        res.status(401).json({ message: 'Usuario no existe.' });
-        return;
-      }
-      if (foundUser.registrado) {
-        res.status(409).json({ message: 'Usuario ya registrado.' });
-        return;
-      }
-      if (user.password !== user.confirmPassword) {
-        res.status(400).json({ message: 'Contraseñas no coinciden.' });
-        return;
+      try {
+          const { errors, foundUser } = await validateUserRegistration(user);
+
+      if (errors.length > 0 || !foundUser) {
+        return res.status(400).json({ message: errors.join(', ') });
       }
 
       const hashedPassword = await bcrypt.hash(user.password, 10);
