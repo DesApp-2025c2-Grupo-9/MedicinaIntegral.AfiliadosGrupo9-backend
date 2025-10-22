@@ -15,9 +15,16 @@ interface IAutorizacionController {
 
 const autorizacionController: IAutorizacionController = {
     getAllAutorizaciones : async (req, res) => {
+        const idsAfiliados = req.familiaresPermitidos;
         try {
-            const autorizaciones = await Autorizacion.find()
-            const autorizacionesDTO = autorizaciones.map(a => new GetAutorizacionesDTO(a))
+            const autorizaciones = await Autorizacion.find({ $and:[{fechaBaja: {$exists: false}} , {idAfiliado: { $in: idsAfiliados }} ]});
+        
+            if(!autorizaciones) {
+                res.status(204).json({ message: 'No hay autorizaciones.' }); 
+                return;
+            }
+
+            const autorizacionesDTO = autorizaciones.map(a => new GetAutorizacionesDTO(a));
             res.status(200).json({ data: autorizacionesDTO });
         } catch(error) {
             const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
@@ -38,11 +45,10 @@ const autorizacionController: IAutorizacionController = {
           const { id } = req.params;
           const autorizacionActualizada = await Autorizacion.findByIdAndUpdate(id, req.body, { new: true });
 
-          if (!autorizacionActualizada) {
-            res.status(404).json({ message: ERROR_MESSAGES.AUTORIZACION.NOT_FOUND });
-            return;
-          }
-
+            if (!autorizacionActualizada) { 
+                res.status(404).json({ message: ERROR_MESSAGES.AUTORIZACION.NOT_FOUND});
+                return;
+            }
           res.status(200).json({ data: new IdAutorizacionDTO(autorizacionActualizada), message: SUCCESS_MESSAGES.AUTORIZACION.UPDATED });
         } catch(error) {
           const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
@@ -52,14 +58,15 @@ const autorizacionController: IAutorizacionController = {
     deleteAutorizacion : async (req, res) => {
         try {
             const { id } = req.params;
-            const autorizacionEliminada = await Autorizacion.findByIdAndDelete(id);
-
-            if (!autorizacionEliminada) {
-                res.status(404).json({ message: ERROR_MESSAGES.AUTORIZACION.NOT_FOUND });
+            const autorizacion = await Autorizacion.findById(id);
+            if (!autorizacion) {
+                res.status(404).json({ message: ERROR_MESSAGES.AUTORIZACION.NOT_FOUND});
                 return;
             }
+            autorizacion.fechaBaja = new Date();
+            await autorizacion.save();
 
-            res.status(200).json({ data: new IdAutorizacionDTO(autorizacionEliminada), message: SUCCESS_MESSAGES.AUTORIZACION.DELETED });
+            res.status(200).json({ data: new IdAutorizacionDTO(autorizacion), message: SUCCESS_MESSAGES.AUTORIZACION.DELETED });
         } catch(error) {
             const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
             res.status(500).json({ message });
@@ -68,4 +75,5 @@ const autorizacionController: IAutorizacionController = {
 };
 
 export default autorizacionController;
+
 

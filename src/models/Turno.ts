@@ -24,6 +24,7 @@ const turnoSchema = new Schema<ITurnoDocument>(
       enum: EstadoTurno,
       default: EstadoTurno.DISPONIBLE,
     },
+    fechaBaja: { type: Date, required: false }
   },
   { timestamps: true }
 );

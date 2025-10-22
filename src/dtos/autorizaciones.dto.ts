@@ -3,6 +3,7 @@ import { IObservacion } from "../interfaces/IObservacion";
 
 export class GetAutorizacionesDTO {
     id: string;
+    paraAfiliado: string;
     nroAfiliado: string; 
     fechaSolicitud: Date;
     practica: string;
@@ -15,6 +16,7 @@ export class GetAutorizacionesDTO {
 
     constructor(data: IAutorizacionDocument) {
         this.id = data._id.toString();
+        this.paraAfiliado = data.paraAfiliado;    
         this.nroAfiliado = data.nroAfiliado;    
         this.fechaSolicitud = data.fechaSolicitud;
         this.practica = data.practica;

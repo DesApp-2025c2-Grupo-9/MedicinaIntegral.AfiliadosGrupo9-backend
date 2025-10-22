@@ -22,6 +22,7 @@ interface IReintegro {
   observaciones?: string;
   estado: EstadoTramite; // 'pendiente' | 'observado' | 'aceptado' | 'rechazado'
   idAfiliado: Types.ObjectId;
+  fechaBaja?: Date;
 }
 
 export default IReintegro;

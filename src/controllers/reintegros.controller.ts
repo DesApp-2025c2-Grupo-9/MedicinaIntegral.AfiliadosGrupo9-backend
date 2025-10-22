@@ -19,7 +19,7 @@ const reintegroController: IReintegroController = {
     const idsAfiliados = req.familiaresPermitidos;
 
     try {
-      const reintegros = await Reintegro.find({ idAfiliado: { $in: idsAfiliados } });
+      const reintegros = await Reintegro.find({ $and:[{fechaBaja: {$exists: false}} , {idAfiliado: { $in: idsAfiliados }} ]});
       const reintegrosDTO = reintegros.map(reintegro => new GetReintegrosDTO(reintegro));
       console.log(reintegrosDTO);
       res.json({ data: reintegrosDTO });
@@ -66,12 +66,15 @@ const reintegroController: IReintegroController = {
     const { id } = req.params;
 
     try {
-      const deletedReintegro = await Reintegro.findByIdAndDelete(id);
-      if (!deletedReintegro) {
+      const reintegro = await Reintegro.findById(id);
+      if (!reintegro) {
         res.status(404).json({ message: ERROR_MESSAGES.REINTEGRO.NOT_FOUND });
         return;
       }
-      const deletedReintegroDTO = new DeleteReintegroDTO(deletedReintegro);
+      reintegro.fechaBaja = new Date();
+      await reintegro.save();
+
+      const deletedReintegroDTO = new DeleteReintegroDTO(reintegro);
       res.json({ data: deletedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.DELETED });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);

@@ -29,7 +29,7 @@ router
     existsModelById(Autorizacion),//Middelware genérico
     autorizacionController.updateAutorizacion
     )
-  .delete(
+  .patch(
     existsModelById(Autorizacion),//Middelware genérico
     autorizacionController.deleteAutorizacion);
 

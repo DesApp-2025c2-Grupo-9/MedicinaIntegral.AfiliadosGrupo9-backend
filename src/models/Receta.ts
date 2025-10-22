@@ -36,6 +36,7 @@ const recetaSchema = new Schema<IRecetaDocument>(
       enum: Object.values(EstadoTramite),
       default: EstadoTramite.PENDIENTE,
     },
+    fechaBaja: { type: Date, required: false }
   },
   { timestamps: true }
 );
