@@ -13,6 +13,10 @@ const recetaSchema = new Schema<IRecetaDocument>(
       required: true,
       //ref: "Afiliado",
     },
+    paraAfiliado: {
+      type: String,
+      required: true,
+    },
 
     medicamento: { type: String, required: true },
     cantidad: { type: Number, required: true },
