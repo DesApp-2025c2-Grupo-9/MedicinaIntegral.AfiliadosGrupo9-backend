@@ -11,6 +11,7 @@ export interface IReceta {
   observaciones?: IObservacion[];
   estado: EstadoTramite;
   idAfiliado: Types.ObjectId;
+  activo: boolean;
 }
 
 export default IReceta;

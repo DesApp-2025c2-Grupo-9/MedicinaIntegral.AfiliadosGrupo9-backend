@@ -41,6 +41,7 @@ const recetaSchema = new Schema<IRecetaDocument>(
       ref: "Afiliado",
       //required: true,
     },
+    activo: { type: Boolean, default: true },
   },
   { timestamps: true }
 );

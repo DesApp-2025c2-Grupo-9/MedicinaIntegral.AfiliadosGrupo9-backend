@@ -27,7 +27,8 @@
         "fecha": "2025-10-12T00:00:00.000Z"
       }
     ],
-    "estado": "aceptado"
+    "estado": "aceptado",
+    "activo": true
   },
   {
     "nroAfiliado": "000001-02",
@@ -51,7 +52,8 @@
         "fecha": "2025-10-11T00:00:00.000Z"
       }
     ],
-    "estado": "observado"
+    "estado": "observado",
+    "activo": true
   },
   {
     "nroAfiliado": "000003-01",
@@ -60,7 +62,8 @@
     "cantidad": 7,
     "presentacion": "Tabletas",
     "observaciones": [],
-    "estado": "aceptado"
+    "estado": "aceptado",
+    "activo": true
   },
   {
     "nroAfiliado": "000004-01",
@@ -69,6 +72,7 @@
     "cantidad": 6,
     "presentacion": "Tabletas",
     "observaciones": [],
-    "estado": "aceptado"
+    "estado": "aceptado",
+    "activo": true
   }
 ]

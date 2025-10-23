@@ -20,10 +20,6 @@ interface IRecetaController {
     req: Request<{}, {}, IReceta>,
     res: Response<ApiResponse>
   ): Promise<void>;
-  /*createRecetaByGrupoFamiliar(
-    req: Request<{}, {}, IReceta>,
-    res: Response<ApiResponse>
-  ): Promise<void>;*/
 
   updateReceta(
     req: Request<{ id: string }, {}, Partial<IReceta>>,
@@ -39,6 +35,10 @@ interface IRecetaController {
     req: Request<{ id: string }>,
     res: Response<ApiResponse>
   ): Promise<void>;
+  deleteSoftReceta(
+    req: Request<{ id: string }>,
+    res: Response<ApiResponse>
+  ): Promise<void>;
 }
 
 const recetaController: IRecetaController = {
@@ -46,7 +46,10 @@ const recetaController: IRecetaController = {
     const idsAfiliados = req.familiaresPermitidos;
 
     try {
-      const recetas = await Receta.find({ idAfiliado: { $in: idsAfiliados } });
+      const recetas = await Receta.find({
+        idAfiliado: { $in: idsAfiliados },
+        activo: true,
+      });
       const recetasDTO = recetas.map((receta) => new GetRecetasDTO(receta));
       console.log(recetasDTO);
       res.json({ data: recetasDTO });
@@ -85,7 +88,7 @@ const recetaController: IRecetaController = {
   },
 
   createReceta: async (req, res) => {
-    const idAfiliado = req.familiaresPermitidos?.[0]; // El primer id corresponde a quien hizo la petición
+    const idAfiliado = req.familiaresPermitidos?.[0];
     const recetaBody = {
       ...req.body,
       idAfiliado,
@@ -103,26 +106,6 @@ const recetaController: IRecetaController = {
       res.status(500).json({ message });
     }
   },
-
-  /*createRecetaByGrupoFamiliar: async (req, res) => {
-    const idAfiliado = req.familiaresPermitidos?.[0]; // El primer id corresponde a quien hizo la petición
-    const recetaBody = {
-      ...req.body,
-      idAfiliado,
-    };
-
-    try {
-      const newReceta = await Receta.create(recetaBody);
-      const newRecetaDTO = new IdRecetaDTO(newReceta);
-      res.json({
-        data: newRecetaDTO,
-        message: SUCCESS_MESSAGES.RECETA.CREATED,
-      });
-    } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
-    }
-  },*/
 
   updateReceta: async (req, res) => {
     const { id } = req.params;
@@ -167,7 +150,35 @@ const recetaController: IRecetaController = {
       res.status(500).json({ message });
     }
   },
+  deleteSoftReceta: async (req, res) => {
+    try {
+      const { id } = req.params;
 
+      const receta = await Receta.findById(id);
+      if (!receta) {
+        res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+        return;
+      }
+
+      if (!receta.activo) {
+        res.status(400).json({ message: "La receta ya está eliminada." });
+        return;
+      }
+
+      receta.activo = false;
+      await receta.save();
+
+      res.status(200).json({
+        message:
+          SUCCESS_MESSAGES.RECETA.DELETED ||
+          "Receta eliminada correctamente (soft delete).",
+        data: new IdRecetaDTO(receta),
+      });
+    } catch (error) {
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
+    }
+  },
   deleteReceta: async (req, res) => {
     try {
       const recetaEliminada = await Receta.findByIdAndDelete(req.params.id);
