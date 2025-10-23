@@ -7,10 +7,14 @@ import { CommentReintegroDTO, DeleteReintegroDTO, GetReintegrosDTO, PostReintegr
 import { ApiResponse } from '../types/ApiResponse';
 import { IObservacion } from '../interfaces/IObservacion';
 
+type UpdatedReintegro = Omit<IReintegro, 'observaciones'> & {
+  observaciones: string;
+};
+
 interface IReintegroController {
   getAllReintegros: (req: Request, res: Response<ApiResponse>) => Promise<void>;
   createReintegro: (req: Request, res: Response<ApiResponse>) => Promise<void>;
-  updateReintegro: (req: Request<{ id: number }, {}, Partial<IReintegro>>, res: Response<ApiResponse>) => Promise<void>;
+  updateReintegro: (req: Request<{ id: number }, {}, Partial<UpdatedReintegro>>, res: Response<ApiResponse>) => Promise<void>;
   deleteReintegro: (req: Request<{ id: number }>, res: Response<ApiResponse>) => Promise<void>;
   commentReintegroById: (req: Request<{ id: number }, {}, { comentario: string }>, res: Response<ApiResponse>) => Promise<void>;
 }
@@ -54,6 +58,7 @@ const reintegroController: IReintegroController = {
   },
   updateReintegro: async (req, res) => {
     const { id } = req.params;
+    const descripcionObservacion = req.body.observaciones || '';
 
     try {
       const unReintegro = await Reintegro.findById(id);
@@ -61,7 +66,17 @@ const reintegroController: IReintegroController = {
         res.status(404).json({ message: ERROR_MESSAGES.REINTEGRO.NOT_FOUND });
         return;
       }
-      Object.assign(unReintegro, req.body);
+
+      const updatedObservacion: IObservacion = { // Esta es una única observación
+        ...unReintegro.observaciones[0],
+        descripcion: descripcionObservacion
+      };
+      const reintegroBody = {
+        ...unReintegro,
+        observaciones: [updatedObservacion]
+      };
+
+      Object.assign(unReintegro, reintegroBody);
       const updatedReintegro = await unReintegro.save();
       const updatedReintegroDTO = new PutReintegroDTO(updatedReintegro);
       res.json({ data: updatedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.UPDATED });
