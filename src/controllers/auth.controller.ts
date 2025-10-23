@@ -21,15 +21,15 @@ const userController: IUserController = {
     try {
       const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
       if (!foundUser) {
-        res.status(401).json({ message: 'Usuario no existe.' });
+        res.status(401).json({ message: 'No se pudo encontrar un usuario con este número de documento.' });
         return;
       }
       if (foundUser.registrado) {
-        res.status(409).json({ message: 'Usuario ya registrado.' });
+        res.status(409).json({ message: 'Este número de documento ya fue registrado.' });
         return;
       }
       if (user.password !== user.confirmPassword) {
-        res.status(400).json({ message: 'Contraseñas no coinciden.' });
+        res.status(400).json({ message: 'Las contraseñas ingresadas son diferentes.' });
         return;
       }
 
@@ -37,7 +37,7 @@ const userController: IUserController = {
       foundUser.password = hashedPassword;
       foundUser.registrado = true;
       const userRegistrado = await foundUser.save();
-      res.json({ data: userRegistrado, message: 'Usuario registrado con éxito.' });
+      res.json({ data: userRegistrado, message: 'El usuario fue registrado con éxito.' });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
@@ -50,18 +50,18 @@ const userController: IUserController = {
       const foundUser = await Afiliado.findOne({ nroDocumento }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
 
       if (!foundUser) {
-        res.status(401).json({ message: 'Usuario no existe.' });
+        res.status(401).json({ message: 'No se pudo encontrar un usuario con este número de documento.' });
         return;
       }
 
       if (!foundUser.registrado) {
-        res.status(401).json({ message: 'Usuario no está registrado.' });
+        res.status(401).json({ message: 'Este número de documento no fue registrado.' });
         return;
       }
 
       const validPassword = await bcrypt.compare(password, foundUser.password);
       if (!validPassword) {
-        res.status(401).json({ message: 'Contraseña incorrecta.' });
+        res.status(401).json({ message: 'La contraseña ingresada es incorrecta.' });
         return;
       }
 

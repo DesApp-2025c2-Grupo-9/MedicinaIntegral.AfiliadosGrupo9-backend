@@ -1,6 +1,6 @@
 [
   {
-    "prestador": "652fa1b2f4a3c6a12d4e91a1",
+    "idPrestador": "652fa1b2f4a3c6a12d4e91a1",
     "especialidad": "Medicina General",
     "lugarAtencion": "Clínica Norte",
     "fechaTurno": "2025-10-20T09:30:00.000Z",
@@ -8,7 +8,7 @@
     "estado": "disponible"
   },
   {
-    "prestador": "652fa1b2f4a3c6a12d4e91a2",
+    "idPrestador": "652fa1b2f4a3c6a12d4e91a2",
     "especialidad": "Oftalmología",
     "lugarAtencion": "Centro Médico Sur",
     "fechaTurno": "2025-10-22T11:00:00.000Z",
@@ -17,7 +17,7 @@
     "idAfiliado": "6717b1234f1a2b0012a45679"
   },
   {
-    "prestador": "652fa1b2f4a3c6a12d4e91a3",
+    "idPrestador": "652fa1b2f4a3c6a12d4e91a3",
     "especialidad": "Ginecología",
     "lugarAtencion": "Policlínico Central",
     "fechaTurno": "2025-11-01T14:00:00.000Z",
@@ -25,7 +25,7 @@
     "estado": "disponible"
   },
   {
-    "prestador": "652fa1b2f4a3c6a12d4e91a1",
+    "idPrestador": "652fa1b2f4a3c6a12d4e91a1",
     "especialidad": "Cardiología",
     "lugarAtencion": "Hospital del Este",
     "fechaTurno": "2025-10-25T10:15:00.000Z",
@@ -34,7 +34,7 @@
     "idAfiliado": "6717b1234f1a2b0012a45678"
   },
   {
-    "prestador": "652fa1b2f4a3c6a12d4e91a5",
+    "idPrestador": "652fa1b2f4a3c6a12d4e91a5",
     "especialidad": "Dermatología",
     "lugarAtencion": "Clínica Santa María",
     "fechaTurno": "2025-11-10T16:00:00.000Z",
@@ -42,7 +42,7 @@
     "estado": "disponible"
   },
   {
-    "prestador": "652fa1b2f4a3c6a12d4e91a5",
+    "idPrestador": "652fa1b2f4a3c6a12d4e91a5",
     "especialidad": "Psiquiatría",
     "lugarAtencion": "Clínica Santa María",
     "fechaTurno": "2025-11-12T13:00:00.000Z",
@@ -50,7 +50,7 @@
     "estado": "disponible"
   },
   {
-    "prestador": "652fa1b2f4a3c6a12d4e9ba1",
+    "idPrestador": "652fa1b2f4a3c6a12d4e9ba1",
     "especialidad": "Pediatría",
     "lugarAtencion": "Centro Médico Sur",
     "fechaTurno": "2025-11-12T17:00:00.000Z",
@@ -58,7 +58,7 @@
     "estado": "disponible"
   },
   {
-    "prestador": "652fa1b2f4a3c6a12d4e91a4",
+    "idPrestador": "652fa1b2f4a3c6a12d4e91a4",
     "especialidad": "Neurología",
     "lugarAtencion": "Hospital del Este",
     "fechaTurno": "2025-10-25T10:15:00.000Z",
@@ -67,7 +67,7 @@
     "idAfiliado": "6717b1234f1a2b0012a4567d"
   },
   {
-    "prestador": "652fa1b2f4a3c6a12d4e91a6",
+    "idPrestador": "652fa1b2f4a3c6a12d4e91a6",
     "especialidad": "Traumatología",
     "lugarAtencion": "Sanatorio Oeste",
     "fechaTurno": "2025-10-30T08:45:00.000Z",

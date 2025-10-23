@@ -63,21 +63,23 @@ const reintegroSchema = new Schema<IReintegroDocument>(
         return this.formaDePago === FormaPago.TRANSFERENCIA;
       }
     },
-    observaciones: String,
-    /* observaciones: {
+    // observaciones: String,
+    observaciones: {
       type: [
         {
-          emisor: { type: Schema.Types.ObjectId, ref: 'Afiliado' },
+          idEmisor: { type: Schema.Types.ObjectId, ref: 'Afiliado' },
+          rolEmisor: { type: String, required: true },
           descripcion: { type: String },
           fecha: { type: Date, default: Date.now }
         },
         {
-          emisor: { type: Schema.Types.ObjectId, ref: 'Prestador' },
+          idEmisor: { type: Schema.Types.ObjectId, ref: 'Prestador' },
+          rolEmisor: { type: String, required: true },
           descripcion: { type: String },
           fecha: { type: Date, default: Date.now }
         }
       ]
-    }, */
+    },
     estado: {
       type: String,
       enum: Object.values(EstadoTramite),
