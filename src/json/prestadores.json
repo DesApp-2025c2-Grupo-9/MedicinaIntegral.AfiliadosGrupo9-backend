@@ -2,48 +2,56 @@
   {
     "_id": "652fa1b2f4a3c6a12d4e91a1",
     "nombre": "Martín López",
+    "rol": "Prestador",
     "especialidad": ["Medicina General", "Cardiología"],
     "lugarAtencion": ["Clínica Norte", "Hospital del Este"]
   },
   {
     "_id": "652ab1b2f4a3c6a12d4e9ba1",
     "nombre": "Sofía Ramírez",
+    "rol": "Prestador",
     "especialidad": ["Pediatría"],
     "lugarAtencion": ["Centro Médico Sur", "Clínica Santa María"]
   },
   {
     "_id": "652fa1b2f4a3c6a12d4e91a3",
     "nombre": "Alejandro Torres",
+    "rol": "Prestador",
     "especialidad": ["Ginecología", "Cirugía General"],
     "lugarAtencion": ["Policlínico Central"]
   },
   {
     "_id": "652fa1b2f4a3c6a12d4e91a5",
     "nombre": "Valeria Gómez",
+    "rol": "Prestador",
     "especialidad": ["Dermatología", "Psiquiatría"],
     "lugarAtencion": ["Clínica Norte", "Clínica Santa María"]
   },
   {
     "_id": "652fa1b2f4a3c6a12d4e91a4",  
     "nombre": "Ricardo Fernández",
+    "rol": "Prestador",
     "especialidad": ["Neurología", "Psiquiatría"],
     "lugarAtencion": ["Hospital del Este", "Instituto Neurológico Central"]
   },
   {
     "_id": "652fa1b2f4a3c6a12d4e91a6",  
     "nombre": "Paula Martínez",
+    "rol": "Prestador",
     "especialidad": ["Traumatología"],
     "lugarAtencion": ["Sanatorio Oeste", "Clínica Santa María"]
   },
   {
     "_id": "652fa1b2f4a3c6a12d4e91a2",
     "nombre": "Esteban Herrera",
+    "rol": "Prestador",
     "especialidad": ["Oftalmología"],
     "lugarAtencion": ["Centro Médico Sur", "Hospital Central"]
   },
   {
     "_id": "652fa1b2f4a3c6a12d4e9ba1",
     "nombre": "Julieta Paredes",
+    "rol": "Prestador",
     "especialidad": ["Medicina General", "Pediatría"],
     "lugarAtencion": ["Clínica Sur", "Centro Médico Sur"]
   }

@@ -45,7 +45,7 @@ const seed = async () => {
     const recetas = JSON.parse(fs.readFileSync(recetasFilePath, 'utf-8'));
 
     // Obtenemos los reintegros del JSON reintegros.json
-    const reintegrosfilePath = path.resolve('./src/json/reintegros.json');
+    const reintegrosfilePath = path.resolve('./src/json/reintegros_B.json');
     const reintegros = JSON.parse(fs.readFileSync(reintegrosfilePath, 'utf8'));
 
     // Obtenemos los afiliados del JSON afiliados.json
