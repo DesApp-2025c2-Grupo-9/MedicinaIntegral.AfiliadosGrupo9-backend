@@ -27,6 +27,7 @@ export async function validateUserRegistration(user: {
 
   if (!foundUser) {
     errors.push('Usuario no existe');
+    
   } else if (foundUser.registrado) {
     errors.push('Usuario ya registrado');
   }

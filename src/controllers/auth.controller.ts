@@ -8,6 +8,7 @@ import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { RolAfiliado } from '../enums/RolAfiliado';
 import { validateUserRegistration } from "../validators/user.validator"
 
+
 interface IUserController {
   registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<Response|void>; //agregue response /
   login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<void>;
@@ -36,6 +37,7 @@ const userController: IUserController = {
       res.status(500).json({ message });
     }
   },
+
   login: async (req, res) => {
     const { nroDocumento, password } = req.body;
 
@@ -87,6 +89,7 @@ const userController: IUserController = {
       res.status(500).json({ message });
     }
   },
+
   logout: async (req, res) => {
     const cookies: RequestCookies = req.cookies;
 
