@@ -6,6 +6,7 @@ import { RegisterBody, LoginBody, RequestCookies } from '../types/AuthTypes';
 import Afiliado, { IAfiliadoDocument } from '../models/Afiliado';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { RolAfiliado } from '../enums/RolAfiliado';
+import { SUCCESS_MESSAGES } from '../utils/successMessages';
 
 interface IUserController {
   registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<void>;
@@ -21,15 +22,15 @@ const userController: IUserController = {
     try {
       const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
       if (!foundUser) {
-        res.status(401).json({ message: 'No se pudo encontrar un usuario con este número de documento.' });
+        res.status(401).json({ message: ERROR_MESSAGES.USER.NOT_FOUND });
         return;
       }
       if (foundUser.registrado) {
-        res.status(409).json({ message: 'Este número de documento ya fue registrado.' });
+        res.status(409).json({ message: ERROR_MESSAGES.USER.ALREADY_EXISTS });
         return;
       }
       if (user.password !== user.confirmPassword) {
-        res.status(400).json({ message: 'Las contraseñas ingresadas son diferentes.' });
+        res.status(400).json({ message: 'Las contraseñas ingresadas no coinciden.' });
         return;
       }
 
@@ -37,7 +38,7 @@ const userController: IUserController = {
       foundUser.password = hashedPassword;
       foundUser.registrado = true;
       const userRegistrado = await foundUser.save();
-      res.json({ data: userRegistrado, message: 'El usuario fue registrado con éxito.' });
+      res.json({ data: userRegistrado, message: SUCCESS_MESSAGES.USER.REGISTERED });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
@@ -50,18 +51,18 @@ const userController: IUserController = {
       const foundUser = await Afiliado.findOne({ nroDocumento }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
 
       if (!foundUser) {
-        res.status(401).json({ message: 'No se pudo encontrar un usuario con este número de documento.' });
+        res.status(401).json({ message: ERROR_MESSAGES.USER.NOT_FOUND });
         return;
       }
 
       if (!foundUser.registrado) {
-        res.status(401).json({ message: 'Este número de documento no fue registrado.' });
+        res.status(401).json({ message: ERROR_MESSAGES.USER.NOT_REGISTERED });
         return;
       }
 
       const validPassword = await bcrypt.compare(password, foundUser.password);
       if (!validPassword) {
-        res.status(401).json({ message: 'La contraseña ingresada es incorrecta.' });
+        res.status(401).json({ message: ERROR_MESSAGES.USER.INVALID_PASSWORD });
         return;
       }
 
@@ -88,7 +89,7 @@ const userController: IUserController = {
       await foundUser.save();
 
       res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
-      res.json({ accessToken, message: 'Inicio de sesión exitoso.' });
+      res.json({ accessToken, message: SUCCESS_MESSAGES.USER.LOGGED_IN });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });

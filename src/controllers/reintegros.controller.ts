@@ -3,7 +3,7 @@ import IReintegro from '../interfaces/IReintegro';
 import Reintegro from '../models/Reintegro';
 import { SUCCESS_MESSAGES } from '../utils/successMessages';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
-import { DeleteReintegroDTO, GetReintegrosDTO, PostReintegroDTO, PutReintegroDTO } from '../dtos/reintegros.dto';
+import { CommentReintegroDTO, DeleteReintegroDTO, GetReintegrosDTO, PostReintegroDTO, PutReintegroDTO } from '../dtos/reintegros.dto';
 import { ApiResponse } from '../types/ApiResponse';
 import { IObservacion } from '../interfaces/IObservacion';
 
@@ -20,7 +20,7 @@ const reintegroController: IReintegroController = {
     const idsAfiliados = req.familiaresPermitidos;
 
     try {
-      const reintegros = await Reintegro.find({ $and:[{fechaBaja: {$exists: false}} , {idAfiliado: { $in: idsAfiliados }} ]});
+      const reintegros = await Reintegro.find({ $and: [{ fechaBaja: { $exists: false } }, { idAfiliado: { $in: idsAfiliados } }] });
       const reintegrosDTO = reintegros.map(reintegro => new GetReintegrosDTO(reintegro));
       res.json({ data: reintegrosDTO });
     } catch (error) {
@@ -30,16 +30,17 @@ const reintegroController: IReintegroController = {
   },
   createReintegro: async (req, res) => {
     const idAfiliado = req.familiaresPermitidos?.[0]; // El primer id corresponde a quien hizo la petición
-    /* const observacion: IObservacion = { // construimos la observación con el comentario que envío el afiliado
+    const observacion: IObservacion = {
+      // construimos la observación con el comentario que envió el afiliado
       idEmisor: idAfiliado!,
       rolEmisor: 'Afiliado',
-      descripcion: '', // req.body.observaciones
+      descripcion: req.body.observaciones,
       fecha: new Date()
-    }; */
+    };
     const reintegroBody = {
       ...req.body,
-      idAfiliado
-      // observaciones: [observacion]
+      idAfiliado,
+      observaciones: [observacion]
     };
 
     try {
@@ -108,7 +109,8 @@ const reintegroController: IReintegroController = {
       }
       unReintegro.observaciones = [...unReintegro.observaciones, observacion];
       const commentedReintegro = await unReintegro.save();
-      res.json({ data: commentedReintegro, message: 'Comentario enviado con éxito' });
+      const commentedReintegroDTO = new CommentReintegroDTO(commentedReintegro);
+      res.json({ data: commentedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.COMMENTED });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
