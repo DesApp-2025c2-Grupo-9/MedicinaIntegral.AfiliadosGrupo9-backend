@@ -16,7 +16,6 @@ export class GetReintegrosDTO {
   };
   formaDePago: string;
   cbu?: string;
-  // observaciones?: string;
   observaciones?: IObservacion[];
   estado: string;
 
@@ -62,5 +61,15 @@ export class DeleteReintegroDTO {
 
   constructor(data: IReintegroDocument) {
     this.id = data._id.toString();
+  }
+}
+
+export class CommentReintegroDTO {
+  id: string;
+  observaciones: IObservacion[];
+
+  constructor(data: IReintegroDocument) {
+    this.id = data._id.toString();
+    this.observaciones = data.observaciones;
   }
 }
