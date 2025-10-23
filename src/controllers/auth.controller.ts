@@ -7,6 +7,7 @@ import Afiliado, { IAfiliadoDocument } from '../models/Afiliado';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { RolAfiliado } from '../enums/RolAfiliado';
 import { SUCCESS_MESSAGES } from '../utils/successMessages';
+import { RegisterUserDTO } from '../dtos/auth.dto';
 
 interface IUserController {
   registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<void>;
@@ -38,7 +39,8 @@ const userController: IUserController = {
       foundUser.password = hashedPassword;
       foundUser.registrado = true;
       const userRegistrado = await foundUser.save();
-      res.json({ data: userRegistrado, message: SUCCESS_MESSAGES.USER.REGISTERED });
+      const userRegistradoDTO = new RegisterUserDTO(userRegistrado);
+      res.json({ data: userRegistradoDTO, message: SUCCESS_MESSAGES.USER.REGISTERED });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
