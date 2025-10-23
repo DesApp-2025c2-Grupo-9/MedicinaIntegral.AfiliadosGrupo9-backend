@@ -3,17 +3,26 @@ import jwt from 'jsonwebtoken';
 import { ApiResponse } from '../types/ApiResponse';
 import { Request, Response } from 'express';
 import { RegisterBody, LoginBody, RequestCookies } from '../types/AuthTypes';
-import Afiliado, { IAfiliadoDocument } from '../models/Afiliado';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
-import { RolAfiliado } from '../enums/RolAfiliado';
 import { validateUserRegistration } from "../validators/user.validator"
+import { validateLoginCredentials, getFamiliaresPermitidos } from "../validators/login.validator";
+import {
+  getRefreshTokenFromCookies,
+  findUserByRefreshToken,
+  clearUserRefreshToken
+} from '../validators/logout.validator';
+
+import {
+  verifyRefreshToken,
+} from '../validators/refresh.validator';
+
 
 
 interface IUserController {
   registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<Response|void>; //agregue response /
-  login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<void>;
-  logout: (req: Request, res: Response<ApiResponse>) => Promise<void>;
-  refresh: (req: Request, res: Response<ApiResponse>) => Promise<void>;
+  login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<Response|void>;
+  logout: (req: Request, res: Response<ApiResponse>) => Promise<Response|void>;
+  refresh: (req: Request, res: Response<ApiResponse>) => Promise<Response|void>;
 }
 
 const userController: IUserController = {
@@ -39,134 +48,110 @@ const userController: IUserController = {
   },
 
   login: async (req, res) => {
-    const { nroDocumento, password } = req.body;
-
     try {
-      const foundUser = await Afiliado.findOne({ nroDocumento }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
+    const { errors, foundUser } = await validateLoginCredentials(req.body);
 
-      if (!foundUser) {
-        res.status(401).json({ message: 'Usuario no existe.' });
-        return;
-      }
-
-      if (!foundUser.registrado) {
-        res.status(401).json({ message: 'Usuario no está registrado.' });
-        return;
-      }
-
-      const validPassword = await bcrypt.compare(password, foundUser.password);
-      if (!validPassword) {
-        res.status(401).json({ message: 'Contraseña incorrecta.' });
-        return;
-      }
-
-      let familiaresPermitidos; // Arreglo de _id de los afiliados de los cuales el usuario puede ver su información dependiendo el rol.
-
-      if (foundUser.rol === RolAfiliado.TITULAR) {
-        const arr = foundUser.grupoFamiliar.map(familiar => familiar._id);
-        familiaresPermitidos = [...arr];
-      }
-
-      if (foundUser.rol === RolAfiliado.CONYUGE) {
-        const arr = foundUser.grupoFamiliar.filter(familiar => familiar.rol !== RolAfiliado.TITULAR && familiar.rol !== RolAfiliado.HIJO_MAYOR).map(familiar => familiar._id);
-        familiaresPermitidos = [...arr];
-      }
-
-      if (foundUser.rol === RolAfiliado.HIJO_MAYOR || foundUser.rol === RolAfiliado.HIJO_MENOR || foundUser.rol === RolAfiliado.OTRO) {
-        familiaresPermitidos = [foundUser._id];
-      }
-
-      const accessToken = jwt.sign({ nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '15m' });
-      const refreshToken = jwt.sign({ nroDocumento }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '1d' });
-
-      foundUser.refreshToken = refreshToken;
-      await foundUser.save();
-
-      res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
-      res.json({ accessToken, message: 'Inicio de sesión exitoso.' });
-    } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
+    if (errors.length > 0 || !foundUser) {
+      return res.status(401).json({ message: errors.join(', ') });
     }
+
+    const familiaresPermitidos = getFamiliaresPermitidos(foundUser);
+
+    const accessToken = jwt.sign(
+      { nroDocumento: foundUser.nroDocumento, familiaresPermitidos },
+      process.env.ACCESS_TOKEN_SECRET!,
+      { expiresIn: '15m' }
+    );
+
+    const refreshToken = jwt.sign(
+      { nroDocumento: foundUser.nroDocumento },
+      process.env.REFRESH_TOKEN_SECRET!,
+      { expiresIn: '1d' }
+    );
+
+    foundUser.refreshToken = refreshToken;
+    await foundUser.save();
+
+    res.cookie('jwt', refreshToken, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24,
+    });
+
+    return res.json({ accessToken, message: 'Inicio de sesión exitoso.' });
+  } catch (error) {
+    const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+    return res.status(500).json({ message });
+  }
+
+
   },
 
   logout: async (req, res) => {
-    const cookies: RequestCookies = req.cookies;
+    const refreshToken = getRefreshTokenFromCookies(req.cookies);
 
-    if (!cookies.jwt) {
-      res.sendStatus(204);
-      return;
+    if (!refreshToken) {
+      return res.sendStatus(204);
     }
 
-    const refreshToken = cookies.jwt;
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'lax', secure: false });
 
-    const foundUser = await Afiliado.findOne({ refreshToken });
+    const foundUser = await findUserByRefreshToken(refreshToken);
     if (!foundUser) {
-      res.sendStatus(204);
-      return;
+      return res.sendStatus(204);
     }
 
-    foundUser.refreshToken = '';
-    await foundUser.save();
-    res.sendStatus(204);
+    await clearUserRefreshToken(foundUser);
+    return res.sendStatus(204);
+
   },
+
   refresh: async (req, res) => {
-    const cookies: RequestCookies = req.cookies;
+    const refreshToken = getRefreshTokenFromCookies(req.cookies);
+  if (!refreshToken) return res.sendStatus(401);
 
-    if (!cookies?.jwt) {
-      res.sendStatus(401);
-      return;
+  res.clearCookie('jwt', { httpOnly: true, sameSite: 'lax', secure: false });
+
+  try {
+    const foundUser = await findUserByRefreshToken(refreshToken);
+    if (!foundUser) return res.sendStatus(401);
+
+    const decoded = await verifyRefreshToken(refreshToken, process.env.REFRESH_TOKEN_SECRET!);
+    if (!decoded || foundUser.nroDocumento !== decoded.nroDocumento) {
+      foundUser.refreshToken = '';
+      await foundUser.save();
+      return res.sendStatus(401);
     }
-    const refreshToken = cookies.jwt;
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'lax', secure: false });
 
-    try {
-      const foundUser = await Afiliado.findOne({ refreshToken }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
-      if (!foundUser) {
-        res.sendStatus(401);
-        return;
-      }
+    const familiaresPermitidos = getFamiliaresPermitidos(foundUser);
 
-      jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!, async (error, decoded) => {
-        const decodedPayload = decoded as { nroDocumento: string; familiaresPermitidos: string[] };
-        if (error || foundUser.nroDocumento !== decodedPayload?.nroDocumento) {
-          foundUser.refreshToken = '';
-          await foundUser.save();
-          res.sendStatus(401);
-          return;
-        }
+    const accessToken = jwt.sign(
+      { nroDocumento: foundUser.nroDocumento, familiaresPermitidos },
+      process.env.ACCESS_TOKEN_SECRET!,
+      { expiresIn: '15m' }
+    );
 
-        let familiaresPermitidos; // Arreglo de _id de los afiliados de los cuales el usuario puede ver su información dependiendo el rol.
+    const newRefreshToken = jwt.sign(
+      { nroDocumento: foundUser.nroDocumento },
+      process.env.REFRESH_TOKEN_SECRET!,
+      { expiresIn: '1d' }
+    );
 
-        if (foundUser.rol === RolAfiliado.TITULAR) {
-          const arr = foundUser.grupoFamiliar.map(familiar => familiar._id);
-          familiaresPermitidos = [...arr];
-        }
+    foundUser.refreshToken = newRefreshToken;
+    await foundUser.save();
 
-        if (foundUser.rol === RolAfiliado.CONYUGE) {
-          const arr = foundUser.grupoFamiliar.filter(familiar => familiar.rol !== RolAfiliado.TITULAR && familiar.rol !== RolAfiliado.HIJO_MAYOR).map(familiar => familiar._id);
-          familiaresPermitidos = [...arr];
-        }
+    res.cookie('jwt', newRefreshToken, {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24,
+    });
 
-        if (foundUser.rol === RolAfiliado.HIJO_MAYOR || foundUser.rol === RolAfiliado.HIJO_MENOR || foundUser.rol === RolAfiliado.OTRO) {
-          familiaresPermitidos = [foundUser._id];
-        }
-
-        const accessToken = jwt.sign({ nroDocumento: foundUser.nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '15m' });
-        const newRefreshToken = jwt.sign({ nroDocumento: foundUser.nroDocumento }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '1d' });
-
-        foundUser.refreshToken = newRefreshToken;
-        await foundUser.save();
-
-        res.cookie('jwt', newRefreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
-        res.json({ accessToken });
-      });
-    } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
-    }
+    res.json({ accessToken });
+  } catch (error) {
+    const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+    res.status(500).json({ message });
+  }
   }
 };
-
-export default userController;

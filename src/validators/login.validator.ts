@@ -1,22 +1,41 @@
 import bcrypt from 'bcrypt';
-import  Afiliado from '../models/Afiliado';
-import { IAfiliadoDocument } from '../models/Afiliado';
+import  Afiliado  from '../models/Afiliado';
+import { RolAfiliado } from '../enums/RolAfiliado';
+import { LoginBody } from '../types/AuthTypes';
 
-export const validateUserLogin = async (nroDocumento: string, password: string) => {
-  const foundUser = await Afiliado.findOne({ nroDocumento }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
+export const validateLoginCredentials = async ({ nroDocumento, password }: LoginBody) => {
+  const errors: string[] = [];
+
+  const foundUser = await Afiliado.findOne({ nroDocumento }).populate<{ grupoFamiliar: Pick<any, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
 
   if (!foundUser) {
-    throw { status: 401, message: 'Usuario no existe.' };
+    errors.push('Usuario no existe.');
+    return { errors, foundUser: null };
   }
 
   if (!foundUser.registrado) {
-    throw { status: 401, message: 'Usuario no está registrado.' };
+    errors.push('Usuario no está registrado.');
+    return { errors, foundUser };
   }
 
   const validPassword = await bcrypt.compare(password, foundUser.password);
   if (!validPassword) {
-    throw { status: 401, message: 'Contraseña incorrecta.' };
+    errors.push('Contraseña incorrecta.');
   }
 
-  return foundUser;
+  return { errors, foundUser };
+};
+
+export const getFamiliaresPermitidos = (user: any): string[] => {
+  if (user.rol === RolAfiliado.TITULAR) {
+    return user.grupoFamiliar.map((f: any) => f._id);
+  }
+
+  if (user.rol === RolAfiliado.CONYUGE) {
+    return user.grupoFamiliar
+      .filter((f: any) => f.rol !== RolAfiliado.TITULAR && f.rol !== RolAfiliado.HIJO_MAYOR)
+      .map((f: any) => f._id);
+  }
+
+  return [user._id];
 };
