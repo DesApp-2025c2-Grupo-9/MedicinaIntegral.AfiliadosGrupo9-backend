@@ -6,14 +6,14 @@ export interface IAutorizacion {
   id: string;
   idAfiliado: Types.ObjectId
   paraAfiliado: string;
-  nroAfiliado: string; 
+  nroAfiliado?: string; 
   fechaSolicitud: Date;
   practica: string;
   especialidad: string;
   medicoSolicitante: string;
   lugarAtencion: string;
   diagnostico?: string;
-  observaciones?: IObservacion[];
+  observaciones: IObservacion[];
   diasDeInternacion: number;
   estado: EstadoTramite;
   fechaBaja?: Date;
