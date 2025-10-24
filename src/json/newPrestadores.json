@@ -1,6 +1,5 @@
 [
   {
-    "_id": "1",
     "nombreCompleto": "Clínica del Sol",
     "cuitCuil": "30410884106",
     "esCentroMedico": true,
@@ -29,15 +28,14 @@
     ]
   },
   {
-    "_id": "2",
     "nombreCompleto": "Centro Médico Norte",
     "cuitCuil": "22998096056",
     "esCentroMedico": true,
     "especialidades": [
-      "Urología",
       "Dermatología",
+      "Oftalmología",
       "Pediatría",
-      "Oftalmología"
+      "Urología"
     ],
     "telefonos": [
       "1145651561"
@@ -60,14 +58,13 @@
     ]
   },
   {
-    "_id": "3",
     "nombreCompleto": "Clínica San José",
     "cuitCuil": "23454459321",
     "esCentroMedico": true,
     "especialidades": [
+      "Endocrinología",
       "Ginecología",
-      "Urología",
-      "Endocrinología"
+      "Urología"
     ],
     "telefonos": [
       "1150563456"
@@ -90,15 +87,14 @@
     ]
   },
   {
-    "_id": "4",
     "nombreCompleto": "Consultorios Médicos Belgrano",
     "cuitCuil": "26136978826",
     "esCentroMedico": true,
     "especialidades": [
-      "Traumatología",
-      "Psiquiatría",
       "Clínica Médica",
-      "Otorrinolaringología"
+      "Otorrinolaringología",
+      "Psiquiatría",
+      "Traumatología"
     ],
     "telefonos": [
       "1156997798"
@@ -121,7 +117,6 @@
     ]
   },
   {
-    "_id": "5",
     "nombreCompleto": "Centro Integral de Salud Quilmes",
     "cuitCuil": "20372718090",
     "esCentroMedico": true,
@@ -150,15 +145,14 @@
     ]
   },
   {
-    "_id": "6",
     "nombreCompleto": "Sanatorio del Oeste",
     "cuitCuil": "23313946888",
     "esCentroMedico": true,
     "especialidades": [
       "Cardiología",
-      "Traumatología",
       "Dermatología",
-      "Ginecología"
+      "Ginecología",
+      "Traumatología"
     ],
     "telefonos": [
       "1152578739"
@@ -181,15 +175,14 @@
     ]
   },
   {
-    "_id": "7",
     "nombreCompleto": "Clínica del Parque",
     "cuitCuil": "23866160731",
     "esCentroMedico": true,
     "especialidades": [
-      "Oftalmología",
       "Clínica Médica",
-      "Oncología",
-      "Ginecología"
+      "Ginecología",
+      "Oftalmología",
+      "Oncología"
     ],
     "telefonos": [
       "1143800816"
@@ -212,15 +205,14 @@
     ]
   },
   {
-    "_id": "8",
     "nombreCompleto": "Centro Médico Sur",
     "cuitCuil": "29755898767",
     "esCentroMedico": true,
     "especialidades": [
-      "Endocrinología",
-      "Pediatría",
+      "Alergología",
       "Cardiología",
-      "Alergología"
+      "Endocrinología",
+      "Pediatría"
     ],
     "telefonos": [
       "1150934066"
@@ -243,15 +235,14 @@
     ]
   },
   {
-    "_id": "9",
     "nombreCompleto": "Clínica Independencia",
     "cuitCuil": "28875081083",
     "esCentroMedico": true,
     "especialidades": [
-      "Clínica Médica",
-      "Urología",
       "Alergología",
-      "Oncología"
+      "Clínica Médica",
+      "Oncología",
+      "Urología"
     ],
     "telefonos": [
       "1151662345"
@@ -274,13 +265,12 @@
     ]
   },
   {
-    "_id": "10",
     "nombreCompleto": "Instituto Médico Central",
     "cuitCuil": "21144970819",
     "esCentroMedico": true,
     "especialidades": [
-      "Otorrinolaringología",
       "Ginecología",
+      "Otorrinolaringología",
       "Urología"
     ],
     "telefonos": [
@@ -304,7 +294,6 @@
     ]
   },
   {
-    "_id": "11",
     "nombreCompleto": "Dr./Dra. Martina Álvarez",
     "cuitCuil": "26360711856",
     "esCentroMedico": false,
@@ -334,7 +323,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "12",
     "nombreCompleto": "Dr./Dra. Martina Álvarez",
     "cuitCuil": "29818676849",
     "esCentroMedico": false,
@@ -364,7 +352,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "13",
     "nombreCompleto": "Dr./Dra. Carolina Duarte",
     "cuitCuil": "29686670396",
     "esCentroMedico": false,
@@ -394,7 +381,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "14",
     "nombreCompleto": "Dr./Dra. Martina Álvarez",
     "cuitCuil": "26385985729",
     "esCentroMedico": false,
@@ -424,7 +410,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "15",
     "nombreCompleto": "Dr./Dra. Pablo Torres",
     "cuitCuil": "21177240584",
     "esCentroMedico": false,
@@ -442,7 +427,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "16",
     "nombreCompleto": "Dr./Dra. Lucía Paredes",
     "cuitCuil": "29340139811",
     "esCentroMedico": false,
@@ -460,7 +444,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "17",
     "nombreCompleto": "Dr./Dra. Andrés Blanco",
     "cuitCuil": "29610866618",
     "esCentroMedico": false,
@@ -478,7 +461,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "18",
     "nombreCompleto": "Dr./Dra. Pablo Torres",
     "cuitCuil": "25554674083",
     "esCentroMedico": false,
@@ -496,7 +478,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "19",
     "nombreCompleto": "Dr./Dra. Juan Pérez",
     "cuitCuil": "20781494195",
     "esCentroMedico": false,
@@ -514,7 +495,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "20",
     "nombreCompleto": "Dr./Dra. Carolina Duarte",
     "cuitCuil": "20874377731",
     "esCentroMedico": false,
@@ -532,7 +512,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "21",
     "nombreCompleto": "Dr./Dra. Martina Álvarez",
     "cuitCuil": "27376191102",
     "esCentroMedico": false,
@@ -562,7 +541,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "22",
     "nombreCompleto": "Dr./Dra. Hernán Varela",
     "cuitCuil": "21102690260",
     "esCentroMedico": false,
@@ -580,7 +558,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "23",
     "nombreCompleto": "Dr./Dra. Laura Fernández",
     "cuitCuil": "27134024720",
     "esCentroMedico": false,
@@ -610,7 +587,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "24",
     "nombreCompleto": "Dr./Dra. Natalia Ruiz",
     "cuitCuil": "25194036359",
     "esCentroMedico": false,
@@ -628,7 +604,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "25",
     "nombreCompleto": "Dr./Dra. Gabriel Soto",
     "cuitCuil": "24516847361",
     "esCentroMedico": false,
@@ -646,7 +621,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "26",
     "nombreCompleto": "Dr./Dra. Gabriel Soto",
     "cuitCuil": "30787494156",
     "esCentroMedico": false,
@@ -664,7 +638,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "27",
     "nombreCompleto": "Dr./Dra. Lucía Paredes",
     "cuitCuil": "21515084973",
     "esCentroMedico": false,
@@ -694,7 +667,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "28",
     "nombreCompleto": "Dr./Dra. Sofía Herrera",
     "cuitCuil": "20007797907",
     "esCentroMedico": false,
@@ -712,7 +684,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "29",
     "nombreCompleto": "Dr./Dra. Ana Castro",
     "cuitCuil": "26623762247",
     "esCentroMedico": false,
@@ -730,7 +701,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "30",
     "nombreCompleto": "Dr./Dra. Martina Álvarez",
     "cuitCuil": "25978427594",
     "esCentroMedico": false,
@@ -760,7 +730,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "31",
     "nombreCompleto": "Dr./Dra. Camila Navarro",
     "cuitCuil": "22547981970",
     "esCentroMedico": false,
@@ -790,7 +759,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "32",
     "nombreCompleto": "Dr./Dra. Natalia Ruiz",
     "cuitCuil": "25795151822",
     "esCentroMedico": false,
@@ -808,7 +776,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "33",
     "nombreCompleto": "Dr./Dra. Martina Álvarez",
     "cuitCuil": "26602058311",
     "esCentroMedico": false,
@@ -838,7 +805,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "34",
     "nombreCompleto": "Dr./Dra. Juan Pérez",
     "cuitCuil": "22543336974",
     "esCentroMedico": false,
@@ -868,7 +834,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "35",
     "nombreCompleto": "Dr./Dra. Juan Pérez",
     "cuitCuil": "26642520014",
     "esCentroMedico": false,
@@ -898,7 +863,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "36",
     "nombreCompleto": "Dr./Dra. Natalia Ruiz",
     "cuitCuil": "23008986440",
     "esCentroMedico": false,
@@ -916,7 +880,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "37",
     "nombreCompleto": "Dr./Dra. Carolina Duarte",
     "cuitCuil": "20409490899",
     "esCentroMedico": false,
@@ -934,7 +897,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "38",
     "nombreCompleto": "Dr./Dra. María Gómez",
     "cuitCuil": "29121146216",
     "esCentroMedico": false,
@@ -952,7 +914,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "39",
     "nombreCompleto": "Dr./Dra. Fernando Díaz",
     "cuitCuil": "30083218191",
     "esCentroMedico": false,
@@ -982,7 +943,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "40",
     "nombreCompleto": "Dr./Dra. Ana Castro",
     "cuitCuil": "21191950020",
     "esCentroMedico": false,
@@ -1000,7 +960,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "41",
     "nombreCompleto": "Dr./Dra. Martina Álvarez",
     "cuitCuil": "26116480514",
     "esCentroMedico": false,
@@ -1018,7 +977,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "42",
     "nombreCompleto": "Dr./Dra. Laura Fernández",
     "cuitCuil": "24091107071",
     "esCentroMedico": false,
@@ -1036,7 +994,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "43",
     "nombreCompleto": "Dr./Dra. Lucía Paredes",
     "cuitCuil": "21736696345",
     "esCentroMedico": false,
@@ -1066,7 +1023,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "44",
     "nombreCompleto": "Dr./Dra. María Gómez",
     "cuitCuil": "22909489612",
     "esCentroMedico": false,
@@ -1096,7 +1052,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "45",
     "nombreCompleto": "Dr./Dra. Laura Fernández",
     "cuitCuil": "24979997182",
     "esCentroMedico": false,
@@ -1126,7 +1081,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "46",
     "nombreCompleto": "Dr./Dra. Ana Castro",
     "cuitCuil": "28371646338",
     "esCentroMedico": false,
@@ -1144,7 +1098,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "47",
     "nombreCompleto": "Dr./Dra. Natalia Ruiz",
     "cuitCuil": "30487846454",
     "esCentroMedico": false,
@@ -1162,7 +1115,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "48",
     "nombreCompleto": "Dr./Dra. Sofía Herrera",
     "cuitCuil": "26675200090",
     "esCentroMedico": false,
@@ -1192,7 +1144,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "49",
     "nombreCompleto": "Dr./Dra. Carolina Duarte",
     "cuitCuil": "24354969342",
     "esCentroMedico": false,
@@ -1210,7 +1161,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "50",
     "nombreCompleto": "Dr./Dra. Lucía Paredes",
     "cuitCuil": "29090866814",
     "esCentroMedico": false,
@@ -1240,7 +1190,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "51",
     "nombreCompleto": "Dr./Dra. Sebastián Molina",
     "cuitCuil": "27831802251",
     "esCentroMedico": false,
@@ -1270,7 +1219,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "52",
     "nombreCompleto": "Dr./Dra. Sebastián Molina",
     "cuitCuil": "27443229803",
     "esCentroMedico": false,
@@ -1288,7 +1236,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "53",
     "nombreCompleto": "Dr./Dra. Juan Pérez",
     "cuitCuil": "30724335262",
     "esCentroMedico": false,
@@ -1318,7 +1265,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "54",
     "nombreCompleto": "Dr./Dra. Diego Morales",
     "cuitCuil": "30996618829",
     "esCentroMedico": false,
@@ -1348,7 +1294,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "55",
     "nombreCompleto": "Dr./Dra. Lucía Paredes",
     "cuitCuil": "26400170045",
     "esCentroMedico": false,
@@ -1378,7 +1323,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "56",
     "nombreCompleto": "Dr./Dra. Federico López",
     "cuitCuil": "22158928742",
     "esCentroMedico": false,
@@ -1408,7 +1352,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "57",
     "nombreCompleto": "Dr./Dra. Natalia Ruiz",
     "cuitCuil": "28813091360",
     "esCentroMedico": false,
@@ -1426,7 +1369,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "58",
     "nombreCompleto": "Dr./Dra. Pablo Torres",
     "cuitCuil": "27378025188",
     "esCentroMedico": false,
@@ -1444,7 +1386,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "59",
     "nombreCompleto": "Dr./Dra. Pablo Torres",
     "cuitCuil": "20913121382",
     "esCentroMedico": false,
@@ -1462,7 +1403,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "60",
     "nombreCompleto": "Dr./Dra. Juan Pérez",
     "cuitCuil": "21625704486",
     "esCentroMedico": false,
@@ -1492,7 +1432,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "61",
     "nombreCompleto": "Dr./Dra. Ricardo González",
     "cuitCuil": "30955289937",
     "esCentroMedico": false,
@@ -1510,7 +1449,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "62",
     "nombreCompleto": "Dr./Dra. Pablo Torres",
     "cuitCuil": "23217945820",
     "esCentroMedico": false,
@@ -1540,7 +1478,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "63",
     "nombreCompleto": "Dr./Dra. Gabriel Soto",
     "cuitCuil": "30669910981",
     "esCentroMedico": false,
@@ -1558,7 +1495,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "64",
     "nombreCompleto": "Dr./Dra. Sebastián Molina",
     "cuitCuil": "25144417487",
     "esCentroMedico": false,
@@ -1576,7 +1512,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "65",
     "nombreCompleto": "Dr./Dra. Juan Pérez",
     "cuitCuil": "20701411380",
     "esCentroMedico": false,
@@ -1594,7 +1529,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "66",
     "nombreCompleto": "Dr./Dra. Ricardo González",
     "cuitCuil": "24114753549",
     "esCentroMedico": false,
@@ -1624,7 +1558,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "67",
     "nombreCompleto": "Dr./Dra. María Gómez",
     "cuitCuil": "22840016549",
     "esCentroMedico": false,
@@ -1642,7 +1575,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "68",
     "nombreCompleto": "Dr./Dra. Juan Pérez",
     "cuitCuil": "22318155934",
     "esCentroMedico": false,
@@ -1660,7 +1592,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "69",
     "nombreCompleto": "Dr./Dra. Paula Romero",
     "cuitCuil": "21038876703",
     "esCentroMedico": false,
@@ -1678,7 +1609,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "70",
     "nombreCompleto": "Dr./Dra. Natalia Ruiz",
     "cuitCuil": "29160011167",
     "esCentroMedico": false,
@@ -1696,7 +1626,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "71",
     "nombreCompleto": "Dr./Dra. Camila Navarro",
     "cuitCuil": "27539484065",
     "esCentroMedico": false,
@@ -1726,7 +1655,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "72",
     "nombreCompleto": "Dr./Dra. Diego Morales",
     "cuitCuil": "24025605994",
     "esCentroMedico": false,
@@ -1756,7 +1684,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "73",
     "nombreCompleto": "Dr./Dra. Pablo Torres",
     "cuitCuil": "30016367356",
     "esCentroMedico": false,
@@ -1774,7 +1701,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "74",
     "nombreCompleto": "Dr./Dra. Laura Fernández",
     "cuitCuil": "24180812393",
     "esCentroMedico": false,
@@ -1792,7 +1718,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "75",
     "nombreCompleto": "Dr./Dra. Federico López",
     "cuitCuil": "24189268802",
     "esCentroMedico": false,
@@ -1810,7 +1735,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "76",
     "nombreCompleto": "Dr./Dra. Paula Romero",
     "cuitCuil": "21397734115",
     "esCentroMedico": false,
@@ -1840,7 +1764,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "77",
     "nombreCompleto": "Dr./Dra. Gabriel Soto",
     "cuitCuil": "24512851048",
     "esCentroMedico": false,
@@ -1858,7 +1781,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "78",
     "nombreCompleto": "Dr./Dra. Natalia Ruiz",
     "cuitCuil": "28883944466",
     "esCentroMedico": false,
@@ -1888,7 +1810,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "79",
     "nombreCompleto": "Dr./Dra. Hernán Varela",
     "cuitCuil": "30532453125",
     "esCentroMedico": false,
@@ -1906,7 +1827,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "80",
     "nombreCompleto": "Dr./Dra. Sebastián Molina",
     "cuitCuil": "21282705826",
     "esCentroMedico": false,
@@ -1936,7 +1856,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "81",
     "nombreCompleto": "Dr./Dra. Camila Navarro",
     "cuitCuil": "23090924230",
     "esCentroMedico": false,
@@ -1954,7 +1873,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "82",
     "nombreCompleto": "Dr./Dra. Andrés Blanco",
     "cuitCuil": "22977289122",
     "esCentroMedico": false,
@@ -1972,7 +1890,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "83",
     "nombreCompleto": "Dr./Dra. Sebastián Molina",
     "cuitCuil": "24418001423",
     "esCentroMedico": false,
@@ -2002,7 +1919,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "84",
     "nombreCompleto": "Dr./Dra. Carolina Duarte",
     "cuitCuil": "27031064384",
     "esCentroMedico": false,
@@ -2032,7 +1948,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "85",
     "nombreCompleto": "Dr./Dra. Ana Castro",
     "cuitCuil": "23155832177",
     "esCentroMedico": false,
@@ -2050,7 +1965,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "86",
     "nombreCompleto": "Dr./Dra. Sebastián Molina",
     "cuitCuil": "22890680281",
     "esCentroMedico": false,
@@ -2068,7 +1982,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "87",
     "nombreCompleto": "Dr./Dra. Sebastián Molina",
     "cuitCuil": "22607015581",
     "esCentroMedico": false,
@@ -2098,7 +2011,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "88",
     "nombreCompleto": "Dr./Dra. María Gómez",
     "cuitCuil": "24422144341",
     "esCentroMedico": false,
@@ -2116,7 +2028,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "89",
     "nombreCompleto": "Dr./Dra. Diego Morales",
     "cuitCuil": "24589485932",
     "esCentroMedico": false,
@@ -2134,7 +2045,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "90",
     "nombreCompleto": "Dr./Dra. Paula Romero",
     "cuitCuil": "23996456160",
     "esCentroMedico": false,
@@ -2152,7 +2062,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "91",
     "nombreCompleto": "Dr./Dra. Laura Fernández",
     "cuitCuil": "23829062590",
     "esCentroMedico": false,
@@ -2170,7 +2079,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "92",
     "nombreCompleto": "Dr./Dra. Lucía Paredes",
     "cuitCuil": "22246500528",
     "esCentroMedico": false,
@@ -2188,7 +2096,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "93",
     "nombreCompleto": "Dr./Dra. Gabriel Soto",
     "cuitCuil": "20620468085",
     "esCentroMedico": false,
@@ -2206,7 +2113,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "94",
     "nombreCompleto": "Dr./Dra. Laura Fernández",
     "cuitCuil": "25436613297",
     "esCentroMedico": false,
@@ -2224,7 +2130,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "95",
     "nombreCompleto": "Dr./Dra. Carolina Duarte",
     "cuitCuil": "24742313944",
     "esCentroMedico": false,
@@ -2254,7 +2159,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "96",
     "nombreCompleto": "Dr./Dra. Andrés Blanco",
     "cuitCuil": "23723555642",
     "esCentroMedico": false,
@@ -2272,7 +2176,6 @@
     "atencionParticular": false
   },
   {
-    "_id": "97",
     "nombreCompleto": "Dr./Dra. Gabriel Soto",
     "cuitCuil": "28325360215",
     "esCentroMedico": false,
@@ -2302,7 +2205,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "98",
     "nombreCompleto": "Dr./Dra. Ana Castro",
     "cuitCuil": "23227619200",
     "esCentroMedico": false,
@@ -2332,7 +2234,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "99",
     "nombreCompleto": "Dr./Dra. Ricardo González",
     "cuitCuil": "29109780456",
     "esCentroMedico": false,
@@ -2362,7 +2263,6 @@
     "atencionParticular": true
   },
   {
-    "_id": "100",
     "nombreCompleto": "Dr./Dra. Camila Navarro",
     "cuitCuil": "27081908235",
     "esCentroMedico": false,
@@ -2378,5 +2278,1017 @@
     ],
     "direcciones": [],
     "atencionParticular": false
+  },
+  {
+    "nombreCompleto": "Dr. Ibarra",
+    "cuitCuil": "06469635806",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Dermatología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Maipú",
+        "numero": "4331",
+        "localidad": "Florencio Varela",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Rossi",
+    "cuitCuil": "25867096608",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Oftalmología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Callao",
+        "numero": "2753",
+        "localidad": "Flores",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 8:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Benítez",
+    "cuitCuil": "96756079945",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Ginecología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Yrigoyen",
+        "numero": "119",
+        "localidad": "Berazategui",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-17:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Castro",
+    "cuitCuil": "59803094505",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Traumatologia"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "3786",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Sosa",
+    "cuitCuil": "29567662550",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Traumatologia"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Yrigoyen",
+        "numero": "119",
+        "localidad": "Berazategui",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-17:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Castro",
+    "cuitCuil": "84498799178",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Reumatología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Callao",
+        "numero": "2753",
+        "localidad": "Flores",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 8:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. González",
+    "cuitCuil": "42071138341",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Traumatologia"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "3955",
+        "localidad": "Esteban Echeverría",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-18:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Benítez",
+    "cuitCuil": "28994737133",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Clínica Médica"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "6859",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 8:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Suárez",
+    "cuitCuil": "81009141791",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Clínica Médica"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "3786",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Paz",
+    "cuitCuil": "47173599297",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Reumatología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "3955",
+        "localidad": "Esteban Echeverría",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-18:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Ramírez",
+    "cuitCuil": "95326621190",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Traumatologia"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "6859",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 8:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Romero",
+    "cuitCuil": "55088472669",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Psiquiatría"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "3786",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Paz",
+    "cuitCuil": "66813396870",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Alergología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "5438",
+        "localidad": "Palermo",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Romero",
+    "cuitCuil": "61763487964",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Psiquiatría"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "5438",
+        "localidad": "Palermo",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. López",
+    "cuitCuil": "41420315154",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Ginecología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "4178",
+        "localidad": "Hurlingham",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-18:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Coronel",
+    "cuitCuil": "46565437564",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Otorrinolaringología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "6859",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 8:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Rossi",
+    "cuitCuil": "59027987114",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Urología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "6859",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 8:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Suárez",
+    "cuitCuil": "43186577672",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Oncología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "4178",
+        "localidad": "Hurlingham",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-18:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Fernández",
+    "cuitCuil": "04641739211",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Neurología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "5438",
+        "localidad": "Palermo",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Coronel",
+    "cuitCuil": "46565437564",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Reumatología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "6859",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 8:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Benítez",
+    "cuitCuil": "47508353614",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Neurología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "6859",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 8:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Pérez",
+    "cuitCuil": "69117875820",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Oftalmología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "6859",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 8:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Mansilla",
+    "cuitCuil": "49941260163",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Otorrinolaringología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Maipú",
+        "numero": "3778",
+        "localidad": "Avellaneda",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Benítez",
+    "cuitCuil": "10767374861",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Pediatría"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "3807",
+        "localidad": "Caballito",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. López",
+    "cuitCuil": "41420315154",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Oftalmología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "4178",
+        "localidad": "Hurlingham",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-18:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Rossi",
+    "cuitCuil": "76573569859",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Endocrinología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "6859",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 8:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Rossi",
+    "cuitCuil": "33932810254",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Traumatologia"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "3807",
+        "localidad": "Caballito",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. López",
+    "cuitCuil": "26180236780",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Alergología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Maipú",
+        "numero": "3778",
+        "localidad": "Avellaneda",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Benítez",
+    "cuitCuil": "79353231192",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Endocrinología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "4178",
+        "localidad": "Hurlingham",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-18:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Acuña",
+    "cuitCuil": "96247317749",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Clínica Médica"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Maipú",
+        "numero": "3778",
+        "localidad": "Avellaneda",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Mansilla",
+    "cuitCuil": "18846260392",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Dermatología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "6859",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 8:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Ramírez",
+    "cuitCuil": "09403783561",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Reumatología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Maipú",
+        "numero": "3778",
+        "localidad": "Avellaneda",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. López",
+    "cuitCuil": "31631607023",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Alergología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Maipú",
+        "numero": "4331",
+        "localidad": "Florencio Varela",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Pérez",
+    "cuitCuil": "05704251908",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Urología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "5438",
+        "localidad": "Palermo",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Romero",
+    "cuitCuil": "34572865383",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Neurología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Yrigoyen",
+        "numero": "119",
+        "localidad": "Berazategui",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-17:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Coronel",
+    "cuitCuil": "42223687151",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Ginecología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Av. Rivadavia",
+        "numero": "3807",
+        "localidad": "Caballito",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Castro",
+    "cuitCuil": "47884796771",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Psiquiatría"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "4178",
+        "localidad": "Hurlingham",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-18:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Benítez",
+    "cuitCuil": "96756079945",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Clínica Médica"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Yrigoyen",
+        "numero": "119",
+        "localidad": "Berazategui",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-17:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Paz",
+    "cuitCuil": "44959043632",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Dermatología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "3786",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Sosa",
+    "cuitCuil": "20806862443",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Traumatologia"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Maipú",
+        "numero": "4331",
+        "localidad": "Florencio Varela",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Sosa",
+    "cuitCuil": "70940221457",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Clínica Médica"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "3955",
+        "localidad": "Esteban Echeverría",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-18:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dr. Paz",
+    "cuitCuil": "44959043632",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Oncología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "3786",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Ibarra",
+    "cuitCuil": "48064389077",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Ginecología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "3786",
+        "localidad": "Morón",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 10:00-19:00"
+        ]
+      }
+    ]
+  },
+  {
+    "nombreCompleto": "Dra. Carrizo",
+    "cuitCuil": "80387535781",
+    "esCentroMedico": false,
+    "especialidades": [
+      "Urología"
+    ],
+    "telefonos": [],
+    "mails": [],
+    "direcciones": [
+      {
+        "calle": "Belgrano",
+        "numero": "3955",
+        "localidad": "Esteban Echeverría",
+        "comuna": null,
+        "municipio": null,
+        "provincia": "Buenos Aires",
+        "horariosAtencion": [
+          "Lunes a Viernes 9:00-18:00"
+        ]
+      }
+    ]
   }
 ]

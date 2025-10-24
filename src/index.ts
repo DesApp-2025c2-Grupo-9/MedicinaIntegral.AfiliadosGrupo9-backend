@@ -10,6 +10,7 @@ import autorizacionesRoutes from './routes/autorizaciones.routes';
 import recetasRoutes from './routes/recetas.routes';
 import especialidadesRoutes from './routes/especialidades.routes';
 import newPrestadoresRoutes from './routes/newPrestadors.routes'
+import turnosRoutes from './routes/turnos.routes'
 import corsOptions from './config/corsOptions';
 import cookieParser from 'cookie-parser';
 import { verifyJWT } from './middlewares/verifyJWT';
@@ -42,6 +43,7 @@ app.use('/api', autorizacionesRoutes);
 app.use('/api', reintegrosRoutes);
 app.use('/api', recetasRoutes);
 app.use('/api', especialidadesRoutes);
+app.use('/api', turnosRoutes)
 
 //Middleware global
 app.use(manejoDeErroresGlobales)
