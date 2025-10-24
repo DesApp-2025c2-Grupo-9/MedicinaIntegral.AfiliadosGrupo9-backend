@@ -1,5 +1,6 @@
 [
   {
+    "_id": "6717b1234f1a2b0012a45670",
     "paraAfiliado": "Carlos González",
     "fechaDePrestacion": "2025-02-15T00:00:00.000Z",
     "especialidad": "Cardiología",
@@ -13,11 +14,25 @@
     },
     "formaDePago": "transferencia",
     "cbu": "2850590940090418135201",
-    "observaciones": "Paciente con antecedentes cardíacos",
+    "observaciones": [
+      {
+        "idEmisor": "6717b1234f1a2b0012a45678",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Buenos días, quisiera saber si mi solicitud ya fue revisada. Adjunto todos los comprobantes solicitados.",
+        "fecha": "2025-02-20T10:15:00.000Z"
+      },
+      {
+        "idEmisor": "652fa1b2f4a3c6a12d4e91a1",
+        "rolEmisor": "Prestador",
+        "descripcion": "Gracias, Carlos. Hemos recibido la documentación y estamos verificando los montos de la factura.",
+        "fecha": "2025-02-21T14:32:00.000Z"
+      }
+    ],
     "estado": "aceptado",
     "idAfiliado": "6717b1234f1a2b0012a45678"
   },
   {
+    "_id": "6717b1234f1a2b0012a45671",
     "paraAfiliado": "Laura Martínez",
     "fechaDePrestacion": "2025-03-10T00:00:00.000Z",
     "especialidad": "Ginecología",
@@ -32,9 +47,24 @@
     "formaDePago": "transferencia",
     "cbu": "2850590940090418135201",
     "estado": "pendiente",
+    "observaciones": [
+      {
+        "idEmisor": "652fa1b2f4a3c6a12d4e91a3",
+        "rolEmisor": "Prestador",
+        "descripcion": "Hola Laura, tu solicitud fue recibida correctamente. En breve será evaluada.",
+        "fecha": "2025-03-12T09:05:00.000Z"
+      },
+      {
+        "idEmisor": "6717b1234f1a2b0012a45679",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Perfecto, muchas gracias. Quedo atenta a cualquier novedad.",
+        "fecha": "2025-03-12T11:47:00.000Z"
+      }
+    ],
     "idAfiliado": "6717b1234f1a2b0012a45679"
   },
   {
+    "_id": "6717b1234f1a2b0012a45672",
     "paraAfiliado": "Sofía González",
     "fechaDePrestacion": "2025-01-22T00:00:00.000Z",
     "especialidad": "Pediatría",
@@ -47,11 +77,25 @@
       "personaAFacturar": "Carlos González"
     },
     "formaDePago": "efectivo",
-    "observaciones": "Consulta de control",
+    "observaciones": [
+      {
+        "idEmisor": "652ab1b2f4a3c6a12d4e9ba1",
+        "rolEmisor": "Prestador",
+        "descripcion": "Hola, el reintegro de Sofía está en revisión. Nos falta confirmar la fecha exacta de la prestación.",
+        "fecha": "2025-01-25T09:50:00.000Z"
+      },
+      {
+        "idEmisor": "6717b1234f1a2b0012a45678",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Gracias por avisar. La prestación fue el 22 de enero, adjunto el comprobante nuevamente.",
+        "fecha": "2025-01-25T12:40:00.000Z"
+      }
+    ],
     "estado": "aceptado",
     "idAfiliado": "6717b1234f1a2b0012a4567a"
   },
   {
+    "_id": "6717b1234f1a2b0012a45673",
     "paraAfiliado": "Mariana Pérez",
     "fechaDePrestacion": "2025-04-05T00:00:00.000Z",
     "especialidad": "Dermatología",
@@ -65,10 +109,30 @@
     },
     "formaDePago": "efectivo",
     "estado": "observado",
-    "observaciones": "Falta comprobante de pago",
+    "observaciones": [
+      {
+        "idEmisor": "6717b1234f1a2b0012a4567b",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Buen día, realicé el pago en efectivo y subí la foto del comprobante. ¿Podrían confirmar si se ve correctamente?",
+        "fecha": "2025-04-08T08:25:00.000Z"
+      },
+      {
+        "idEmisor": "652fa1b2f4a3c6a12d4e91a5",
+        "rolEmisor": "Prestador",
+        "descripcion": "Hola Mariana, gracias. Lamentablemente la imagen no tiene buena resolución. Por favor vuelve a subirla.",
+        "fecha": "2025-04-08T12:10:00.000Z"
+      },
+      {
+        "idEmisor": "6717b1234f1a2b0012a4567b",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Ya subí una nueva foto con mejor calidad.",
+        "fecha": "2025-04-08T14:55:00.000Z"
+      }
+    ],
     "idAfiliado": "6717b1234f1a2b0012a4567b"
   },
   {
+    "_id": "6717b1234f1a2b0012a45674",
     "paraAfiliado": "Hernán López",
     "fechaDePrestacion": "2025-02-28T00:00:00.000Z",
     "especialidad": "Traumatología",
@@ -83,9 +147,18 @@
     "formaDePago": "transferencia",
     "cbu": "2850590940090418135202",
     "estado": "pendiente",
+    "observaciones": [
+      {
+        "idEmisor": "652fa1b2f4a3c6a12d4e91a6",
+        "rolEmisor": "Prestador",
+        "descripcion": "Hola Hernán, estamos verificando la fecha de tu transferencia.",
+        "fecha": "2025-03-03T09:15:00.000Z"
+      }
+    ],
     "idAfiliado": "6717b1234f1a2b0012a4567c"
   },
   {
+    "_id": "6717b1234f1a2b0012a45675",
     "paraAfiliado": "Julián Rossi",
     "fechaDePrestacion": "2025-05-18T00:00:00.000Z",
     "especialidad": "Cardiología",
@@ -99,11 +172,25 @@
     },
     "formaDePago": "transferencia",
     "cbu": "2850590940090418135202",
-    "observaciones": "Control post tratamiento",
+    "observaciones": [
+      {
+        "idEmisor": "6717b1234f1a2b0012a4567d",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Hola, quería confirmar si ya se acreditó el reintegro correspondiente.",
+        "fecha": "2025-05-23T10:05:00.000Z"
+      },
+      {
+        "idEmisor": "652fa1b2f4a3c6a12d4e91a1",
+        "rolEmisor": "Prestador",
+        "descripcion": "Buenos días, Julián. Tu reintegro fue aprobado y será depositado esta semana.",
+        "fecha": "2025-05-24T15:22:00.000Z"
+      }
+    ],
     "estado": "aceptado",
     "idAfiliado": "6717b1234f1a2b0012a4567d"
   },
   {
+    "_id": "6717b1234f1a2b0012a45676",
     "paraAfiliado": "Valentina Fernández",
     "fechaDePrestacion": "2025-06-22T00:00:00.000Z",
     "especialidad": "Medicina General",
@@ -118,10 +205,24 @@
     "formaDePago": "transferencia",
     "cbu": "2850590940090418135201",
     "estado": "rechazado",
-    "observaciones": "Factura sin sello del prestador",
+    "observaciones": [
+      {
+        "idEmisor": "6717b1234f1a2b0012a4567e",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Hola, envié todos los documentos solicitados. ¿Podrían confirmar si falta algo?",
+        "fecha": "2025-06-26T08:42:00.000Z"
+      },
+      {
+        "idEmisor": "652fa1b2f4a3c6a12d4e91a1",
+        "rolEmisor": "Prestador",
+        "descripcion": "Hola Valentina, lamentamos informarte que la factura no cuenta con el sello del prestador, por lo que no podemos aprobar el reintegro.",
+        "fecha": "2025-06-27T11:30:00.000Z"
+      }
+    ],
     "idAfiliado": "6717b1234f1a2b0012a4567e"
   },
   {
+    "_id": "6717b1234f1a2b0012a45677",
     "paraAfiliado": "Lucas Fernández",
     "fechaDePrestacion": "2025-07-10T00:00:00.000Z",
     "especialidad": "Pediatría",
@@ -138,6 +239,7 @@
     "idAfiliado": "6717b1234f1a2b0012a4567f"
   },
   {
+    "_id": "6717b1234f1a2b0012a45678",
     "paraAfiliado": "Carlos González",
     "fechaDePrestacion": "2025-08-14T00:00:00.000Z",
     "especialidad": "Oftalmología",
@@ -150,7 +252,20 @@
       "personaAFacturar": "Carlos González"
     },
     "formaDePago": "cheque",
-    "observaciones": "Reintegro parcial aprobado",
+    "observaciones": [
+      {
+        "idEmisor": "652fa1b2f4a3c6a12d4e91a2",
+        "rolEmisor": "Prestador",
+        "descripcion": "Hola Carlos, el reintegro fue aprobado parcialmente por diferencia en el valor facturado.",
+        "fecha": "2025-08-18T09:10:00.000Z"
+      },
+      {
+        "idEmisor": "6717b1234f1a2b0012a45678",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Entendido, gracias por la aclaración. ¿Podrían detallar la diferencia aplicada?",
+        "fecha": "2025-08-18T12:47:00.000Z"
+      }
+    ],
     "estado": "observado",
     "idAfiliado": "6717b1234f1a2b0012a45678"
   }

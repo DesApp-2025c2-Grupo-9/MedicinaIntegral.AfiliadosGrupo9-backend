@@ -1,4 +1,3 @@
-import { Document } from "mongoose";
 import { EstadoTramite } from "../enums/EstadoTramite";
 import { IObservacion } from "./IObservacion";
 
@@ -9,6 +8,7 @@ export interface IReceta {
   presentacion: string;
   observaciones?: IObservacion[];
   estado: EstadoTramite;
+  fechaBaja?: Date;
 }
 
 export default IReceta;

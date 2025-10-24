@@ -8,12 +8,19 @@ export interface IAutorizacionDocument extends Omit<IAutorizacion, 'id'>, Docume
 
 const autorizacionSchema = new Schema<IAutorizacionDocument>(
   {
-    nroAfiliado: {
-      type: String,
+    idAfiliado: {
+      type: Schema.Types.ObjectId,
       required: true,
       ref: "Afiliado",
     },
-
+    paraAfiliado: {
+      type: String,
+      required: true,
+    },
+    nroAfiliado: {
+      type: String,
+      required: false,
+    },
     fechaSolicitud: { type: Date, required: true, default: Date.now },
     practica: { type: String, required: true },
     especialidad: { type: String, required: true },
@@ -37,6 +44,7 @@ const autorizacionSchema = new Schema<IAutorizacionDocument>(
       enum: Object.values(EstadoTramite),
       default: EstadoTramite.PENDIENTE,
     },
+    fechaBaja: { type: Date, required: false }
   },
   { timestamps: true }
 );

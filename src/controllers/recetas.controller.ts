@@ -145,13 +145,16 @@ const recetaController: IRecetaController = {
 
   deleteReceta: async (req, res) => {
     try {
-      const recetaEliminada = await Receta.findByIdAndDelete(req.params.id);
-      if (!recetaEliminada) {
+      const receta = await Receta.findById(req.params.id);
+      if (!receta) {
         res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
         return;
       }
+      receta.fechaBaja = new Date();
+      await receta.save();
+
       res.status(200).json({
-        data: new IdRecetaDTO(recetaEliminada),
+        data: new IdRecetaDTO(receta),
         message: SUCCESS_MESSAGES.RECETA.DELETED,
       });
     } catch (error) {
