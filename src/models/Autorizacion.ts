@@ -8,12 +8,19 @@ export interface IAutorizacionDocument extends Omit<IAutorizacion, 'id'>, Docume
 
 const autorizacionSchema = new Schema<IAutorizacionDocument>(
   {
-    nroAfiliado: {
-      type: String,
+    idAfiliado: {
+      type: Schema.Types.ObjectId,
       required: true,
       ref: "Afiliado",
     },
-
+    paraAfiliado: {
+      type: String,
+      required: true,
+    },
+    nroAfiliado: {
+      type: String,
+      required: false,
+    },
     fechaSolicitud: { type: Date, required: true, default: Date.now },
     practica: { type: String, required: true },
     especialidad: { type: String, required: true },
@@ -21,15 +28,20 @@ const autorizacionSchema = new Schema<IAutorizacionDocument>(
     lugarAtencion: { type: String, required: true },
     diagnostico: { type: String },
     observaciones: { 
-      type: [{
-        emisor: { type: Schema.Types.ObjectId, ref: "Afiliado"}, 
-        descripcion: { type: String },
-        fecha: { type: Date, default: Date.now }
-      },{
-        emisor: { type: Schema.Types.ObjectId, ref: "Prestador"}, 
-        descripcion: { type: String },
-        fecha: { type: Date, default: Date.now }
-      }]
+      type: [
+        {
+          idEmisor: { type: Schema.Types.ObjectId, ref: 'Afiliado' },
+          rolEmisor: { type: String, required: true },
+          descripcion: { type: String },
+          fecha: { type: Date, default: Date.now }
+        },
+        {
+          idEmisor: { type: Schema.Types.ObjectId, ref: 'Prestador' },
+          rolEmisor: { type: String, required: true },
+          descripcion: { type: String },
+          fecha: { type: Date, default: Date.now }
+        }
+      ]
     },
     diasDeInternacion: { type: Number, required: true },
     estado: {
@@ -37,6 +49,7 @@ const autorizacionSchema = new Schema<IAutorizacionDocument>(
       enum: Object.values(EstadoTramite),
       default: EstadoTramite.PENDIENTE,
     },
+    fechaBaja: { type: Date, required: false }
   },
   { timestamps: true }
 );

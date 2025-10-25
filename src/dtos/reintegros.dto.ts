@@ -1,3 +1,4 @@
+import { IObservacion } from '../interfaces/IObservacion';
 import { IReintegroDocument } from '../models/Reintegro';
 
 export class GetReintegrosDTO {
@@ -15,7 +16,7 @@ export class GetReintegrosDTO {
   };
   formaDePago: string;
   cbu?: string;
-  observaciones?: string;
+  observaciones?: IObservacion[];
   estado: string;
 
   constructor(data: IReintegroDocument) {
@@ -60,5 +61,15 @@ export class DeleteReintegroDTO {
 
   constructor(data: IReintegroDocument) {
     this.id = data._id.toString();
+  }
+}
+
+export class CommentReintegroDTO {
+  id: string;
+  observaciones: IObservacion[];
+
+  constructor(data: IReintegroDocument) {
+    this.id = data._id.toString();
+    this.observaciones = data.observaciones;
   }
 }
