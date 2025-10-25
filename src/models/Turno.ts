@@ -9,8 +9,8 @@ const turnoSchema = new Schema<ITurnoDocument>(
       ref: "Afiliado",
       required: false,
     },
-    nroAfiliado: { type: String, required: false },
-    prestador: {
+    // nroAfiliado: { type: String, required: false },
+    idPrestador: {
       type: Schema.Types.ObjectId,
       ref: "Prestador",
       required: true,
@@ -24,6 +24,7 @@ const turnoSchema = new Schema<ITurnoDocument>(
       enum: EstadoTurno,
       default: EstadoTurno.DISPONIBLE,
     },
+    fechaBaja: { type: Date, required: false }
   },
   { timestamps: true }
 );

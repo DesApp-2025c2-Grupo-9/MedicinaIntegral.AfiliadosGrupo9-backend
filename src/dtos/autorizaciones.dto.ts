@@ -3,18 +3,20 @@ import { IObservacion } from "../interfaces/IObservacion";
 
 export class GetAutorizacionesDTO {
     id: string;
-    nroAfiliado: string; 
+    paraAfiliado: string;
+    nroAfiliado?: string; 
     fechaSolicitud: Date;
     practica: string;
     especialidad: string;
     medicoSolicitante: string;
     lugarAtencion: string;
-    observaciones?: IObservacion[];
+    observaciones: IObservacion[];
     diasDeInternacion: number;
     estado: string;
 
     constructor(data: IAutorizacionDocument) {
         this.id = data._id.toString();
+        this.paraAfiliado = data.paraAfiliado;    
         this.nroAfiliado = data.nroAfiliado;    
         this.fechaSolicitud = data.fechaSolicitud;
         this.practica = data.practica;

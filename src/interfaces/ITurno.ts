@@ -11,6 +11,7 @@ export interface ITurno {
   estado: EstadoTurno; // 'disponible' | 'reservado'
   prestador: Types.ObjectId;
   idAfiliado?: Types.ObjectId;
+  fechaBaja?: Date;
 }
 
 export interface ITurnoDocument extends ITurno, Document {}

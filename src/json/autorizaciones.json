@@ -1,6 +1,8 @@
 [
   {
-    "nroAfiliado": "0000001-01",
+    "idAfiliado": "6717b1234f1a2b0012a45678",
+    "paraAfiliado": "Carlos González",
+    "nroAfiliado": "000001-01",
     "fechaSolicitud": "2025-10-12T10:00:00.000Z",
     "practica": "Resonancia magnética",
     "especialidad": "Neurología",
@@ -10,6 +12,7 @@
     "observaciones": [
       {
         "emisor": "650f1d2a3b4c5d6e7f8a9012",
+        "rolEmisor": "Afiliado",
         "descripcion": "Solicitar prioridad por síntomas graves",
         "fecha": "2025-10-12T12:00:00.000Z"
       }
@@ -18,10 +21,12 @@
     "estado": "pendiente"
   },
   {
-    "nroAfiliado": "0000001-02",
+    "idAfiliado": "6717b1234f1a2b0012a45679", 
+    "paraAfiliado": "Laura Martínez",
+    "nroAfiliado": "000001-02",
     "fechaSolicitud": "2025-10-12T11:30:00.000Z",
     "practica": "Ecografía abdominal",
-    "especialidad": "Gastroenterología",
+    "especialidad": "Medicina General",
     "medicoSolicitante": "Dra. María Gómez",
     "lugarAtencion": "Clínica Norte",
     "diagnostico": "Dolor abdominal",
@@ -30,16 +35,19 @@
     "estado": "pendiente"
   },
   {
-    "nroAfiliado": "0000002-01",
+    "idAfiliado": "6717b1234f1a2b0012a4567b",
+    "paraAfiliado": "Mariana Pérez",
+    "nroAfiliado": "000002-01",
     "fechaSolicitud": "2025-10-11T09:00:00.000Z",
     "practica": "Tomografía computarizada",
-    "especialidad": "Radiología",
+    "especialidad": "Cardiología",
     "medicoSolicitante": "Dr. Alberto Ruiz",
     "lugarAtencion": "Hospital Central",
     "diagnostico": "Traumatismo leve",
     "observaciones": [
       {
         "emisor": "650f1d2a3b4c5d6e7f8a9013",
+        "rolEmisor": "Afiliado",
         "descripcion": "Revisar con prioridad",
         "fecha": "2025-10-11T10:00:00.000Z"
       }
@@ -48,7 +56,9 @@
     "estado": "observado"
   },
   {
-    "nroAfiliado": "0000003-01",
+    "idAfiliado": "6717b1234f1a2b0012a4567d",
+    "paraAfiliado": "Julián Rossi",
+    "nroAfiliado": "000003-01",
     "fechaSolicitud": "2025-10-10T08:00:00.000Z",
     "practica": "Electrocardiograma",
     "especialidad": "Cardiología",
@@ -60,16 +70,19 @@
     "estado": "aceptado"
   },
   {
-    "nroAfiliado": "0000003-02",
+    "idAfiliado": "6717b1234f1a2b0012a4567f",
+    "paraAfiliado": "Lucas Fernández",
+    "nroAfiliado": "000004-02",
     "fechaSolicitud": "2025-10-10T14:00:00.000Z",
     "practica": "Resonancia de columna",
-    "especialidad": "Ortopedia",
+    "especialidad": "Traumatología",
     "medicoSolicitante": "Dra. Claudia Fernández",
     "lugarAtencion": "Hospital Norte",
     "diagnostico": "Dolor lumbar",
     "observaciones": [
       {
         "emisor": "650f1d2a3b4c5d6e7f8a9014",
+        "rolEmisor": "Afiliado",
         "descripcion": "Verificar cobertura",
         "fecha": "2025-10-10T15:00:00.000Z"
       }
@@ -78,10 +91,12 @@
     "estado": "pendiente"
   },
   {
-    "nroAfiliado": "0000004-01",
+    "idAfiliado": "6717b1234f1a2b0012a4567e",
+    "paraAfiliado": "Valentina Fernández",
+    "nroAfiliado": "000004-01",
     "fechaSolicitud": "2025-10-09T09:30:00.000Z",
     "practica": "Análisis de sangre",
-    "especialidad": "Laboratorio",
+    "especialidad": "Medicina general",
     "medicoSolicitante": "Dr. Ricardo López",
     "lugarAtencion": "Laboratorio Central",
     "diagnostico": "Chequeo general",
@@ -90,16 +105,19 @@
     "estado": "aceptado"
   },
   {
-    "nroAfiliado": "0000005-01",
+    "idAfiliado": "6717b1234f1a2b0012a4567c",
+    "paraAfiliado": "Hernán López",
+    "nroAfiliado": "000002-02",
     "fechaSolicitud": "2025-10-08T10:45:00.000Z",
     "practica": "Tomografía torácica",
-    "especialidad": "Radiología",
+    "especialidad": "Cardiología",
     "medicoSolicitante": "Dr. Esteban Díaz",
     "lugarAtencion": "Hospital Central",
     "diagnostico": "Tos persistente",
     "observaciones": [
       {
         "emisor": "650f1d2a3b4c5d6e7f8a9015",
+        "rolEmisor": "Afiliado",
         "descripcion": "Revisar historial previo",
         "fecha": "2025-10-08T11:00:00.000Z"
       }
@@ -108,10 +126,12 @@
     "estado": "rechazado"
   },
   {
-    "nroAfiliado": "0000006-01",
+    "idAfiliado": "6717b1234f1a2b0012a4567a",
+    "paraAfiliado": "Sofía González",
+    "nroAfiliado": "000001-03",
     "fechaSolicitud": "2025-10-07T08:30:00.000Z",
     "practica": "Ultrasonido renal",
-    "especialidad": "Nefrología",
+    "especialidad": "Medicina General",
     "medicoSolicitante": "Dra. Gabriela Morales",
     "lugarAtencion": "Clínica Norte",
     "diagnostico": "Dolor lumbar",
@@ -120,16 +140,19 @@
     "estado": "pendiente"
   },
   {
-    "nroAfiliado": "0000007-01",
+    "idAfiliado": "6717b1234f1a2b0012a4567d",
+    "paraAfiliado": "Julián Rossi",
+    "nroAfiliado": "000003-01",
     "fechaSolicitud": "2025-10-06T09:15:00.000Z",
-    "practica": "Endoscopía digestiva",
-    "especialidad": "Gastroenterología",
+    "practica": "Biopsia de piel",
+    "especialidad": "Dermatología",
     "medicoSolicitante": "Dr. Mario Sánchez",
     "lugarAtencion": "Hospital Sur",
-    "diagnostico": "Dolor abdominal crónico",
+    "diagnostico": "Dermatitis herpetiforme",
     "observaciones": [
       {
         "emisor": "650f1d2a3b4c5d6e7f8a9016",
+        "rolEmisor": "Afiliado",
         "descripcion": "Paciente con antecedentes",
         "fecha": "2025-10-06T10:00:00.000Z"
       }
@@ -138,7 +161,9 @@
     "estado": "observado"
   },
   {
-    "nroAfiliado": "0000008-01",
+    "idAfiliado": "6717b1234f1a2b0012a4567e",
+    "paraAfiliado": "Valentina Fernández",
+    "nroAfiliado": "000004-01",
     "fechaSolicitud": "2025-10-05T07:45:00.000Z",
     "practica": "Prueba de esfuerzo",
     "especialidad": "Cardiología",

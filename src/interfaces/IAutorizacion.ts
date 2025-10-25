@@ -1,18 +1,22 @@
+import { Types } from "mongoose";
 import { EstadoTramite } from "../enums/EstadoTramite";
 import { IObservacion } from "./IObservacion";
 
 export interface IAutorizacion {
   id: string;
-  nroAfiliado: string; // referencia al Afiliado
+  idAfiliado: Types.ObjectId
+  paraAfiliado: string;
+  nroAfiliado?: string; 
   fechaSolicitud: Date;
   practica: string;
   especialidad: string;
   medicoSolicitante: string;
   lugarAtencion: string;
   diagnostico?: string;
-  observaciones?: IObservacion[];
+  observaciones: IObservacion[];
   diasDeInternacion: number;
   estado: EstadoTramite;
+  fechaBaja?: Date;
 }
 
 export default IAutorizacion;

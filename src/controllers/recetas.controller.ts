@@ -8,14 +8,11 @@ import { ApiResponse } from "../types/ApiResponse";
 import { log } from "console";
 import mongoose from "mongoose";
 import Afiliado from "../models/Afiliado";
-import { IObservacion } from '../interfaces/IObservacion';
+import { IObservacion } from "../interfaces/IObservacion";
 
 interface IRecetaController {
   getAllRecetas(req: Request, res: Response<ApiResponse>): Promise<void>;
-  createReceta(
-    req: Request,
-    res: Response<ApiResponse>
-  ): Promise<void>;
+  createReceta(req: Request, res: Response<ApiResponse>): Promise<void>;
 
   updateReceta(
     req: Request<{ id: string }, {}, Partial<IReceta>>,
@@ -51,9 +48,9 @@ const recetaController: IRecetaController = {
     const observacion: IObservacion = {
       // construimos la observación con el comentario que envió el afiliado
       idEmisor: idAfiliado!,
-      rolEmisor: 'Afiliado',
+      rolEmisor: "Afiliado",
       descripcion: req.body.observaciones,
-      fecha: new Date()
+      fecha: new Date(),
     };
 
     try {
@@ -66,7 +63,7 @@ const recetaController: IRecetaController = {
         ...req.body,
         idAfiliado,
         observaciones: [observacion],
-        nroAfiliado: unAfiliado?.nroAfiliado
+        nroAfiliado: unAfiliado?.nroAfiliado,
       };
       const newReceta = await Receta.create(recetaBody);
       const newRecetaDTO = new IdRecetaDTO(newReceta);
@@ -103,16 +100,20 @@ const recetaController: IRecetaController = {
   },
   deleteReceta: async (req, res) => {
     try {
-      const recetaEliminada = await Receta.findByIdAndDelete(req.params.id);
-      if (!recetaEliminada) {
+      const receta = await Receta.findById(req.params.id);
+      if (!receta) {
         res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
         return;
       }
-// recetaEliminada.fechaBaja = new Date()
-// awawit recetaEliminada.save()
+
+      // recetaEliminada.fechaBaja = new Date()
+      // awawit recetaEliminada.save()
+
+      //receta.fechaBaja = new Date();
+      //await receta.save();
 
       res.status(200).json({
-        data: new IdRecetaDTO(recetaEliminada),
+        data: new IdRecetaDTO(receta),
         message: SUCCESS_MESSAGES.RECETA.DELETED,
       });
     } catch (error) {

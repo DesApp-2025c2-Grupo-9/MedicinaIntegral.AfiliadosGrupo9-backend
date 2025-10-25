@@ -40,12 +40,15 @@ const recetaSchema = new Schema<IRecetaDocument>(
       enum: Object.values(EstadoTramite),
       default: EstadoTramite.PENDIENTE,
     },
+
     idAfiliado: {
       type: Schema.Types.ObjectId,
       ref: "Afiliado",
       //required: true,
     },
     activo: { type: Boolean, default: true },
+
+    // fechaBaja: { type: Date, required: false }
   },
   { timestamps: true }
 );
