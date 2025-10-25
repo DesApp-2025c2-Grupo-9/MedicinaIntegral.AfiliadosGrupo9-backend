@@ -11,7 +11,7 @@ export async function validateUserRegistration(user: {
 
   
   if (!isValidDni(user.nroDocumento)) {
-    errors.push('DNI inválido');
+    errors.push('El DNI es inválido');
   }
 
   if (!isValidPassword(user.password)) {
@@ -19,17 +19,17 @@ export async function validateUserRegistration(user: {
   }
 
   if (!validatePasswordMatch(user.password, user.confirmPassword)) {
-    errors.push('Contraseñas no coinciden');
+    errors.push('Las contraseñas no coinciden');
   }
 
   
   const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
 
   if (!foundUser) {
-    errors.push('Usuario no existe');
+    errors.push('El usuario no existe');
     
   } else if (foundUser.registrado) {
-    errors.push('Usuario ya registrado');
+    errors.push('El usuario ya está registrado');
   }
 
   return { errors, foundUser: foundUser || null };

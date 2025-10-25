@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import  Afiliado  from '../models/Afiliado';
-import {RolAfiliado}  from '../enums/RolAfiliado';
+
 
 
 export const getRefreshTokenFromCookies = (cookies: any): string | null => {
@@ -20,16 +20,3 @@ export const verifyRefreshToken = (token: string, secret: string): Promise<{ nro
   });
 };
 
-export const getFamiliaresPermitidos = (user: any): string[] => {
-  if (user.rol === RolAfiliado.TITULAR) {
-    return user.grupoFamiliar.map((f: any) => f._id);
-  }
-
-  if (user.rol === RolAfiliado.CONYUGE) {
-    return user.grupoFamiliar
-      .filter((f: any) => f.rol !== RolAfiliado.TITULAR && f.rol !== RolAfiliado.HIJO_MAYOR)
-      .map((f: any) => f._id);
-  }
-
-  return [user._id];
-};

@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { ApiResponse } from '../types/ApiResponse';
 import { Request, Response } from 'express';
-import { RegisterBody, LoginBody, RequestCookies } from '../types/AuthTypes';
+import { RegisterBody, LoginBody } from '../types/AuthTypes';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { validateUserRegistration } from "../validators/user.validator"
 import { validateLoginCredentials, getFamiliaresPermitidos } from "../validators/login.validator";
@@ -154,4 +154,6 @@ const userController: IUserController = {
     res.status(500).json({ message });
   }
   }
+  
 };
+export default userController;
