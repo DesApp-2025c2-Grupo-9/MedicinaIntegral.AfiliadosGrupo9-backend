@@ -11,11 +11,8 @@ export interface IReceta {
   presentacion: string;
   observaciones?: IObservacion[];
   estado: EstadoTramite;
-
   idAfiliado: Types.ObjectId;
-  activo: boolean;
-
-  // fechaBaja?: Date;
+  fechaBaja?: Date;
 }
 
 export default IReceta;

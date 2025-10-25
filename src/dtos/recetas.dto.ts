@@ -4,6 +4,7 @@ import { IObservacion } from "../interfaces/IObservacion";
 export class GetRecetasDTO {
   id: string;
   nroAfiliado: string;
+
   paraAfiliado: string;
   medicamento: string;
   cantidad: number;

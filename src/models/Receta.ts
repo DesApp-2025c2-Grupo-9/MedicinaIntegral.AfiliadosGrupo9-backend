@@ -24,12 +24,14 @@ const recetaSchema = new Schema<IRecetaDocument>(
     observaciones: {
       type: [
         {
-          emisor: { type: Schema.Types.ObjectId, ref: "Afiliado" },
+          idEmisor: { type: Schema.Types.ObjectId, ref: "Afiliado" },
+          rolEmisor: { type: String, required: true },
           descripcion: { type: String },
           fecha: { type: Date, default: Date.now },
         },
         {
-          emisor: { type: Schema.Types.ObjectId, ref: "Prestador" },
+          idEmisor: { type: Schema.Types.ObjectId, ref: "Prestador" },
+          rolEmisor: { type: String, required: true },
           descripcion: { type: String },
           fecha: { type: Date, default: Date.now },
         },
@@ -46,9 +48,9 @@ const recetaSchema = new Schema<IRecetaDocument>(
       ref: "Afiliado",
       //required: true,
     },
-    activo: { type: Boolean, default: true },
+    //activo: { type: Boolean, default: true },
 
-    // fechaBaja: { type: Date, required: false }
+    fechaBaja: { type: Date, required: false },
   },
   { timestamps: true }
 );

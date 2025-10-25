@@ -8,7 +8,8 @@
     "presentacion": "Tabletas",
     "observaciones": [
       {
-        "emisor": "650f1d2a3b4c5d6e7f8a9012",
+        "idEmisor": "650f1d2a3b4c5d6e7f8a9012",
+        "rolEmisor": "Afiliado",
         "descripcion": "Tomar después de las comidas",
         "fecha": "2025-10-12T00:00:00.000Z"
       }
@@ -24,13 +25,13 @@
     "presentacion": "Pastillas",
     "observaciones": [
       {
-        "emisor": "650f1d2a3b4c5d6e7f8a9012",
+        "idEmisor": "650f1d2a3b4c5d6e7f8a9012",
+        "rolEmisor": "Afiliado",
         "descripcion": "Tomar cada 12 horas",
         "fecha": "2025-10-12T00:00:00.000Z"
       }
     ],
-    "estado": "aceptado",
-    "activo": true
+    "estado": "aceptado"
   },
   {
     "nroAfiliado": "000001-02",
@@ -51,13 +52,13 @@
     "presentacion": "Cápsulas",
     "observaciones": [
       {
-        "emisor": "650f1d2a3b4c5d6e7f8a9013",
+        "idEmisor": "650f1d2a3b4c5d6e7f8a9013",
+        "rolEmisor": "Afiliado",
         "descripcion": "Paciente con alergia a penicilina",
         "fecha": "2025-10-11T00:00:00.000Z"
       }
     ],
-    "estado": "observado",
-    "activo": true
+    "estado": "observado"
   },
   {
     "nroAfiliado": "000003-01",
@@ -67,8 +68,7 @@
     "cantidad": 7,
     "presentacion": "Tabletas",
     "observaciones": [],
-    "estado": "aceptado",
-    "activo": true
+    "estado": "aceptado"
   },
   {
     "nroAfiliado": "000004-01",
@@ -78,7 +78,6 @@
     "cantidad": 6,
     "presentacion": "Tabletas",
     "observaciones": [],
-    "estado": "aceptado",
-    "activo": true
+    "estado": "aceptado"
   }
 ]
