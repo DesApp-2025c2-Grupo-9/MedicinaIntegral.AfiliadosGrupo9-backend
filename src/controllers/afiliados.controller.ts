@@ -3,37 +3,35 @@ import Afiliado from '../models/Afiliado';
 import { ApiResponse } from '../types/ApiResponse';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { GetAfiliadoDTO } from '../dtos/afiliados.dto';
+import { validarAfiliado } from '../validators/afiliado.validator';
 
 interface IAfiliadoController {
-  getAfiliado: (req: Request, res: Response<ApiResponse>) => Promise<void>;
+  getAfiliado: (req: Request, res: Response<ApiResponse>) => Promise<Response|void>;
 }
 
 const afiliadoController: IAfiliadoController = {
   getAfiliado: async (req, res) => {
-    const nroDocumento = req.nroDocumento; 
+    const nroDocumento = req.nroDocumento;
 
     try {
       const unAfiliado = await Afiliado.findOne({ nroDocumento }).populate('grupoFamiliar');
 
       if (!unAfiliado) {
-        res.status(404).json({ message: 'No se encontró el afiliado.' });
-        return;
+        return res.status(404).json({ message: 'No se encontró el afiliado.' });
+      }
+
+      const errores = validarAfiliado(unAfiliado);
+      if (errores.length > 0) {
+        return res.status(400).json({ message: `Datos inválidos del afiliado: ${errores.join('; ')}` });
       }
 
       const unAfiliadoDTO = new GetAfiliadoDTO(unAfiliado);
-      res.json({ data: unAfiliadoDTO });
-      /* res.json({
-        data: {
-          nombre: 'Pedro',
-          apellido: 'Sanchez',
-          grupoFamiliar: [{ nombre: 'Juan', apellido: 'Perez' }, { nombre: 'Martín', apellido: 'Dominguez' }]
-        }
-      }); */
+      res.status(200).json({ data: unAfiliadoDTO });
+
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
     }
   }
 };
-
 export default afiliadoController;

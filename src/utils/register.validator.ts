@@ -1,6 +1,4 @@
 
-import  Afiliado  from '../models/Afiliado';
-
 //esto es para el registro
 
 
