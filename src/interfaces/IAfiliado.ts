@@ -22,7 +22,14 @@ interface IAfiliado {
   registrado: boolean;
   situacionTerapeutica: string;
   planMedico: PlanMedico; // '100' | '200' | '300' | '400'
-  cbu?: string;
+  cbus: {
+    tipoDeCuenta: string;
+    cuil: string;
+    nombre: string;
+    apellido: string;
+    cbu: string;
+  }[];
+
   rol: RolAfiliado; // 'Titular' | 'Cónyuge' | 'Hijo Menor' | 'Hijo Mayor' | 'Otro'
   refreshToken: string;
 }

@@ -14,6 +14,8 @@ import cookieParser from 'cookie-parser';
 import { verifyJWT } from './middlewares/verifyJWT';
 import afiliadosRoutes from './routes/afiliados.routes';
 import { manejoDeErroresGlobales } from './middlewares/genericMiddleware';
+import miCuentaRoutes from './routes/miCuenta.routes';
+
 
 export const app = express();
 export const PORT = process.env.PORT || 3000;
@@ -40,6 +42,7 @@ app.use('/api', autorizacionesRoutes);
 app.use('/api', reintegrosRoutes);
 app.use('/api', recetasRoutes);
 app.use('/api', especialidadesRoutes);
+app.use('/api', miCuentaRoutes);
 
 //Middleware global
 app.use(manejoDeErroresGlobales)

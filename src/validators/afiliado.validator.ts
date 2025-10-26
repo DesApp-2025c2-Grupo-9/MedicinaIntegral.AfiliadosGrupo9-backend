@@ -64,3 +64,20 @@ export const validarAfiliado = (afiliado: any): string[] => {
 
   return errores;
 };
+
+export async function obtenerAfiliadoPorId(userId: string) {
+  return Afiliado.findById(userId);
+}
+
+export async function obtenerGrupoFamiliar(userId: string) {
+  return Afiliado.find({ grupoFamiliarDe: userId });
+}
+
+export async function registrarCBU(userId: string, cbuData: any) {
+  const afiliado = await Afiliado.findById(userId);
+  if (!afiliado) {
+  throw new Error('Afiliado no encontrado');
+  }
+  afiliado.cbus.push(cbuData);
+  await afiliado.save();
+}
