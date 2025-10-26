@@ -6,6 +6,7 @@ import { ERROR_MESSAGES } from "../utils/errorMessages";
 import { GetRecetasDTO, IdRecetaDTO } from "../dtos/recetas.dto";
 import { ApiResponse } from "../types/ApiResponse";
 import { IObservacion } from "../interfaces/IObservacion";
+import Afiliado from "../models/Afiliado";
 
 interface IRecetaController {
   getAllRecetas(req: Request, res: Response<ApiResponse>): Promise<void>;
@@ -57,13 +58,19 @@ const recetaController: IRecetaController = {
       descripcion: req.body.observaciones,
       fecha: new Date(),
     };
-    const recetaBody = {
-      ...req.body,
-      idAfiliado,
-      observaciones: [observacion],
-    };
-
     try {
+      const unAfiliado = await Afiliado.findById(idAfiliado);
+      if (!unAfiliado) {
+        res.status(404).json({ message: "no se encontró un afiliado" });
+        return;
+      }
+      const recetaBody = {
+        ...req.body,
+        idAfiliado,
+        nroAfiliado: unAfiliado.nroAfiliado,
+        observaciones: [observacion],
+      };
+
       const newReceta = await Receta.create(recetaBody);
       const newRecetaDTO = new IdRecetaDTO(newReceta);
       res.json({
@@ -123,12 +130,10 @@ const recetaController: IRecetaController = {
       receta.fechaBaja = new Date();
       await receta.save();
 
-      res
-        .status(200)
-        .json({
-          data: new IdRecetaDTO(receta),
-          message: SUCCESS_MESSAGES.RECETA.DELETED,
-        });
+      res.status(200).json({
+        data: new IdRecetaDTO(receta),
+        message: SUCCESS_MESSAGES.RECETA.DELETED,
+      });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
