@@ -49,12 +49,6 @@
     "estado": "pendiente",
     "observaciones": [
       {
-        "idEmisor": "652fa1b2f4a3c6a12d4e91a3",
-        "rolEmisor": "Prestador",
-        "descripcion": "Hola Laura, tu solicitud fue recibida correctamente. En breve será evaluada.",
-        "fecha": "2025-03-12T09:05:00.000Z"
-      },
-      {
         "idEmisor": "6717b1234f1a2b0012a45679",
         "rolEmisor": "Afiliado",
         "descripcion": "Perfecto, muchas gracias. Quedo atenta a cualquier novedad.",
@@ -147,14 +141,7 @@
     "formaDePago": "transferencia",
     "cbu": "2850590940090418135202",
     "estado": "pendiente",
-    "observaciones": [
-      {
-        "idEmisor": "652fa1b2f4a3c6a12d4e91a6",
-        "rolEmisor": "Prestador",
-        "descripcion": "Hola Hernán, estamos verificando la fecha de tu transferencia.",
-        "fecha": "2025-03-03T09:15:00.000Z"
-      }
-    ],
+    "observaciones": [],
     "idAfiliado": "6717b1234f1a2b0012a4567c"
   },
   {
@@ -258,12 +245,6 @@
         "rolEmisor": "Prestador",
         "descripcion": "Hola Carlos, el reintegro fue aprobado parcialmente por diferencia en el valor facturado.",
         "fecha": "2025-08-18T09:10:00.000Z"
-      },
-      {
-        "idEmisor": "6717b1234f1a2b0012a45678",
-        "rolEmisor": "Afiliado",
-        "descripcion": "Entendido, gracias por la aclaración. ¿Podrían detallar la diferencia aplicada?",
-        "fecha": "2025-08-18T12:47:00.000Z"
       }
     ],
     "estado": "observado",
