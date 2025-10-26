@@ -15,7 +15,6 @@ interface IRecetaController {
     req: Request<{ id: string }>,
     res: Response<ApiResponse>
   ) => Promise<void>;
-
   deleteReceta(
     req: Request<{ id: string }>,
     res: Response<ApiResponse>
@@ -48,7 +47,6 @@ const recetaController: IRecetaController = {
       res.status(500).json({ message });
     }
   },
-
   createReceta: async (req, res) => {
     const idAfiliado = req.familiaresPermitidos?.[0]; // El primer id corresponde a quien hizo la petición
     const observacion: IObservacion = {
@@ -82,6 +80,7 @@ const recetaController: IRecetaController = {
       res.status(500).json({ message });
     }
   },
+
   updateReceta: async (req, res) => {
     const descripcionObservacion = req.body.observaciones || "";
     const { id } = req.params;

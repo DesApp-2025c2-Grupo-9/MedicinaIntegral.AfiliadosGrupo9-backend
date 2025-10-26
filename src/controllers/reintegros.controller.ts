@@ -72,7 +72,7 @@ const reintegroController: IReintegroController = {
         descripcion: descripcionObservacion
       };
       const reintegroBody = {
-        ...unReintegro,
+        ...req.body,
         observaciones: [updatedObservacion]
       };
 
