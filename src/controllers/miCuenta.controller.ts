@@ -1,22 +1,25 @@
 import { Request, Response } from 'express';
-import { obtenerAfiliadoPorId, obtenerGrupoFamiliar, registrarCBU } from '../validators/afiliado.validator';
+import { getAfiliadoByDocumento, obtenerGrupoFamiliar, registrarCBU } from '../validators/afiliado.validator';
 
 
 interface AuthenticatedRequest extends Request {
   user?: {
     id: string;
     rol?: string;
+    nroDocumento?: string;
   };
 }
 
 export const MiCuentaController = {
   obtenerMiCuenta: async (req: AuthenticatedRequest, res: Response) => {
     try {
-      const userId = req.user?.id;
-      if (!userId) return res.status(401).json({ error: 'Usuario no autenticado' });
+      const nroDocumento = req.nroDocumento;
+      if (!nroDocumento) return res.status(401).json({ error: 'Usuario no autenticado' });
 
-      const afiliado = await obtenerAfiliadoPorId(userId);
-      const grupoFamiliar = await obtenerGrupoFamiliar(userId);
+      
+      const afiliado = await getAfiliadoByDocumento(nroDocumento);
+      const grupoFamiliar = await obtenerGrupoFamiliar(nroDocumento);
+
 
       res.json({ afiliado, grupoFamiliar });
     } catch (error) {
