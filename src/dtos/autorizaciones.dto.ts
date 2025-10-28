@@ -4,13 +4,13 @@ import { IObservacion } from "../interfaces/IObservacion";
 export class GetAutorizacionesDTO {
     id: string;
     paraAfiliado: string;
-    nroAfiliado: string; 
+    nroAfiliado?: string; 
     fechaSolicitud: Date;
     practica: string;
     especialidad: string;
     medicoSolicitante: string;
     lugarAtencion: string;
-    observaciones?: IObservacion[];
+    observaciones: IObservacion[];
     diasDeInternacion: number;
     estado: string;
 

@@ -5,94 +5,74 @@ import { SUCCESS_MESSAGES } from "../utils/successMessages";
 import { ERROR_MESSAGES } from "../utils/errorMessages";
 import { GetRecetasDTO, IdRecetaDTO } from "../dtos/recetas.dto";
 import { ApiResponse } from "../types/ApiResponse";
-import { log } from "console";
+import { IObservacion } from "../interfaces/IObservacion";
 import Afiliado from "../models/Afiliado";
 
 interface IRecetaController {
   getAllRecetas(req: Request, res: Response<ApiResponse>): Promise<void>;
-  getRecetasByGrupoFamiliar(
-    req: Request,
-    res: Response<ApiResponse>
-  ): Promise<void>;
-  getRecetaById(
+  createReceta(req: Request, res: Response<ApiResponse>): Promise<void>;
+  updateReceta: (
     req: Request<{ id: string }>,
     res: Response<ApiResponse>
-  ): Promise<void>;
-
-  createReceta(
-    req: Request<{}, {}, IReceta>,
-    res: Response<ApiResponse>
-  ): Promise<void>;
-
-  updateReceta(
-    req: Request<{ id: string }, {}, Partial<IReceta>>,
-    res: Response<ApiResponse>
-  ): Promise<void>;
-
-  patchReceta(
-    req: Request<{ id: string }, {}, Partial<IReceta>>,
-    res: Response<ApiResponse>
-  ): Promise<void>;
-
+  ) => Promise<void>;
   deleteReceta(
     req: Request<{ id: string }>,
     res: Response<ApiResponse>
   ): Promise<void>;
 }
+type UpdatedReceta = Omit<IReceta, "observaciones"> & {
+  observaciones: string;
+};
 
 const recetaController: IRecetaController = {
   getAllRecetas: async (req, res) => {
-    try {
-      const recetas = await Receta.find();
-      const recetasDTO = recetas.map((r) => new GetRecetasDTO(r));
-      res.status(200).json({ data: recetasDTO });
-    } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
-    }
-  },
+    const idsAfiliados = req.familiaresPermitidos;
 
-  getRecetasByGrupoFamiliar: async (req, res) => {
     try {
-      const nroDocumentoUsuario = req.nroDocumento;
-      const usuario = await Afiliado.findOne({
-        nroDocumento: nroDocumentoUsuario,
+      const recetas = await Receta.find({
+        $and: [
+          { idAfiliado: { $in: idsAfiliados } },
+          { fechaBaja: { $exists: false } },
+        ],
       });
-      const recetas = await Receta.find();
-      if (!usuario) {
-        throw new Error("No hay usuario");
-      }
-      const recetasDelGrupoFamiliar = await Receta.find({
-        nroAfiliado: usuario.nroAfiliado,
-      });
-      console.log(recetas, usuario.nroAfiliado, recetasDelGrupoFamiliar);
-
-      res.status(200).json({ data: recetasDelGrupoFamiliar });
-    } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
-    }
-  },
-
-  getRecetaById: async (req, res) => {
-    try {
-      const receta = await Receta.findById(req.params.id);
-      if (!receta) {
-        res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+      if (!recetas) {
+        res.status(204).json({ message: "No hay recetas." });
         return;
       }
-      res.status(200).json({ data: new GetRecetasDTO(receta) });
+      const recetasDTO = recetas.map((receta) => new GetRecetasDTO(receta));
+      console.log(recetasDTO);
+      res.json({ data: recetasDTO });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
     }
   },
-
   createReceta: async (req, res) => {
+    const idAfiliado = req.familiaresPermitidos?.[0]; // El primer id corresponde a quien hizo la petición
+    const observacion: IObservacion = {
+      // construimos la observación con el comentario que envió el afiliado
+      idEmisor: idAfiliado!,
+      rolEmisor: "Afiliado",
+      descripcion: req.body.observaciones,
+      fecha: new Date(),
+    };
     try {
-      const newReceta = await Receta.create(req.body);
-      res.status(201).json({
-        data: new IdRecetaDTO(newReceta),
+      const unAfiliado = await Afiliado.findById(idAfiliado);
+      if (!unAfiliado) {
+        res.status(404).json({ message: "no se encontró un afiliado" });
+        return;
+      }
+      const recetaBody = {
+        ...req.body,
+        idAfiliado,
+        nroAfiliado: unAfiliado.nroAfiliado,
+        observaciones: [observacion],
+      };
+
+      const newReceta = await Receta.create(recetaBody);
+      const newRecetaDTO = new IdRecetaDTO(newReceta);
+      res.json({
+        data: newRecetaDTO,
         message: SUCCESS_MESSAGES.RECETA.CREATED,
       });
     } catch (error) {
@@ -102,37 +82,32 @@ const recetaController: IRecetaController = {
   },
 
   updateReceta: async (req, res) => {
-    try {
-      const recetaActualizada = await Receta.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true }
-      );
-      if (!recetaActualizada) {
-        res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
-        return;
-      }
-      res.status(200).json({
-        data: new IdRecetaDTO(recetaActualizada),
-        message: SUCCESS_MESSAGES.RECETA.UPDATED,
-      });
-    } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
-    }
-  },
+    const descripcionObservacion = req.body.observaciones || "";
+    const { id } = req.params;
 
-  patchReceta: async (req, res) => {
     try {
-      const recetaActualizada = await Receta.findByIdAndUpdate(
-        req.params.id,
-        { $set: req.body },
-        { new: true }
-      );
-      if (!recetaActualizada) {
+      console.log(req.body);
+      const receta = await Receta.findById(id);
+      if (!receta) {
         res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
         return;
       }
+      if (!Array.isArray(receta.observaciones)) {
+        receta.observaciones = [];
+      }
+      const updatedReceta: IObservacion = {
+        ...(receta.observaciones[0] ?? {}),
+        descripcion: descripcionObservacion,
+        rolEmisor: "Afiliado",
+        //fecha: new Date(),
+      };
+
+      const recetaBody = {
+        ...req.body,
+        observaciones: [updatedReceta],
+      };
+      Object.assign(receta, recetaBody);
+      const recetaActualizada = await receta.save();
       res.status(200).json({
         data: new IdRecetaDTO(recetaActualizada),
         message: SUCCESS_MESSAGES.RECETA.UPDATED,
@@ -145,7 +120,8 @@ const recetaController: IRecetaController = {
 
   deleteReceta: async (req, res) => {
     try {
-      const receta = await Receta.findById(req.params.id);
+      const { id } = req.params;
+      const receta = await Receta.findById(id);
       if (!receta) {
         res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
         return;
@@ -163,5 +139,4 @@ const recetaController: IRecetaController = {
     }
   },
 };
-
 export default recetaController;

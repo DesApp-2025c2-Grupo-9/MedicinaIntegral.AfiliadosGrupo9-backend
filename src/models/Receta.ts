@@ -11,7 +11,11 @@ const recetaSchema = new Schema<IRecetaDocument>(
     nroAfiliado: {
       type: String,
       required: true,
-      ref: "Afiliado", // referencia al modelo Afiliado
+      //ref: "Afiliado",
+    },
+    paraAfiliado: {
+      type: String,
+      required: true,
     },
 
     medicamento: { type: String, required: true },
@@ -20,12 +24,14 @@ const recetaSchema = new Schema<IRecetaDocument>(
     observaciones: {
       type: [
         {
-          emisor: { type: Schema.Types.ObjectId, ref: "Afiliado" },
+          idEmisor: { type: Schema.Types.ObjectId, ref: "Afiliado" },
+          rolEmisor: { type: String, required: true },
           descripcion: { type: String },
           fecha: { type: Date, default: Date.now },
         },
         {
-          emisor: { type: Schema.Types.ObjectId, ref: "Prestador" },
+          idEmisor: { type: Schema.Types.ObjectId, ref: "Prestador" },
+          rolEmisor: { type: String, required: true },
           descripcion: { type: String },
           fecha: { type: Date, default: Date.now },
         },
@@ -36,7 +42,15 @@ const recetaSchema = new Schema<IRecetaDocument>(
       enum: Object.values(EstadoTramite),
       default: EstadoTramite.PENDIENTE,
     },
-    fechaBaja: { type: Date, required: false }
+
+    idAfiliado: {
+      type: Schema.Types.ObjectId,
+      ref: "Afiliado",
+      //required: true,
+    },
+    //activo: { type: Boolean, default: true },
+
+    fechaBaja: { type: Date, required: false },
   },
   { timestamps: true }
 );

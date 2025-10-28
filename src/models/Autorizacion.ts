@@ -28,15 +28,20 @@ const autorizacionSchema = new Schema<IAutorizacionDocument>(
     lugarAtencion: { type: String, required: true },
     diagnostico: { type: String },
     observaciones: { 
-      type: [{
-        emisor: { type: Schema.Types.ObjectId, ref: "Afiliado"}, 
-        descripcion: { type: String },
-        fecha: { type: Date, default: Date.now }
-      },{
-        emisor: { type: Schema.Types.ObjectId, ref: "Prestador"}, 
-        descripcion: { type: String },
-        fecha: { type: Date, default: Date.now }
-      }]
+      type: [
+        {
+          idEmisor: { type: Schema.Types.ObjectId, ref: 'Afiliado' },
+          rolEmisor: { type: String, required: true },
+          descripcion: { type: String },
+          fecha: { type: Date, default: Date.now }
+        },
+        {
+          idEmisor: { type: Schema.Types.ObjectId, ref: 'Prestador' },
+          rolEmisor: { type: String, required: true },
+          descripcion: { type: String },
+          fecha: { type: Date, default: Date.now }
+        }
+      ]
     },
     diasDeInternacion: { type: Number, required: true },
     estado: {
