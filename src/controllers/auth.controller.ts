@@ -90,8 +90,11 @@ const userController: IUserController = {
       foundUser.refreshToken = refreshToken;
       await foundUser.save();
 
+      // Agregado
+      const idAfiliado = foundUser._id.toString();
+
       res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
-      res.json({ accessToken, message: SUCCESS_MESSAGES.USER.LOGGED_IN });
+      res.json({ data: { idAfiliado }, accessToken, message: SUCCESS_MESSAGES.USER.LOGGED_IN });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });

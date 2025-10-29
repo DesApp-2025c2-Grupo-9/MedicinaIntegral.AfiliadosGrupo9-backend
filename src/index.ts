@@ -42,7 +42,7 @@ app.use('/api', recetasRoutes);
 app.use('/api', especialidadesRoutes);
 
 //Middleware global
-app.use(manejoDeErroresGlobales)
+app.use(manejoDeErroresGlobales);
 
 // Escuchar puerto
 mongoose.connection.once('open', () => {

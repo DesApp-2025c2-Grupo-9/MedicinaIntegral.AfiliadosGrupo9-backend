@@ -11,24 +11,19 @@ interface IAfiliadoController {
 const afiliadoController: IAfiliadoController = {
   getAfiliado: async (req, res) => {
     const nroDocumento = req.nroDocumento;
+    const idsAfiliados = req.familiaresPermitidos;
 
     try {
-      const unAfiliado = await Afiliado.findOne({ nroDocumento }).populate('grupoFamiliar');
-
+      const unAfiliado = await Afiliado.findOne({ nroDocumento }).populate({
+        path: 'grupoFamiliar',
+        match: { _id: { $in: idsAfiliados } }
+      });
       if (!unAfiliado) {
-        res.status(404).json({ message: 'No se encontró el afiliado.' });
+        res.status(404).json({ message: 'No se pudo encontrar el afiliado.' });
         return;
       }
-
       const unAfiliadoDTO = new GetAfiliadoDTO(unAfiliado);
       res.json({ data: unAfiliadoDTO });
-      /* res.json({
-        data: {
-          nombre: 'Pedro',
-          apellido: 'Sanchez',
-          grupoFamiliar: [{ nombre: 'Juan', apellido: 'Perez' }, { nombre: 'Martín', apellido: 'Dominguez' }]
-        }
-      }); */
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
