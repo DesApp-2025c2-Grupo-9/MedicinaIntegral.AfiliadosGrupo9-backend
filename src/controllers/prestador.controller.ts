@@ -1,41 +1,49 @@
 import { Request, Response } from "express";
-import { Prestador } from "../models/Prestador";
+import { PrestadorDTO } from "../dtos/prestador.dto";
+import { Especialidad } from "../enums/Especialidad";
+import { Localidad } from "../enums/Localidad";
 
-interface IPrestadorController {
-  getPrestadores: (req: Request, res: Response) => Promise<void>;
-}
+const prestadoresData: any[] = require("../json/prestadores.json");
 
-const prestadorController: IPrestadorController = {
-  getPrestadores: async (req, res) => {
+const prestadorController = {
+  //  prestadores filtrados por especialidad y/o localidad
+  getPrestadores: (req: Request, res: Response) => {
     try {
-      const { especialidad, localidad } = req.query;
-      const filtro: any = {};
+      const especialidad = req.query.especialidad as string | undefined;
+      const localidad = req.query.localidad as string | undefined;
 
-      //  Si especialidad llega como string o array, soporta ambos casos
-      if (especialidad) {
-        filtro.especialidad = {
-          $in: Array.isArray(especialidad) ? especialidad : [especialidad],
-        };
+      let resultado = prestadoresData;
+
+      // Filtrar por especialidad si es un valor válido del enum
+      if (
+        especialidad &&
+        Object.values(Especialidad).includes(especialidad as Especialidad)
+      ) {
+        resultado = resultado.filter((p) => p.especialidad === especialidad);
       }
 
-      //  Coincidencia por localidad dentro del subdocumento lugarAtencion
-      if (localidad) {
-        filtro["lugarAtencion.localidad"] = localidad;
+      // Filtrar por localidad si es un valor válido del enum
+      if (
+        localidad &&
+        Object.values(Localidad).includes(localidad as Localidad)
+      ) {
+        resultado = resultado.filter(
+          (p) =>
+            p.lugarAtencion.localidad.toLowerCase() === localidad.toLowerCase()
+        );
       }
 
-      const prestadores = await Prestador.find(filtro);
-
-      if (prestadores.length === 0) {
-        res
+      if (!resultado || resultado.length === 0) {
+        return res
           .status(404)
           .json({ message: "No se encontraron prestadores con esos filtros." });
-        return;
       }
 
-      res.status(200).json(prestadores);
+      const result = resultado.map((p) => new PrestadorDTO(p));
+      res.status(200).json(result);
     } catch (error) {
-      console.error("Error en getPrestadores:", error);
-      res.status(500).json({ message: "Error al obtener los prestadores." });
+      console.error(" Error en getPrestadores:", error);
+      res.status(500).json({ message: "Error al filtrar prestadores" });
     }
   },
 };

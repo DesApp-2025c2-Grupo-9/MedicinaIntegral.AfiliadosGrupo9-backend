@@ -15,7 +15,7 @@ import cookieParser from "cookie-parser";
 import { verifyJWT } from "./middlewares/verifyJWT";
 import afiliadosRoutes from "./routes/afiliados.routes";
 import { manejoDeErroresGlobales } from "./middlewares/genericMiddleware";
-
+import enumsRoutes from "./routes/enums.route";
 export const app = express();
 export const PORT = process.env.PORT || 3000;
 
@@ -42,6 +42,7 @@ app.use("/api", reintegrosRoutes);
 app.use("/api", recetasRoutes);
 app.use("/api", especialidadesRoutes);
 app.use("/api", prestadoresRoutes);
+app.use("/api/enums", enumsRoutes);
 
 //Middleware global
 app.use(manejoDeErroresGlobales);

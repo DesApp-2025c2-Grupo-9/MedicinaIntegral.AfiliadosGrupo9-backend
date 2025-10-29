@@ -3,141 +3,117 @@
     "_id": "652fa1b2f4a3c6a12d4e91a1",
     "nombre": "Martín López",
     "rol": "Prestador",
-    "especialidad": ["Medicina General", "Cardiología"],
-    "lugarAtencion": [
-      {
-        "nombre": "Clínica Norte",
-        "localidad": "Palermo",
-        "calle": "Av. Córdoba",
-        "numero": "1234",
-        "telefono": "1122334455"
-      }
-    ]
+    "especialidad": "Medicina General",
+    "lugarAtencion": {
+      "nombre": "",
+      "localidad": "Palermo",
+      "calle": "Av. Córdoba",
+      "numero": "1234",
+      "telefono": "1122334455"
+    }
   },
   {
-    "_id": "652ab1b2f4a3c6a12d4e9ba1",
+    "_id": "652fa1b2f4a3c6a12d4e91a2",
     "nombre": "Sofía Ramírez",
     "rol": "Prestador",
-    "especialidad": ["Pediatría"],
-    "lugarAtencion": [
-      {
-        "nombre": "Centro Médico Sur",
-        "localidad": "Lomas de Zamora",
-        "calle": "Av. Hipólito Yrigoyen",
-        "numero": "9000",
-        "telefono": "1133445566"
-      }
-    ]
+    "especialidad": "Pediatría",
+    "lugarAtencion": {
+      "nombre": "Centro Médico Sur",
+      "localidad": "Lomas de Zamora",
+      "calle": "Av. Hipólito Yrigoyen",
+      "numero": "9000",
+      "telefono": "1133445566"
+    }
   },
   {
     "_id": "652fa1b2f4a3c6a12d4e91a3",
     "nombre": "Alejandro Torres",
     "rol": "Prestador",
-    "especialidad": ["Ginecología", "Cirugía General"],
-    "lugarAtencion": [
-      {
-        "nombre": "Policlínico Central",
-        "localidad": "Recoleta",
-        "calle": "Junín",
-        "numero": "2210",
-        "telefono": "1166778899"
-      }
-    ]
-  },
-  {
-    "_id": "652fa1b2f4a3c6a12d4e91a5",
-    "nombre": "Valeria Gómez",
-    "rol": "Prestador",
-    "especialidad": ["Dermatología", "Psiquiatría"],
-    "lugarAtencion": [
-      {
-        "nombre": "Clínica Norte",
-        "localidad": "Palermo",
-        "calle": "Av. Córdoba",
-        "numero": "1234",
-        "telefono": "1122334455"
-      },
-      {
-        "nombre": "Clínica Santa María",
-        "localidad": "Banfield",
-        "calle": "Maipú",
-        "numero": "234",
-        "telefono": "1133557799"
-      }
-    ]
+    "especialidad": "Ginecología",
+    "lugarAtencion": {
+      "nombre": "",
+      "localidad": "Recoleta",
+      "calle": "Junín",
+      "numero": "2210",
+      "telefono": "1166778899"
+    }
   },
   {
     "_id": "652fa1b2f4a3c6a12d4e91a4",
+    "nombre": "Valeria Gómez",
+    "rol": "Prestador",
+    "especialidad": "Dermatología",
+    "lugarAtencion": {
+      "nombre": "Clínica Norte",
+      "localidad": "Palermo",
+      "calle": "Av. Córdoba",
+      "numero": "1234",
+      "telefono": "1122334455"
+    }
+  },
+  {
+    "_id": "652fa1b2f4a3c6a12d4e91a5",
     "nombre": "Ricardo Fernández",
     "rol": "Prestador",
-    "especialidad": ["Neurología", "Psiquiatría"],
-    "lugarAtencion": [
-      {
-        "nombre": "Instituto Neurológico Central",
-        "localidad": "Recoleta",
-        "calle": "Paraguay",
-        "numero": "2300",
-        "telefono": "1166001122"
-      }
-    ]
+    "especialidad": "Neurología",
+    "lugarAtencion": {
+      "nombre": "",
+      "localidad": "Recoleta",
+      "calle": "Paraguay",
+      "numero": "2300",
+      "telefono": "1166001122"
+    }
   },
   {
     "_id": "652fa1b2f4a3c6a12d4e91a6",
     "nombre": "Paula Martínez",
     "rol": "Prestador",
-    "especialidad": ["Traumatología"],
-    "lugarAtencion": [
-      {
-        "nombre": "Sanatorio Oeste",
-        "localidad": "Morón",
-        "calle": "Belgrano",
-        "numero": "320",
-        "telefono": "1144992288"
-      }
-    ]
+    "especialidad": "Traumatología",
+    "lugarAtencion": {
+      "nombre": "Sanatorio Oeste",
+      "localidad": "Morón",
+      "calle": "Belgrano",
+      "numero": "320",
+      "telefono": "1144992288"
+    }
   },
   {
-    "_id": "652fa1b2f4a3c6a12d4e91a2",
+    "_id": "652fa1b2f4a3c6a12d4e91a7",
     "nombre": "Esteban Herrera",
     "rol": "Prestador",
-    "especialidad": ["Oftalmología"],
-    "lugarAtencion": [
-      {
-        "nombre": "Centro Médico Sur",
-        "localidad": "Lomas de Zamora",
-        "calle": "Av. Hipólito Yrigoyen",
-        "numero": "9000",
-        "telefono": "1133445566"
-      },
-      {
-        "nombre": "Hospital Central",
-        "localidad": "Microcentro",
-        "calle": "Av. Corrientes",
-        "numero": "1020",
-        "telefono": "1144556699"
-      }
-    ]
+    "especialidad": "Oftalmología",
+    "lugarAtencion": {
+      "nombre": "",
+      "localidad": "Lomas de Zamora",
+      "calle": "Av. Hipólito Yrigoyen",
+      "numero": "9000",
+      "telefono": "1133445566"
+    }
   },
   {
-    "_id": "652fa1b2f4a3c6a12d4e9ba1",
+    "_id": "652fa1b2f4a3c6a12d4e91a8",
     "nombre": "Julieta Paredes",
     "rol": "Prestador",
-    "especialidad": ["Medicina General", "Pediatría"],
-    "lugarAtencion": [
-      {
-        "nombre": "Clínica Sur",
-        "localidad": "Avellaneda",
-        "calle": "Mitre",
-        "numero": "5800",
-        "telefono": "1144007788"
-      },
-      {
-        "nombre": "Centro Médico Sur",
-        "localidad": "Lomas de Zamora",
-        "calle": "Av. Hipólito Yrigoyen",
-        "numero": "9000",
-        "telefono": "1133445566"
-      }
-    ]
+    "especialidad": "Medicina General",
+    "lugarAtencion": {
+      "nombre": "Clínica Sur",
+      "localidad": "Avellaneda",
+      "calle": "Mitre",
+      "numero": "5800",
+      "telefono": "1144007788"
+    }
+  },
+  {
+    "_id": "652fa1b2f4a3c6a12d4e91a9",
+    "nombre": "Julio Fernández",
+    "rol": "Prestador",
+    "especialidad": "Psiquiatría",
+    "lugarAtencion": {
+      "nombre": "",
+      "localidad": "Banfield",
+      "calle": "Maipú",
+      "numero": "234",
+      "telefono": "1133557799"
+    }
   }
 ]
