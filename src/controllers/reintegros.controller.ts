@@ -67,7 +67,8 @@ const reintegroController: IReintegroController = {
         return;
       }
 
-      const updatedObservacion: IObservacion = { // Esta es una única observación
+      const updatedObservacion: IObservacion = {
+        // Esta es una única observación
         ...unReintegro.observaciones[0],
         descripcion: descripcionObservacion
       };
