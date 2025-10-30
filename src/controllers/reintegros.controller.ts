@@ -6,6 +6,7 @@ import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { CommentReintegroDTO, DeleteReintegroDTO, GetReintegrosDTO, PostReintegroDTO, PutReintegroDTO } from '../dtos/reintegros.dto';
 import { ApiResponse } from '../types/ApiResponse';
 import { IObservacion } from '../interfaces/IObservacion';
+import { EstadoTramite } from '../enums/EstadoTramite';
 
 type UpdatedReintegro = Omit<IReintegro, 'observaciones'> & {
   observaciones: string;
@@ -124,6 +125,7 @@ const reintegroController: IReintegroController = {
         return;
       }
       unReintegro.observaciones = [...unReintegro.observaciones, observacion];
+      unReintegro.estado = EstadoTramite.EN_ANALISIS;
       const commentedReintegro = await unReintegro.save();
       const commentedReintegroDTO = new CommentReintegroDTO(commentedReintegro);
       res.json({ data: commentedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.COMMENTED });
