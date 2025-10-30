@@ -3,7 +3,11 @@ import Receta from "../models/Receta";
 import { IReceta } from "../interfaces/IReceta";
 import { SUCCESS_MESSAGES } from "../utils/successMessages";
 import { ERROR_MESSAGES } from "../utils/errorMessages";
-import { GetRecetasDTO, IdRecetaDTO } from "../dtos/recetas.dto";
+import {
+  GetRecetasDTO,
+  IdRecetaDTO,
+  CommentRecetaDTO,
+} from "../dtos/recetas.dto";
 import { ApiResponse } from "../types/ApiResponse";
 import { IObservacion } from "../interfaces/IObservacion";
 import Afiliado from "../models/Afiliado";
@@ -19,6 +23,11 @@ interface IRecetaController {
     req: Request<{ id: string }>,
     res: Response<ApiResponse>
   ): Promise<void>;
+
+  commentRecetaById: (
+    req: Request<{ id: number }, {}, { comentario: string }>,
+    res: Response<ApiResponse>
+  ) => Promise<void>;
 }
 type UpdatedReceta = Omit<IReceta, "observaciones"> & {
   observaciones: string;
@@ -132,6 +141,40 @@ const recetaController: IRecetaController = {
       res.status(200).json({
         data: new IdRecetaDTO(receta),
         message: SUCCESS_MESSAGES.RECETA.DELETED,
+      });
+    } catch (error) {
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
+    }
+  },
+
+  commentRecetaById: async (req, res) => {
+    const { id } = req.params;
+    const { comentario } = req.body;
+    const idAfiliado = req.familiaresPermitidos?.[0];
+
+    const observacion: IObservacion = {
+      idEmisor: idAfiliado!,
+      rolEmisor: "Afiliado",
+      descripcion: comentario,
+      fecha: new Date(),
+    };
+
+    try {
+      const unaReceta = await Receta.findById(id);
+      if (!unaReceta) {
+        res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+        return;
+      }
+      unaReceta.observaciones = [
+        ...(unaReceta.observaciones || []),
+        observacion,
+      ];
+      const commentedReceta = await unaReceta.save();
+      const commentedRecetaDTO = new CommentRecetaDTO(commentedReceta);
+      res.json({
+        data: commentedRecetaDTO,
+        message: SUCCESS_MESSAGES.RECETA.COMMENTED,
       });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);

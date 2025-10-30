@@ -4,7 +4,6 @@ import { IObservacion } from "../interfaces/IObservacion";
 export class GetRecetasDTO {
   id: string;
   nroAfiliado: string;
-
   paraAfiliado: string;
   medicamento: string;
   cantidad: number;
@@ -29,5 +28,14 @@ export class IdRecetaDTO {
 
   constructor(data: IRecetaDocument) {
     this.id = data._id.toString();
+  }
+}
+export class CommentRecetaDTO {
+  id: string;
+  observaciones?: IObservacion[];
+
+  constructor(data: IRecetaDocument) {
+    this.id = data._id.toString();
+    this.observaciones = data.observaciones;
   }
 }
