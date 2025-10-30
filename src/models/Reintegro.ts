@@ -90,7 +90,8 @@ const reintegroSchema = new Schema<IReintegroDocument>(
       type: Schema.Types.ObjectId,
       ref: 'Afiliado'
     },
-    fechaBaja: { type: Date }
+    fechaBaja: { type: Date },
+    nroGestion: Number
   },
   { timestamps: true }
 );
