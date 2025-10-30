@@ -24,11 +24,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.3.4",
-<<<<<<< HEAD
-    "@reduxjs/toolkit": "^2.9.1",
-=======
     "@reduxjs/toolkit": "^2.9.2",
->>>>>>> 0a74b52148b5c800f4a626c2d6fd676642446652
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
