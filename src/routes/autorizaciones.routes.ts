@@ -7,6 +7,7 @@ import {
   existsAnyByModel,
   validarCamposExactos,
 } from '../middlewares/genericMiddleware';
+import { filtroAfiliadoActual } from '../middlewares/filtroAfiliadoActual';
 
 const router = Router();
 
@@ -14,8 +15,9 @@ const router = Router();
 router.use(logRequest);
 
 router
-  .route('/autorizaciones')
+  .route('/autorizaciones/:idAfiliado')
   .get(
+    filtroAfiliadoActual,
     existsAnyByModel(Autorizacion),//Middleware genérico
     autorizacionController.getAllAutorizaciones
 )
