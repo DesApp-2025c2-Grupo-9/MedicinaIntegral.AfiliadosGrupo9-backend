@@ -19,11 +19,11 @@ interface IReintegro {
   };
   formaDePago: FormaPago; // 'transferencia' | 'efectivo' | 'cheque'
   cbu?: string; // Si formaDePago === 'transferencia', cbu es required
-  // observaciones?: string;
   observaciones: IObservacion[];
   estado: EstadoTramite; // 'pendiente' | 'observado' | 'aceptado' | 'rechazado'
   idAfiliado: Types.ObjectId;
   fechaBaja?: Date;
+  nroGestion: number;
 }
 
 export default IReintegro;
