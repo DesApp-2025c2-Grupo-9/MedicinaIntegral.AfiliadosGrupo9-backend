@@ -8,10 +8,12 @@ import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { RolAfiliado } from '../enums/RolAfiliado';
 import { SUCCESS_MESSAGES } from '../utils/successMessages';
 import { RegisterUserDTO } from '../dtos/auth.dto';
+import { validateRegisterUser } from '../utils/registerUser.validacion';
+import { validateLoginUser } from '../utils/login.validacion';
 
 interface IUserController {
-  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<void>;
-  login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<void>;
+  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<Response|void>;
+  login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<Response|void>;
   logout: (req: Request, res: Response<ApiResponse>) => Promise<void>;
   refresh: (req: Request, res: Response<ApiResponse>) => Promise<void>;
 }
@@ -20,34 +22,44 @@ const userController: IUserController = {
   registerUser: async (req, res) => {
     const user = req.body;
 
-    try {
-      const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
-      if (!foundUser) {
-        res.status(401).json({ message: ERROR_MESSAGES.USER.NOT_FOUND });
-        return;
-      }
-      if (foundUser.registrado) {
-        res.status(409).json({ message: ERROR_MESSAGES.USER.ALREADY_EXISTS });
-        return;
-      }
-      if (user.password !== user.confirmPassword) {
-        res.status(400).json({ message: 'Las contraseñas ingresadas no coinciden.' });
-        return;
-      }
+    const errores = await validateRegisterUser(user);
+    if (errores.length > 0) {
+      return res.status(400).json({ message: errores.join(' | ') });
 
-      const hashedPassword = await bcrypt.hash(user.password, 10);
-      foundUser.password = hashedPassword;
-      foundUser.registrado = true;
-      const userRegistrado = await foundUser.save();
-      const userRegistradoDTO = new RegisterUserDTO(userRegistrado);
-      res.json({ data: userRegistradoDTO, message: SUCCESS_MESSAGES.USER.REGISTERED });
-    } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
     }
+
+  try {
+    const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
+    if (!foundUser) {
+      return res.status(401).json({ message: ERROR_MESSAGES.USER.NOT_FOUND });
+    }
+    if (foundUser.registrado) {
+      return res.status(409).json({ message: ERROR_MESSAGES.USER.ALREADY_EXISTS });
+    }
+    if (user.password !== user.confirmPassword) {
+      return res.status(400).json({ message: 'Las contraseñas ingresadas no coinciden.' });
+    }
+
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    foundUser.password = hashedPassword;
+    foundUser.registrado = true;
+    const userRegistrado = await foundUser.save();
+    const userRegistradoDTO = new RegisterUserDTO(userRegistrado);
+    res.json({ data: userRegistradoDTO, message: SUCCESS_MESSAGES.USER.REGISTERED });
+  } catch (error) {
+    const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+    res.status(500).json({ message });
+  }
+
   },
   login: async (req, res) => {
     const { nroDocumento, password } = req.body;
+    const errores = await validateLoginUser( nroDocumento, password );
+
+    if (errores.length > 0) {
+      return res.status(400).json({ message: errores.join(' | ') });
+
+    }
 
     try {
       const foundUser = await Afiliado.findOne({ nroDocumento }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
@@ -90,8 +102,11 @@ const userController: IUserController = {
       foundUser.refreshToken = refreshToken;
       await foundUser.save();
 
+      // Agregado
+      const idAfiliado = foundUser._id.toString();
+
       res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
-      res.json({ accessToken, message: SUCCESS_MESSAGES.USER.LOGGED_IN });
+      res.json({ data: { idAfiliado }, accessToken, message: SUCCESS_MESSAGES.USER.LOGGED_IN });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
