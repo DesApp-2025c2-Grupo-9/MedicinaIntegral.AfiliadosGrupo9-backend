@@ -14,16 +14,16 @@ const router = Router();
 
 router.use(logRequest);
 
-router
-  .route('/autorizaciones/:idAfiliado')
-  .get(
+router.get('/autorizaciones/:idAfiliado', 
     filtroAfiliadoActual,
     existsAnyByModel(Autorizacion),//Middleware genérico
     autorizacionController.getAllAutorizaciones
-)
-  .post(
+);
+
+router.post('/autorizaciones',
     validarCamposExactos(Autorizacion),
-    autorizacionController.createAutorizacion);
+    autorizacionController.createAutorizacion
+);
 
 router
   .route('/autorizaciones/:id')
