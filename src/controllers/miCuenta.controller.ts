@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { getAfiliadoByDocumento, obtenerGrupoFamiliar, registrarCBU } from '../validators/afiliado.validator';
 
 
-interface AuthenticatedRequest extends Request {
+interface AuthenticatedRequest extends Request { //chequear esto
   user?: {
     id: string;
     rol?: string;
@@ -11,7 +11,7 @@ interface AuthenticatedRequest extends Request {
 }
 
 export const MiCuentaController = {
-  obtenerMiCuenta: async (req: AuthenticatedRequest, res: Response) => {
+  obtenerMiCuenta: async (req: Request, res: Response) => { //cambie por request, probar
     try {
       const nroDocumento = req.nroDocumento;
       if (!nroDocumento) return res.status(401).json({ error: 'Usuario no autenticado' });
