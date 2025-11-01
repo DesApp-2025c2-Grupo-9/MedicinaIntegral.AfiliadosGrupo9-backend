@@ -36,3 +36,14 @@ export class IdAutorizacionDTO {
         this.id = data._id.toString();
     }
 }
+
+
+export class CommentAutorizacionDTO {
+    id: string;
+    observaciones: IObservacion[];
+
+    constructor(data: IAutorizacionDocument) {
+        this.id = data._id.toString();
+        this.observaciones = data.observaciones;
+    }
+}
