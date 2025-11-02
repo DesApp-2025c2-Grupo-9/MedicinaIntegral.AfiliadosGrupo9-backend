@@ -130,5 +130,3 @@ const autorizacionController: IAutorizacionController = {
 };
 
 export default autorizacionController;
-
-
