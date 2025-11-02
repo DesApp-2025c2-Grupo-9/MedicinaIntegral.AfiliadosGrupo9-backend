@@ -11,21 +11,23 @@ interface AuthenticatedRequest extends Request {
 }
 
 export const MiCuentaController = {
-  obtenerMiCuenta: async (req: AuthenticatedRequest, res: Response) => {
+    obtenerMiCuenta: async (req: AuthenticatedRequest, res: Response) => {
     try {
       const nroDocumento = req.nroDocumento;
       if (!nroDocumento) return res.status(401).json({ error: 'Usuario no autenticado' });
 
-      
       const afiliado = await getAfiliadoByDocumento(nroDocumento);
       const grupoFamiliar = await obtenerGrupoFamiliar(nroDocumento);
-
 
       res.json({ afiliado, grupoFamiliar });
     } catch (error) {
       console.error('Error al obtener mi cuenta:', error);
-      res.status(500).json({ error: 'Error interno del servidor' });
-    }
+      if (!res.headersSent) {
+        res.status(500).json({ error: 'Error interno del servidor' });
+      }
+    
+}
+
   },
 
   registrarCBU: async (req: AuthenticatedRequest, res: Response) => {
