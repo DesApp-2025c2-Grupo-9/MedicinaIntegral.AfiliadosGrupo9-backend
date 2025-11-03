@@ -33,6 +33,8 @@ router
     )
   .patch(
     existsModelById(Autorizacion),//Middelware genérico
-    autorizacionController.deleteAutorizacion);
+    autorizacionController.deleteAutorizacion)
+  .post(
+    autorizacionController.commentAutorizacionById);
 
 export default router;
