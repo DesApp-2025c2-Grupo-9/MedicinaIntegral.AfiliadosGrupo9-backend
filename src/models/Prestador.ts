@@ -20,7 +20,7 @@ const PrestadorSchema = new Schema<IPrestadorDocument>(
     nombre: { type: String, required: true },
     especialidad: {
       type: String,
-      enum: Object.values(Especialidad),
+      //enum: Object.values(Especialidad), Se cambió este enum por que solo sea String y requerido. La obtención de las especialidades ahora viene por un mapeo de los prestadores.
       required: true,
     },
     lugarAtencion: { type: LugarAtencionSchema, required: true }, // solo 1 lugar

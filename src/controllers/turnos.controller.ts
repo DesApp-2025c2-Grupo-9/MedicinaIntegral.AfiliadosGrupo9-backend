@@ -1,105 +1,236 @@
-
-
 import { Request, Response } from "express";
-import path from "path";
-import fs from 'fs'
-const turnosPath = path.resolve(__dirname, "../json/turnos.json");
-const turnos = JSON.parse(fs.readFileSync(turnosPath, "utf-8"));
-// convertir campo fechaTurno (string -> Date)
-interface TurnoRaw {
-    fechaTurno: string;
-    disponible: boolean;
-    especialidad: string;
-    localidad: string;
-    prestador?: string;
-    [key: string]: any;
+import Turno from "../models/Turno"; 
+import { EstadoTurno } from "../enums/EstadoTurno";
+import mongoose from "mongoose";
+
+type TurnoDTO= {//Data Transfer Object
+  idTurno: string;
+  especialidad: string;
+  prestador: string;
+  fechaTurno: Date;
+  lugarAtencion: string;
+  direccion: string;
+  telefono: string;
+  localidad: string;
+}
+//Get para los filtros en la búsqueda de turnos
+
+const turnosDisponibles = async (): Promise<TurnoDTO[]> => {
+  const now = new Date();
+  const turnos =await Turno.find(
+    {//filtros
+      estado : EstadoTurno.DISPONIBLE,
+      fechaTurno: { $gte: now}
+    })
+    .select('_id idPrestador fechaTurno')
+    .populate({
+      path: 'idPrestador',
+      select:[//Los datos del prestador
+        'especialidad',
+        'nombre',
+        'lugarAtencion.nombre',
+        'lugarAtencion.calle',
+        'lugarAtencion.numero',
+        'lugarAtencion.telefono',
+        'lugarAtencion.localidad'
+      ].join(' '),//Unirlos en un string con un espacio
+    })
+    .sort({fechaTurno: 1})//Ascendente
+    .lean(); //Viene como un objeto plano
+
+  const dto: TurnoDTO[] = turnos.map((turno: any) => {
+    const prestador = turno.idPrestador
+    return{
+      idTurno: String(turno._id),
+      especialidad: prestador?.especialidad ?? '',
+      prestador: prestador?.nombre ?? '',
+      fechaTurno: turno.fechaTurno,
+      lugarAtencion: prestador?.lugarAtencion?.nombre ?? '',
+      direccion: `${prestador?.lugarAtencion?.calle ?? ''} ${prestador?.lugarAtencion?.numero ?? ''}`,
+      telefono: prestador?.lugarAtencion?.telefono ?? '',
+      localidad: prestador?.lugarAtencion?.localidad ?? ''
+    }
+  })
+
+  return dto;
 }
 
-interface Turno extends Omit<TurnoRaw, "fechaTurno"> {
-    fechaTurno: Date;
+const especialidadesDisponibles = async (req: Request, res: Response) => {
+  //De los turnos disponibles, devolver las especialidades únicas.
+  const turnos = await turnosDisponibles();
+
+  const especialidades = [...new Set(turnos.map(turno => turno.especialidad))];
+  res.json(especialidades)
 }
 
-const turnosCol: Turno[] = (turnos as TurnoRaw[]).map(t => ({
-    ...t,
-    fechaTurno: new Date(t.fechaTurno),
-}));
+const localidadesPorEspecialidad = async (req: Request, res:Response) => {
+  const {especialidad } = req.query;
+  const turnos = await turnosDisponibles();
+
+  const localidades = [
+    ...new Set(
+      turnos
+        .filter(turno => turno.especialidad === especialidad)//Filtrar los turnos que coincidan con la especialidad
+        .map(turno => turno.localidad)//Guardar la localidad de los turnos filtrados
+    )
+  ]
+  res.json(localidades);
+}
+
+const prestadoresPorEspecialidadYLocalidad = async (req: Request, res: Response) => {
+  const {especialidad, localidad} = req.query;
+  const turnos = await turnosDisponibles();
+
+  const prestadores = [
+    ...new Set(
+      turnos
+        .filter(turno => turno.especialidad === especialidad && turno.localidad === localidad)
+        .map(turno => turno.prestador)
+    )
+  ];
+  res.json(prestadores)
+}
+
+const turnosFiltrados = async (req: Request, res: Response) => {
+  const {especialidad, localidad, prestador } = req.query;
+  const turnos = await turnosDisponibles();
+
+  const filtrados = turnos.filter( turno => 
+    turno.especialidad === especialidad &&
+    turno.localidad === localidad &&
+    (!prestador || turno.prestador === prestador)
+  );
+  res.json(filtrados)
+}
 
 
-// util: normalizar para igualdad case-insensitive con collation
-const COLLATION = { locale: "es", strength: 1 }; // “Dermatología” == “dermatologia”
+//Para manejar el afiliado
 
-export function getTurnosFiltrados() {
-    return async (req: Request, res: Response) => {
-        console.log('Solicitando turnos...', req.query)
+//Reservar un turno
+
+const reservarTurno = async (req: Request, res: Response) => {
+  try {
+    const {idTurno, idAfiliado} = req.query;
+
+    if (!idTurno || !idAfiliado) {
+      return res.status(400).json({error: "Debe especificar idTurno e idAfiliado"})
+    }
+
+    const turno = await Turno.findById(idTurno);
+
+    if (!turno) {
+      return res.status(404).json({error:  'Turno no encontrado'})
+    }
+
+    if(turno.estado !== EstadoTurno.DISPONIBLE){
+      res.status(409).json({error: 'El turno no está disponible'})
+    }
+
+    //Actualizar los datos
+    turno.idAfiliado = new mongoose.Types.ObjectId(idAfiliado as string); //Cambio a ObjectId el string
+    turno.estado = EstadoTurno.RESERVADO;
+    await turno.save();
+    res.json({message: 'Turno reservado con éxito.', idTurno})
+  }catch(error) {
+    console.error(error);
+    res.status(500).json({error: 'Error al reservar el turno'})
+  }
+}
+
+//Obtener los turnos del afiliado
+
+const turnosPorAfiliado = async (req: Request, res: Response) => {
+  try{
+    const {idAfiliado} = req.params;
+
+    if (!idAfiliado){
+      return res.status(400).json({error: 'Debe especificar un idAfiliado.'})
+    }
+
+    const turnos = await Turno.find({idAfiliado})
+      .populate({
+        path: 'idPrestador',
+        select:[
+          'especialidad',
+          'nombre',
+          'lugarAtencion.nombre',
+          'lugarAtencion.calle',
+          'lugarAtencion.numero',
+          'lugarAtencion.telefono',
+          'lugarAtencion.localidad',
+        ].join(' '),
+      })
+      .sort({fechaTurno:1})
+      .lean();
+
+    const dto  = turnos.map((turno:any) => {
+      const prestador  = turno.idPrestador;
+      return{
+        idTurno: String(turno._id),
+        especialidad: prestador?.especialidad ?? "",
+        prestador: prestador?.nombre ?? "",
+        fechaTurno: turno.fechaTurno,
+        lugarAtencion: prestador?.lugarAtencion?.nombre ?? "",
+        direccion: `${prestador?.lugarAtencion?.calle ?? ""} ${prestador?.lugarAtencion?.numero ?? ""}`,
+        telefono: prestador?.lugarAtencion?.telefono ?? "",
+        localidad: prestador?.lugarAtencion?.localidad ?? "",
+      }
+    })
+    res.json(dto)
+  } catch(error){
+    console.error(error);
+    res.status(500).json({error: 'Error al obtener los turnos del afiliado.'})
+  }
+}
+
+// PATCH /turnos/cancelar
+const cancelarTurno = async (req: Request, res: Response) => {
+  try {
+    const { idTurno, idAfiliado } = req.body;
+
+    if (!idTurno || !idAfiliado) {
+      return res.status(400).json({ error: "Debe especificar idTurno e idAfiliado." });
+    }
+
+    const turno = await Turno.findById(idTurno);
+
+    if (!turno) {
+      return res.status(404).json({ error: "Turno no encontrado." });
+    }
+
+    // Verificar que el turno pertenezca al afiliado indicado
+    if (!turno.idAfiliado || turno.idAfiliado.toString() !== idAfiliado) {
+      return res.status(403).json({ error: "El turno no pertenece a este afiliado." });
+    }
+
+    // Verificar que falte más de 1 día (24h)
+    const ahora = new Date();
+    const diferenciaHoras = (turno.fechaTurno.getTime() - ahora.getTime()) / (1000 * 60 * 60);
+
+    if (diferenciaHoras <= 24) {
+      return res.status(400).json({ error: "No se puede cancelar un turno con menos de 24 horas de anticipación." });
+    }
+
+    // Actualizamos: lo dejamos disponible nuevamente
+    turno.estado = EstadoTurno.DISPONIBLE;
+    turno.idAfiliado = undefined; // Liberamos el turno
+
+    await turno.save();
+
+    res.json({ message: "Turno cancelado con éxito.", idTurno });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al cancelar el turno." });
+  }
+};
 
 
-        // Se obtienen los datos desde la query. El frontend usa nombres como
-        // especialidadSeleccionada, ubicacionSeleccionada y medicoSeleccionado.
-        // Aceptamos ambos conjuntos de nombres para compatibilidad.
-        const q = req.query as Record<string, string | undefined>;
-        const especialidad = q.especialidad;
-        const localidad = q.localidad
-        const prestador = q.prestador;
-        const desde = q.desde; // opcional: ISO date string o timestamp
-
-        // Se verifica que existan especialidad y localidad
-        if (!especialidad || !localidad) {
-            return res.status(400).json({ error: "Faltan especialidad y/o localidad" });
-        }
-        // Filtro base
-        const filter: any = {
-            disponible: true,
-            especialidad, // igualdad sensible a collation
-            localidad,
-        };
-
-        // Si viene prestador y NO es “todos”/“-”, lo agregamos
-        if (prestador && prestador !== "" && prestador !== "-") {
-            filter.prestador = prestador;
-        }
-
-        // Si se indicó 'desde' (fecha mínima) intentamos parsearla y filtrar
-        if (desde) {
-            const parsed = new Date(desde);
-            if (!Number.isNaN(parsed.getTime())) {
-                // asumimos que el campo en DB es `fechaTurno`
-                filter.fechaTurno = { $gte: parsed };
-            }
-            // si no se pudo parsear, ignoramos 'desde' (no fallamos la petición)
-        }
-
-        // Proyección y orden
-        const projection = { _id: 0 }; // no devolvemos _id
-        const sort: any = { fechaTurno: 1 };
-
-        // Como `turnosCol` es un arreglo en memoria, aplicamos el filtrado/ordenado en JS.
-        const desdeGte = (filter.fechaTurno && (filter.fechaTurno as any).$gte) as Date | undefined;
-
-        const equals = (a: string | undefined, b: string | undefined) =>
-            typeof a === "string" && typeof b === "string"
-                ? a.localeCompare(b, "es", { sensitivity: "base" }) === 0
-                : false;
-
-        const results = turnosCol
-            .filter(t => {
-                if (filter.disponible !== undefined && t.disponible !== filter.disponible) return false;
-                if (!equals(t.especialidad, filter.especialidad)) return false;
-                if (!equals(t.localidad, filter.localidad)) return false;
-                if (filter.prestador) {
-                    if (!equals(t.prestador ?? undefined, filter.prestador)) return false;
-                }
-                if (desdeGte && t.fechaTurno < desdeGte) return false;
-                return true;
-            })
-            .sort((a, b) => a.fechaTurno.getTime() - b.fechaTurno.getTime())
-            .slice(0, 200) // ajustá a tu paginación
-            .map(t => {
-                const { _id, ...rest } = t as any;
-                return { ...rest, fechaTurno: t.fechaTurno }; // Express serializará Date a ISO
-            });
-            console.log(
-                `La respuesta es:`, 
-                results || [])
-        res.json(results);
-    };
+export {
+  especialidadesDisponibles,
+  localidadesPorEspecialidad,
+  prestadoresPorEspecialidadYLocalidad,
+  turnosFiltrados,
+  reservarTurno,
+  turnosPorAfiliado,
+  cancelarTurno
 }

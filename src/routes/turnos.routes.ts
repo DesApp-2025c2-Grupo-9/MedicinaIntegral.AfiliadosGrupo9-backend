@@ -1,14 +1,29 @@
 import { Router } from "express";
-import { getTurnosFiltrados } from "../controllers/turnos.controller";
+import { turnosFiltrados,
+    especialidadesDisponibles,
+    localidadesPorEspecialidad,
+    prestadoresPorEspecialidadYLocalidad,
+    reservarTurno,
+    turnosPorAfiliado,
+    cancelarTurno
+} from "../controllers/turnos.controller";
 
 const router = Router();
 
-//Dada una Especialidad Y una localidad Y un profesional||todos, obtener Turnos disponibles
-router.get('/turnos',getTurnosFiltrados());
 
-//Reservar un turno
+router.get('/especialidades', especialidadesDisponibles);
 
-//Anular la reserva de un turno
+router.get('/localidades', localidadesPorEspecialidad);
+
+router.get('/prestadores', prestadoresPorEspecialidadYLocalidad);
+
+router.get('/filtrados', turnosFiltrados)
+
+router.patch('/reservarTurno', reservarTurno)
+
+router.get('/turnosPorAfiliado', turnosPorAfiliado)
+
+router.patch('/cancelarTurno', cancelarTurno)
 
 
 export default router;
