@@ -34,6 +34,29 @@
     "estado": "aceptado"
   },
   {
+    "nroAfiliado": "000001-01",
+    "paraAfiliado": "Carlos González",
+    "idAfiliado": "6717b1234f1a2b0012a45678",
+    "medicamento": "Loplac",
+    "cantidad": 1,
+    "presentacion": "Pastillas",
+    "observaciones": [
+      {
+        "idEmisor": "650f1d2a3b4c5d6e7f8a9012",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Necesito que autoricen de la marca Loplac",
+        "fecha": "2025-10-12T00:00:00.000Z"
+      },
+      {
+        "idEmisor": "652fa1b2f4a3c6a12d4e91a1",
+        "rolEmisor": "Prestador",
+        "descripcion": "Hola, Carlos. Necesitamos que especifique si es loplac 100 o 50, gracias.",
+        "fecha": "2025-02-21T14:32:00.000Z"
+      }
+    ],
+    "estado": "observado"
+  },
+  {
     "nroAfiliado": "000001-02",
     "paraAfiliado": "Laura Martínez",
     "idAfiliado": "6717b1234f1a2b0012a45679",
