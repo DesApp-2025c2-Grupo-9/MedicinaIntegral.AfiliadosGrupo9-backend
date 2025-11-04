@@ -11,10 +11,12 @@ interface AuthenticatedRequest extends Request {
 }
 
 export const MiCuentaController = {
-    obtenerMiCuenta: async (req: AuthenticatedRequest, res: Response) => {
+  obtenerMiCuenta: async (req: AuthenticatedRequest, res: Response) => {
     try {
-      const nroDocumento = req.nroDocumento;
-      if (!nroDocumento) return res.status(401).json({ error: 'Usuario no autenticado' });
+      const nroDocumento = req.user?.nroDocumento;
+      if (!nroDocumento) {
+        return res.status(401).json({ error: 'Usuario no autenticado' });
+      }
 
       const afiliado = await getAfiliadoByDocumento(nroDocumento);
       const grupoFamiliar = await obtenerGrupoFamiliar(nroDocumento);
@@ -25,17 +27,20 @@ export const MiCuentaController = {
       if (!res.headersSent) {
         res.status(500).json({ error: 'Error interno del servidor' });
       }
-    
-}
-
+    }
   },
 
   registrarCBU: async (req: AuthenticatedRequest, res: Response) => {
     try {
       const userId = req.user?.id;
-      if (!userId) return res.status(401).json({ error: 'Usuario no autenticado' });
+      if (!userId) {
+        return res.status(401).json({ error: 'Usuario no autenticado' });
+      }
 
       const { nombre, apellido, cbu, tipoDeCuenta, cuil } = req.body;
+      if (!nombre || !apellido || !cbu || !tipoDeCuenta || !cuil) {
+        return res.status(400).json({ error: 'Faltan datos requeridos para registrar el CBU' });
+      }
 
       await registrarCBU(userId, { nombre, apellido, cbu, tipoDeCuenta, cuil });
 
