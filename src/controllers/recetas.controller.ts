@@ -11,6 +11,7 @@ import {
 import { ApiResponse } from "../types/ApiResponse";
 import { IObservacion } from "../interfaces/IObservacion";
 import Afiliado from "../models/Afiliado";
+import { EstadoTramite } from "../enums/EstadoTramite";
 
 interface IRecetaController {
   getAllRecetas(req: Request, res: Response<ApiResponse>): Promise<void>;
@@ -166,10 +167,8 @@ const recetaController: IRecetaController = {
         res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
         return;
       }
-      unaReceta.observaciones = [
-        ...(unaReceta.observaciones || []),
-        observacion,
-      ];
+      unaReceta.observaciones = [...unaReceta.observaciones, observacion];
+      unaReceta.estado = EstadoTramite.EN_ANALISIS;
       const commentedReceta = await unaReceta.save();
       const commentedRecetaDTO = new CommentRecetaDTO(commentedReceta);
       res.json({

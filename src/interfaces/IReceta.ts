@@ -9,10 +9,12 @@ export interface IReceta {
   medicamento: string;
   cantidad: number;
   presentacion: string;
-  observaciones?: IObservacion[];
+  observaciones: IObservacion[];
   estado: EstadoTramite;
   idAfiliado: Types.ObjectId;
   fechaBaja?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export default IReceta;
