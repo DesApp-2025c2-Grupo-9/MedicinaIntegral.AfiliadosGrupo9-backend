@@ -13,9 +13,11 @@ export const getEspecialidades = async (req: Request, res: Response<ApiResponse>
     )
     //Lo ordenamos alfabeticamente
     especialidades.sort((a,b) => a.localeCompare(b, "es"));
+    console.log({especialidadesDevueltas:especialidades})
     res.json({ data: especialidades });
   } catch (error) {
     const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
     res.status(500).json({ message });
   }
+  
 };

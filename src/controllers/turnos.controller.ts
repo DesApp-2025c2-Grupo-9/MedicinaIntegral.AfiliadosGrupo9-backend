@@ -17,30 +17,20 @@ type TurnoDTO= {//Data Transfer Object
 
 const turnosDisponibles = async (): Promise<TurnoDTO[]> => {
   const now = new Date();
-  const turnos =await Turno.find(
-    {//filtros
-      estado : EstadoTurno.DISPONIBLE,
-      fechaTurno: { $gte: now}
-    })
+
+  // Traemos solo lo necesario de Turno y del Prestador
+  const turnos = await Turno.find({
+    estado: EstadoTurno.DISPONIBLE,
+    fechaTurno: { $gte: now }
+  })
     .select('_id idPrestador fechaTurno')
-    .populate({
-      path: 'idPrestador',
-      select:[//Los datos del prestador
-        'especialidad',
-        'nombre',
-        'lugarAtencion.nombre',
-        'lugarAtencion.calle',
-        'lugarAtencion.numero',
-        'lugarAtencion.telefono',
-        'lugarAtencion.localidad'
-      ].join(' '),//Unirlos en un string con un espacio
-    })
-    .sort({fechaTurno: 1})//Ascendente
-    .lean(); //Viene como un objeto plano
+    .populate('idPrestador', 'nombre especialidad lugarAtencion') // <--- solo campos que necesitamos
+    .sort({ fechaTurno: 1 })
+    .lean(); // traer como objeto plano
 
   const dto: TurnoDTO[] = turnos.map((turno: any) => {
-    const prestador = turno.idPrestador
-    return{
+    const prestador = turno.idPrestador;
+    return {
       idTurno: String(turno._id),
       especialidad: prestador?.especialidad ?? '',
       prestador: prestador?.nombre ?? '',
@@ -49,17 +39,18 @@ const turnosDisponibles = async (): Promise<TurnoDTO[]> => {
       direccion: `${prestador?.lugarAtencion?.calle ?? ''} ${prestador?.lugarAtencion?.numero ?? ''}`,
       telefono: prestador?.lugarAtencion?.telefono ?? '',
       localidad: prestador?.lugarAtencion?.localidad ?? ''
-    }
-  })
+    };
+  });
 
   return dto;
-}
+};
 
 const especialidadesDisponibles = async (req: Request, res: Response) => {
   //De los turnos disponibles, devolver las especialidades únicas.
   const turnos = await turnosDisponibles();
 
   const especialidades = [...new Set(turnos.map(turno => turno.especialidad))];
+  
   res.json(especialidades)
 }
 
@@ -74,6 +65,7 @@ const localidadesPorEspecialidad = async (req: Request, res:Response) => {
         .map(turno => turno.localidad)//Guardar la localidad de los turnos filtrados
     )
   ]
+
   res.json(localidades);
 }
 
@@ -87,7 +79,8 @@ const prestadoresPorEspecialidadYLocalidad = async (req: Request, res: Response)
         .filter(turno => turno.especialidad === especialidad && turno.localidad === localidad)
         .map(turno => turno.prestador)
     )
-  ];
+  ]
+  prestadores.push('Todos');
   res.json(prestadores)
 }
 
@@ -98,7 +91,7 @@ const turnosFiltrados = async (req: Request, res: Response) => {
   const filtrados = turnos.filter( turno => 
     turno.especialidad === especialidad &&
     turno.localidad === localidad &&
-    (!prestador || turno.prestador === prestador)
+    (!prestador || prestador === "Todos" || turno.prestador === prestador)
   );
   res.json(filtrados)
 }

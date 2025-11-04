@@ -11,19 +11,19 @@ import { turnosFiltrados,
 const router = Router();
 
 
-router.get('/especialidades', especialidadesDisponibles);
+router.get('/turnos/especialidades', especialidadesDisponibles);
 
-router.get('/localidades', localidadesPorEspecialidad);
+router.get('/turnos/localidades', localidadesPorEspecialidad);
 
-router.get('/prestadores', prestadoresPorEspecialidadYLocalidad);
+router.get('/turnos/prestadores', prestadoresPorEspecialidadYLocalidad);
 
-router.get('/filtrados', turnosFiltrados)
+router.get('/turnos/filtrados', turnosFiltrados)
 
-router.patch('/reservarTurno', reservarTurno)
+router.patch('/turnos/reservarTurno', reservarTurno)
 
-router.get('/turnosPorAfiliado', turnosPorAfiliado)
+router.get('/turnos/afiliado/:idAfiliado', turnosPorAfiliado)
 
-router.patch('/cancelarTurno', cancelarTurno)
+router.patch('/turnos/cancelarTurno', cancelarTurno)
 
 
 export default router;
