@@ -47,12 +47,6 @@ app.use('/api', reintegrosRoutes);
 app.use('/api', recetasRoutes);
 app.use('/api', especialidadesRoutes);
 app.use('/api', miCuentaRoutes);
-
-app.use("/api", afiliadosRoutes);
-app.use("/api", autorizacionesRoutes);
-app.use("/api", reintegrosRoutes);
-app.use("/api", recetasRoutes);
-app.use("/api", especialidadesRoutes);
 app.use("/api", prestadoresRoutes);
 app.use("/api/enums", enumsRoutes);
 app.use('/api', dashboard);
