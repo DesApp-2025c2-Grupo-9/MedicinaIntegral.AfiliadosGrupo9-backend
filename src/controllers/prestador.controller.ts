@@ -2,45 +2,56 @@ import { Request, Response } from "express";
 import { PrestadorDTO } from "../dtos/prestador.dto";
 import { Especialidad } from "../enums/Especialidad";
 import { Localidad } from "../enums/Localidad";
+import { Prestador } from "../models/Prestador";
+
 
 const prestadoresData: any[] = require("../json/prestadores.json");
 
 const prestadorController = {
   //  prestadores filtrados por especialidad y/o localidad
-  getPrestadores: (req: Request, res: Response) => {
+  getPrestadores: async (req: Request, res: Response) => {
     try {
-      const especialidad = req.query.especialidad as string | undefined;
-      const localidad = req.query.localidad as string | undefined;
 
-      let resultado = prestadoresData;
+      const { especialidad, localidad } = req.query as {
+        especialidad?: string;
+        localidad?: string;
+      };
+      console.log({
+        buscandoCon: {
+          especialidad: especialidad,
+          localidad: localidad
+        }
+      })
+      // Este será el objeto de filtro para Mongoose
+      const filterQuery: any = {};
 
-      // Filtrar por especialidad si es un valor válido del enum
-      if (
-        especialidad &&
-        Object.values(Especialidad).includes(especialidad as Especialidad)
-      ) {
-        resultado = resultado.filter((p) => p.especialidad === especialidad);
+      // Si el query param 'especialidad' existe, lo añadimos al filtro
+      if (especialidad) {
+        filterQuery.especialidad = especialidad;
       }
 
-      // Filtrar por localidad si es un valor válido del enum
-      if (
-        localidad &&
-        Object.values(Localidad).includes(localidad as Localidad)
-      ) {
-        resultado = resultado.filter(
-          (p) =>
-            p.lugarAtencion.localidad.toLowerCase() === localidad.toLowerCase()
-        );
+      // Si el query param 'localidad' existe, lo añadimos al filtro
+      // Usamos "dot notation" para el campo anidado
+      if (localidad) {
+        filterQuery["lugarAtencion.localidad"] = localidad;
       }
 
-      if (!resultado || resultado.length === 0) {
-        return res
-          .status(404)
-          .json({ message: "No se encontraron prestadores con esos filtros." });
+      // Ejecutamos la búsqueda en la base de datos
+      // find(filterQuery) buscará los prestadores que cumplan con ambos filtros
+      const resultado = await Prestador.find(filterQuery);
+
+      // Si no se encuentra nada, el frontend ya maneja el array vacío
+      // (Tu código de React tiene: 'filters && prestadores.length ? ...')
+      // Así que simplemente devolvemos el array (que estará vacío)
+      if (!resultado) {
+        return res.status(200).json([]);
       }
 
-      const result = resultado.map((p) => new PrestadorDTO(p));
+      // Mapeamos a DTO como ya lo hacías
+      // Es buena práctica usar .toObject() o .lean() antes de mapear
+      const result = resultado.map((p) => new PrestadorDTO(p.toObject()));
       res.status(200).json(result);
+      
     } catch (error) {
       console.error(" Error en getPrestadores:", error);
       res.status(500).json({ message: "Error al filtrar prestadores" });
