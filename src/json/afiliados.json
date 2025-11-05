@@ -169,4 +169,25 @@
     "planMedico": "100",
     "rol": "Hijo Menor"
   }
+  ,
+  {
+    "_id": "6717b1234f1a2b0012a456ee",
+    "nroAfiliado": "000005-01",
+    "grupoFamiliar": ["6717b1234f1a2b0012a456ee"],
+    "nombre": "Victor",
+    "apellido": "Gonzalvez",
+    "fechaNacimiento": "1998-07-12T00:00:00.000Z",
+    "tipoDocumento": "dni",
+    "nroDocumento": "41246577",
+    "email": "victor.gonzalvez@example.com",
+    "telefono": "1155551234",
+    "direccion": "9 de Julio 456, Castelar",
+    "parentesco": "titular",
+    "password": "hashedPassword7",
+    "fechaAlta": "2024-03-20T00:00:00.000Z",
+    "registrado": false,
+    "situacionTerapeutica": "Sin tratamiento",
+    "planMedico": "100",
+    "rol": "Titular"
+  }
 ]
