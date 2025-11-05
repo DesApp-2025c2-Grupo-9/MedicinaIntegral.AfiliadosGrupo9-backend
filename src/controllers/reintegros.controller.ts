@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import IReintegro from '../interfaces/IReintegro';
 import Reintegro from '../models/Reintegro';
 import { SUCCESS_MESSAGES } from '../utils/successMessages';
@@ -13,27 +13,32 @@ type UpdatedReintegro = Omit<IReintegro, 'observaciones'> & {
 };
 
 interface IReintegroController {
-  getAllReintegros: (req: Request, res: Response<ApiResponse>) => Promise<void>;
-  createReintegro: (req: Request, res: Response<ApiResponse>) => Promise<void>;
-  updateReintegro: (req: Request<{ id: number }, {}, Partial<UpdatedReintegro>>, res: Response<ApiResponse>) => Promise<void>;
-  deleteReintegro: (req: Request<{ id: number }>, res: Response<ApiResponse>) => Promise<void>;
-  commentReintegroById: (req: Request<{ id: number }, {}, { comentario: string }>, res: Response<ApiResponse>) => Promise<void>;
+  getAllReintegros: (req: Request, res: Response<ApiResponse>, next: NextFunction) => Promise<void>;
+  createReintegro: (req: Request, res: Response<ApiResponse>, next: NextFunction) => Promise<void>;
+  updateReintegro: (req: Request<{ id: string }, {}, Partial<UpdatedReintegro>>, res: Response<ApiResponse>, next: NextFunction) => Promise<void>;
+  deleteReintegro: (req: Request<{ id: string }>, res: Response<ApiResponse>, next: NextFunction) => Promise<void>;
+  commentReintegroById: (req: Request<{ id: string }, {}, { comentario: string }>, res: Response<ApiResponse>, next: NextFunction) => Promise<void>;
 }
 
 const reintegroController: IReintegroController = {
-  getAllReintegros: async (req, res) => {
+  getAllReintegros: async (req, res, next) => {
     const idsAfiliados = req.familiaresPermitidos;
 
     try {
       const reintegros = await Reintegro.find({ $and: [{ fechaBaja: { $exists: false } }, { idAfiliado: { $in: idsAfiliados } }] });
+      
+      if (reintegros.length === 0) {
+        res.status(204).json({ message: 'No hay reintegros.' }); 
+        return; 
+      }
+      
       const reintegrosDTO = reintegros.map(reintegro => new GetReintegrosDTO(reintegro));
       res.json({ data: reintegrosDTO });
     } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
+      next(error)
     }
   },
-  createReintegro: async (req, res) => {
+  createReintegro: async (req, res, next) => {
     const idAfiliado = req.familiaresPermitidos?.[0]; // El primer id corresponde a quien hizo la petición
     const observacion: IObservacion = {
       // construimos la observación con el comentario que envió el afiliado
@@ -53,11 +58,10 @@ const reintegroController: IReintegroController = {
       const newReintegroDTO = new PostReintegroDTO(newReintegro);
       res.json({ data: newReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.CREATED });
     } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
+      next(error)
     }
   },
-  updateReintegro: async (req, res) => {
+  updateReintegro: async (req, res, next) => {
     const { id } = req.params;
     const descripcionObservacion = req.body.observaciones || '';
 
@@ -83,11 +87,10 @@ const reintegroController: IReintegroController = {
       const updatedReintegroDTO = new PutReintegroDTO(updatedReintegro);
       res.json({ data: updatedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.UPDATED });
     } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
+      next(error)
     }
   },
-  deleteReintegro: async (req, res) => {
+  deleteReintegro: async (req, res, next) => {
     const { id } = req.params;
 
     try {
@@ -102,11 +105,10 @@ const reintegroController: IReintegroController = {
       const deletedReintegroDTO = new DeleteReintegroDTO(reintegro);
       res.json({ data: deletedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.DELETED });
     } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
+      next(error)
     }
   },
-  commentReintegroById: async (req, res) => {
+  commentReintegroById: async (req, res, next) => {
     const { id } = req.params;
     const { comentario } = req.body;
     const idAfiliado = req.familiaresPermitidos?.[0];
@@ -130,8 +132,7 @@ const reintegroController: IReintegroController = {
       const commentedReintegroDTO = new CommentReintegroDTO(commentedReintegro);
       res.json({ data: commentedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.COMMENTED });
     } catch (error) {
-      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-      res.status(500).json({ message });
+      next(error)
     }
   }
 };

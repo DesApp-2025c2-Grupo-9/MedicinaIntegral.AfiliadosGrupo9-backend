@@ -11,6 +11,7 @@ import recetasRoutes from './routes/recetas.routes';
 import especialidadesRoutes from './routes/especialidades.routes';
 import prestadoresRoutes from "./routes/prestadores.routes";
 import dashboard from './routes/dashboard.routes';
+import turnosRoutes from './routes/turnos.routes'
 import corsOptions from './config/corsOptions';
 import cookieParser from 'cookie-parser';
 import { verifyJWT } from './middlewares/verifyJWT';
@@ -50,6 +51,7 @@ app.use('/api', miCuentaRoutes);
 app.use("/api", prestadoresRoutes);
 app.use("/api/enums", enumsRoutes);
 app.use('/api', dashboard);
+app.use('/api', turnosRoutes)
 
 
 //Middleware global
