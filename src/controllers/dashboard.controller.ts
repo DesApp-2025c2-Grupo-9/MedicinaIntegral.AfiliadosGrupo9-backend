@@ -1,14 +1,30 @@
 import { Request, Response } from "express";
-import { ApiResponse } from '../types/ApiResponse';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
 import Turno from "../models/Turno";
 import Autorizacion from "../models/Autorizacion";
 import Receta from "../models/Receta";
 import Reintegro from "../models/Reintegro";
-import { GetRecetasDTO } from "../dtos/recetas.dto";
-import { GetAutorizacionesDTO } from "../dtos/autorizaciones.dto";
-import { GetReintegrosDTO } from "../dtos/reintegros.dto";
+import { AutorizacionesDashboardDTO, RecetasDashboardDTO, ReintegrosDashboardDTO } from "../dtos/dashboard.dto";
 import { SUCCESS_MESSAGES } from "../utils/successMessages";
+
+export type TurnoDTO = {
+  idTurno: string;
+  especialidad: string;
+  prestador: string;
+  afiliado: string;
+  fechaTurno: Date;
+  lugarAtencion: string;
+  direccion: string;
+  telefono: string;
+  localidad: string;
+}
+
+type ApiResponse = {
+  message?: string;
+  dataTramites?: object;
+  dataTurnos?: object;
+  accessToken?: string;
+};
 
 interface IDashboardController {
     getLatestTurnos: (req: Request, res: Response<ApiResponse>) => Promise<void>;
@@ -19,13 +35,36 @@ const dashboardController : IDashboardController = {
     getLatestTurnos: async (req, res) => {
         const idsAfiliados = req.familiaresPermitidos;
         try {
-            const turnos = await Turno.find({ $and:[{fechaBaja: {$exists: false}} , {idAfiliado: { $in: idsAfiliados }} ]}).sort('fechaTurno').limit(5);
+            const turnos = await Turno.find({idAfiliado: { $in: idsAfiliados }})
+                .select('_id idPrestador fechaTurno')
+                .populate('idPrestador', 'nombre especialidad lugarAtencion')
+                .populate('idAfiliado', 'nombre apellido')
+                .sort('fechaTurno').limit(5)
+                .lean(); // traer como objeto plano
+
+            const turnosDto: TurnoDTO[] = turnos.map((turno: any) => {
+                const prestador = turno.idPrestador;
+                const afiliado = turno.idAfiliado;
+
+                return {
+                idTurno: String(turno._id),
+                especialidad: prestador?.especialidad ?? '',
+                prestador: prestador?.nombre ?? '',
+                idAfiliado: String(afiliado?._id) ?? '',
+                afiliado: `${afiliado.nombre ?? ''} ${afiliado.apellido ?? ''}`,
+                fechaTurno: turno.fechaTurno,
+                lugarAtencion: prestador?.lugarAtencion?.nombre ?? '',
+                direccion: `${prestador?.lugarAtencion?.calle ?? ''} ${prestador?.lugarAtencion?.numero ?? ''}`,
+                telefono: prestador?.lugarAtencion?.telefono ?? '',
+                localidad: prestador?.lugarAtencion?.localidad ?? ''
+                };
+            });
+
             if(!turnos.length) {
                 res.status(204).json({ message: 'No hay turnos registrados' }); 
                 return;
             }
-            // const turnosDTO = turnos.map(a => new GetTurnosDTO(a));
-            res.status(200).json({ data: turnos });
+            res.status(200).json({ dataTurnos: turnosDto });
             } catch(error) {
                 const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
                 res.status(500).json({ message });
@@ -48,10 +87,11 @@ const dashboardController : IDashboardController = {
                 return
             }
 
-            const recetasDTO = ultimasRecetas.map(r => new GetRecetasDTO(r));
-            const autorizacionDTO = ultimaAutorizacion.map(a => new GetAutorizacionesDTO(a));
-            const reintegroDTO = ultimoReintegro.map(r => new GetReintegrosDTO(r));
-            res.status(200).json({ data: { recetas: recetasDTO, autorizaciones: autorizacionDTO, reintegros: reintegroDTO } });
+            const [receta1DTO, receta2DTO] = ultimasRecetas.map(r => new RecetasDashboardDTO(r));
+            const [autorizacionDTO] = ultimaAutorizacion.map(a => new AutorizacionesDashboardDTO(a));
+            const [reintegroDTO] = ultimoReintegro.map(r => new ReintegrosDashboardDTO(r));
+
+            res.status(200).json({ dataTramites: [receta1DTO, receta2DTO, autorizacionDTO, reintegroDTO ]});
             } catch(error) {
                 const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
                 res.status(500).json({ message });
