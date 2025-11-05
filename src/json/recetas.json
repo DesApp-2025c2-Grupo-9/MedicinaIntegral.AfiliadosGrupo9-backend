@@ -3,7 +3,7 @@
     "nroAfiliado": "000001-01",
     "paraAfiliado": "Carlos González",
     "idAfiliado": "6717b1234f1a2b0012a45678",
-    "medicamento": "Ibuprofeno",
+    "medicamento": "Ibuprofeno 600mg",
     "cantidad": 5,
     "presentacion": "Tabletas",
     "observaciones": [
@@ -20,51 +20,38 @@
     "nroAfiliado": "000001-01",
     "paraAfiliado": "Carlos González",
     "idAfiliado": "6717b1234f1a2b0012a45678",
-    "medicamento": "Ibupirac",
-    "cantidad": 5,
-    "presentacion": "Pastillas",
-    "observaciones": [
-      {
-        "idEmisor": "650f1d2a3b4c5d6e7f8a9012",
-        "rolEmisor": "Afiliado",
-        "descripcion": "Tomar cada 12 horas",
-        "fecha": "2025-10-12T00:00:00.000Z"
-      }
-    ],
+    "medicamento": "Losartán",
+    "cantidad": 2,
+    "presentacion": "Cápsulas",
+    "observaciones": [],
     "estado": "aceptado"
-  },
-  {
-    "nroAfiliado": "000001-01",
-    "paraAfiliado": "Carlos González",
-    "idAfiliado": "6717b1234f1a2b0012a45678",
-    "medicamento": "Loplac",
-    "cantidad": 1,
-    "presentacion": "Pastillas",
-    "observaciones": [
-      {
-        "idEmisor": "650f1d2a3b4c5d6e7f8a9012",
-        "rolEmisor": "Afiliado",
-        "descripcion": "Necesito que autoricen de la marca Loplac",
-        "fecha": "2025-10-12T00:00:00.000Z"
-      },
-      {
-        "idEmisor": "652fa1b2f4a3c6a12d4e91a1",
-        "rolEmisor": "Prestador",
-        "descripcion": "Hola, Carlos. Necesitamos que especifique si es loplac 100 o 50, gracias.",
-        "fecha": "2025-02-21T14:32:00.000Z"
-      }
-    ],
-    "estado": "observado"
   },
   {
     "nroAfiliado": "000001-02",
     "paraAfiliado": "Laura Martínez",
     "idAfiliado": "6717b1234f1a2b0012a45679",
-    "medicamento": "Paracetamol",
-    "cantidad": 3,
+    "medicamento": "Amoxidal Duo",
+    "cantidad": 12,
+    "presentacion": "Cápsulas",
+    "observaciones": [
+      {
+        "idEmisor": "652fa1b2f4a3c6a12d4e91a1",
+        "rolEmisor": "Prestador",
+        "descripcion": "Indicar si es tratamiento de 7 o 10 días.",
+        "fecha": "2025-09-20T10:30:00.000Z"
+      }
+    ],
+    "estado": "observado"
+  },
+  {
+    "nroAfiliado": "000001-03",
+    "paraAfiliado": "Sofía González",
+    "idAfiliado": "6717b1234f1a2b0012a4567a",
+    "medicamento": "Desloratadina",
+    "cantidad": 1,
     "presentacion": "Jarabe",
     "observaciones": [],
-    "estado": "pendiente"
+    "estado": "rechazado"
   },
   {
     "nroAfiliado": "000002-01",
@@ -84,12 +71,32 @@
     "estado": "observado"
   },
   {
+    "nroAfiliado": "000002-02",
+    "paraAfiliado": "Hernán López",
+    "idAfiliado": "6717b1234f1a2b0012a4567c",
+    "medicamento": "Paracetamol 500mg",
+    "cantidad": 10,
+    "presentacion": "Tabletas",
+    "observaciones": [],
+    "estado": "pendiente"
+  },
+  {
+    "nroAfiliado": "000002-02",
+    "paraAfiliado": "Hernán López",
+    "idAfiliado": "6717b1234f1a2b0012a4567c",
+    "medicamento": "Loratadina",
+    "cantidad": 7,
+    "presentacion": "Comprimidos",
+    "observaciones": [],
+    "estado": "aceptado"
+  },
+  {
     "nroAfiliado": "000003-01",
     "paraAfiliado": "Julián Rossi",
     "idAfiliado": "6717b1234f1a2b0012a4567d",
-    "medicamento": "Omeprazol",
+    "medicamento": "Omeprazol 20mg",
     "cantidad": 7,
-    "presentacion": "Tabletas",
+    "presentacion": "Cápsulas",
     "observaciones": [],
     "estado": "aceptado"
   },
@@ -102,5 +109,15 @@
     "presentacion": "Tabletas",
     "observaciones": [],
     "estado": "aceptado"
+  },
+  {
+    "nroAfiliado": "000004-02",
+    "paraAfiliado": "Lucas Fernández",
+    "idAfiliado": "6717b1234f1a2b0012a4567f",
+    "medicamento": "Ibuprofeno pediátrico",
+    "cantidad": 1,
+    "presentacion": "Jarabe",
+    "observaciones": [],
+    "estado": "pendiente"
   }
 ]
