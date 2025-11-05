@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import  Autorizacion  from "../models/Autorizacion";
 import { IAutorizacion } from '../interfaces/IAutorizacion';
 import { SUCCESS_MESSAGES } from "../utils/successMessages";
@@ -7,13 +7,14 @@ import { GetAutorizacionesDTO, IdAutorizacionDTO, CommentAutorizacionDTO } from 
 import { ApiResponse } from '../types/ApiResponse';
 import { IObservacion } from '../interfaces/IObservacion';
 import { EstadoTramite } from "../enums/EstadoTramite";
+import { nextTick } from "process";
 
 interface IAutorizacionController {
-    getAllAutorizaciones: (req: Request, res: Response<ApiResponse>) => Promise<void>;
-    createAutorizacion: (req: Request, res: Response<ApiResponse>) => Promise<void>;
-    updateAutorizacion: (req: Request<{id: string}, {}, Partial<UpdatedAutorizacion>>, res: Response<ApiResponse>) => Promise<void>;
-    deleteAutorizacion: (req: Request<{id: string}>, res: Response<ApiResponse>) => Promise<void>;
-    commentAutorizacionById: (req: Request<{id: string}>, res: Response<ApiResponse>) => Promise<void>;
+    getAllAutorizaciones: (req: Request, res: Response<ApiResponse>, next: NextFunction) => Promise<void>;
+    createAutorizacion: (req: Request, res: Response<ApiResponse>, next: NextFunction) => Promise<void>;
+    updateAutorizacion: (req: Request<{id: string}, {}, Partial<UpdatedAutorizacion>>, res: Response<ApiResponse>, next: NextFunction) => Promise<void>;
+    deleteAutorizacion: (req: Request<{id: string}>, res: Response<ApiResponse>, next: NextFunction) => Promise<void>;
+    commentAutorizacionById: (req: Request<{id: string}>, res: Response<ApiResponse>, next: NextFunction) => Promise<void>;
 }
 
 type UpdatedAutorizacion = Omit<IAutorizacion, 'observaciones'> & {
@@ -22,22 +23,21 @@ type UpdatedAutorizacion = Omit<IAutorizacion, 'observaciones'> & {
 
 
 const autorizacionController: IAutorizacionController = {
-    getAllAutorizaciones : async (req, res) => {
+    getAllAutorizaciones : async (req, res, next) => {
         const idsAfiliados = req.familiaresPermitidos;
         try {
             const autorizaciones = await Autorizacion.find({ $and:[{fechaBaja: {$exists: false}} , {idAfiliado: { $in: idsAfiliados }} ]});
-            if(!autorizaciones) {
+            if(autorizaciones.length === 0) {
                 res.status(204).json({ message: 'No hay autorizaciones.' }); 
                 return;
             }
             const autorizacionesDTO = autorizaciones.map(a => new GetAutorizacionesDTO(a));
             res.status(200).json({ data: autorizacionesDTO });
         } catch(error) {
-            const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
-           res.status(500).json({ message });
+            next(error)
         }
     },
-    createAutorizacion : async (req, res) => {
+    createAutorizacion : async (req, res, next) => {
         const idAfiliado = req.familiaresPermitidos?.[0]; 
         const observacion: IObservacion = {
             idEmisor: idAfiliado!,
@@ -49,16 +49,14 @@ const autorizacionController: IAutorizacionController = {
             const nuevaAutorizacion = await Autorizacion.create({...req.body, idAfiliado, observaciones: [observacion]});
             res.status(200).json({ data: new IdAutorizacionDTO(nuevaAutorizacion), message: SUCCESS_MESSAGES.AUTORIZACION.CREATED });
         } catch(error) {
-            const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
-            res.status(500).json({ message });
+            next(error)
         }
     },
-    updateAutorizacion : async (req, res) => {
+    updateAutorizacion : async (req, res, next) => {
         const descripcionObservacion = req.body.observaciones || '';
         const { id } = req.params;
 
         try {
-          console.log(req.body)
           const autorizacion = await Autorizacion.findById(id);
           if (!autorizacion) { 
             res.status(404).json({ message: ERROR_MESSAGES.AUTORIZACION.NOT_FOUND});
@@ -75,15 +73,14 @@ const autorizacionController: IAutorizacionController = {
             ...req.body,
             observaciones: [updatedObservacion]
           };
-          Object.assign(autorizacion, autorizacionBody);
+          Object.assign(autorizacion!, autorizacionBody);
           const autorizacionActualizada = await autorizacion.save();
           res.status(200).json({ data: new IdAutorizacionDTO(autorizacionActualizada), message: SUCCESS_MESSAGES.AUTORIZACION.UPDATED });
         } catch(error) {
-          const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
-          res.status(500).json({ message });
+          next(error)
         }
     },
-    deleteAutorizacion : async (req, res) => {
+    deleteAutorizacion : async (req, res, next) => {
         try {
             const { id } = req.params;
             const autorizacion = await Autorizacion.findById(id);
@@ -96,11 +93,10 @@ const autorizacionController: IAutorizacionController = {
 
             res.status(200).json({ data: new IdAutorizacionDTO(autorizacion), message: SUCCESS_MESSAGES.AUTORIZACION.DELETED });
         } catch(error) {
-            const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error)
-            res.status(500).json({ message });
+            next(error)
         }
     },
-    commentAutorizacionById : async (req, res) => {
+    commentAutorizacionById : async (req, res, next) => {
         const { id } = req.params;
         const { comentario } = req.body;
         const idAfiliado = req.familiaresPermitidos?.[0];
@@ -123,8 +119,7 @@ const autorizacionController: IAutorizacionController = {
             const commentedAutorizacionDTO = new CommentAutorizacionDTO(commentedAutorizacion);
             res.json({ data: commentedAutorizacionDTO, message: SUCCESS_MESSAGES.AUTORIZACION.COMMENTED });
         } catch (error) {
-            const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-            res.status(500).json({ message });
+            next(error)//Manejo de errores globales
         }
     }
 };

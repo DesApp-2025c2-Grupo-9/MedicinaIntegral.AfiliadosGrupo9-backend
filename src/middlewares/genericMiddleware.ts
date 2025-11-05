@@ -25,23 +25,44 @@ export const errorPersonalizado = (
 };
 
 /* ============= VERIFICA EXISTENCIA DE UN ID ============= */
-export const existsModelById = (modelo: Model<any>) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id;
-      const data = await modelo.findById(id);
-      if (!data) {
-        return errorPersonalizado(
-          `${modelo.modelName} con id ${id} no se encuentra registrado en la base de datos`,
-          404,
-          next
-        );
-      }
-    } catch (error) {
-      return next(error);
-    }
-    next();
-  };
+export const existsModelById = (
+  modelo: Model<any>,
+  paramName: string = 'id' // <-- Argumento nuevo
+) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const idBuscado = req.params[paramName]; //Se debe recibir el nombre del parámetro del id
+
+      if (!idBuscado) {
+        return errorPersonalizado(
+          `No se encontró el parámetro '${paramName}' en la ruta`,
+          400,
+          next
+        );
+      }
+
+      // Validación de ObjectId 
+      if (!mongoose.Types.ObjectId.isValid(idBuscado)) {
+        return errorPersonalizado(
+          `El ID en el parámetro '${paramName}' es inválido`,
+          400,
+          next
+        );
+      }
+
+      const data = await modelo.findById(idBuscado);
+      if (!data) {
+        return errorPersonalizado(
+          `${modelo.modelName} con id ${idBuscado} no se encuentra registrado`,
+          404,
+          next
+        );
+      }
+    } catch (error) {
+      return next(error);
+    }
+    next();
+  };
 };
 
 /* ============= VERIFICA QUE EXISTA ALGÚN REGISTRO ============= */
@@ -63,11 +84,11 @@ export const existsAnyByModel = (modelo: Model<any>) => {
   };
 };
 
-/* ============= VALIDAR CAMPOS EXACTOS ============= */
+/* ============= VALIDAR CAMPOS EXACTOS PARA BODY============= */
 export const validarCamposExactos = (modelo: Model<any>) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const camposValidos = Object.keys(modelo.schema.paths);
-    const camposRecibidos = Object.keys(req.body);
+    const camposRecibidos = Object.keys(req.body);//LOS CAMOS QUE REVISA SON LOS DEL BODY, NO LOS DE QUERY PARAMS
     const camposInvalidos = camposRecibidos.filter(
       (campo) => !camposValidos.includes(campo)
     );
@@ -77,6 +98,24 @@ export const validarCamposExactos = (modelo: Model<any>) => {
     }
     next();
   };
+};
+
+/* ============= VALIDAR CAMPOS EXACTOS PARA QUERYPARAMS ============= */
+export const validarQueryExactos = (modelo: Model<any>) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const camposValidos = Object.keys(modelo.schema.paths);
+    
+    const camposRecibidos = Object.keys(req.query); 
+    
+    const camposInvalidos = camposRecibidos.filter(
+      (campo) => !camposValidos.includes(campo)
+    );
+
+    if (camposInvalidos.length > 0) {
+      return errorPersonalizado(`Hay campos inválidos en el query: ${camposInvalidos.join(', ')}`, 400, next);
+    }
+    next();
+  };
 };
 
 /* ============= EXISTE MODELO EN REQUEST BODY ============= */

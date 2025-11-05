@@ -8,6 +8,7 @@ import {
   validarCamposExactos,
 } from "../middlewares/genericMiddleware";
 import { filtroAfiliadoActual } from "../middlewares/filtroAfiliadoActual";
+import Afiliado from "../models/Afiliado";
 
 const router = Router();
 
@@ -15,25 +16,39 @@ router.use(logRequest);
 
 router.get(
   "/recetas/:idAfiliado",
+  //MIddlewares
+  existsModelById(Afiliado, 'idAfiliado'),
   filtroAfiliadoActual,
-  existsAnyByModel(Receta),
   recetaController.getAllRecetas
 );
 router.post(
   "/recetas",
+  //Middlewares
   validarCamposExactos(Receta),
   recetaController.createReceta
 );
 router.put(
   "/recetas/:id",
+  //Middlewares
   existsModelById(Receta),
+  validarCamposExactos(Receta),
   recetaController.updateReceta
 );
 router.patch(
   "/recetas/:id",
+  //MIddlewares
   existsModelById(Receta),
   recetaController.deleteReceta
 );
-router.post("/recetas/:id", recetaController.commentRecetaById);
+router.post(
+  "/recetas/:id", 
+  existsModelById(Receta),
+  recetaController.commentRecetaById);
+
+router.get(
+  '/receta/:id',
+  existsModelById(Receta),
+  recetaController.getRecetaById
+)
 
 export default router;
