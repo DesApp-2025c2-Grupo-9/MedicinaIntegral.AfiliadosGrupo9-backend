@@ -10,6 +10,7 @@ export class GetRecetasDTO {
   presentacion: string;
   observaciones?: IObservacion[];
   estado: string;
+  createdAt?: Date;
 
   constructor(data: IRecetaDocument) {
     this.id = data._id.toString();
@@ -20,6 +21,7 @@ export class GetRecetasDTO {
     this.presentacion = data.presentacion;
     this.observaciones = data.observaciones;
     this.estado = data.estado;
+    this.createdAt = data.createdAt;
   }
 }
 

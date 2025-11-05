@@ -19,7 +19,8 @@ export const SUCCESS_MESSAGES = {
   AUTORIZACION: {
     CREATED: 'Autorización creada exitosamente.',
     UPDATED: 'Autorización actualizada exitosamente.',
-    DELETED: 'Autorización eliminada exitosamente.'
+    DELETED: 'Autorización eliminada exitosamente.',
+    COMMENTED: "El comentario fue enviado exitosamente.",
   },
   TRAMITES: {
     NO_CONTENT: 'No hay trámites registrados'
