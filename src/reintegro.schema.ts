@@ -1,5 +1,5 @@
 import { z } from "zod";
-import (EstadoTramite } from "../enums/EstadoTramite";
+import {EstadoTramite } from "../enums/EstadoTramite";
 import { Especialidad } from "../enums/Especialidad";
 import { FormaPago } from "../enums/FormaPago";
 
