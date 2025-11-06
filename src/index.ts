@@ -18,6 +18,7 @@ import afiliadosRoutes from './routes/afiliados.routes';
 import { manejoDeErroresGlobales } from './middlewares/genericMiddleware';
 import miCuentaRoutes from './routes/miCuenta.routes';
 import enumsRoutes from './routes/enums.route';
+import turnosRoutes from './routes/turnos.routes'
 
 export const app = express();
 export const PORT = process.env.PORT || 3000;
@@ -55,6 +56,8 @@ app.use('/api', especialidadesRoutes);
 app.use('/api', prestadoresRoutes);
 app.use('/api/enums', enumsRoutes);
 app.use('/api', dashboard);
+
+app.use('/api', turnosRoutes)
 
 //Middleware global
 app.use(manejoDeErroresGlobales);
