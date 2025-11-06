@@ -39,6 +39,7 @@ const afiliadoSchema = new Schema<IAfiliadoDocument>(
       ],
       default: []
     },
+    cbuPrincipal: String,
     rol: { type: String, enum: Object.values(RolAfiliado), default: RolAfiliado.TITULAR },
     refreshToken: { type: String }
   },

@@ -39,13 +39,13 @@ const afiliadoController: IAfiliadoController = {
       if (errores.length > 0) {
         return res.status(400).json({ message: `Datos inválidos del afiliado: ${errores.join('; ')}` });
 
-        res.status(404).json({ message: 'No se pudo encontrar el afiliado.' });
-        return;
+        /* res.status(404).json({ message: 'No se pudo encontrar el afiliado.' });
+        return; */
       }
       const unAfiliadoDTO = new GetAfiliadoDTO(unAfiliado);
       res.status(200).json({ data: unAfiliadoDTO });
 
-      res.json({ data: unAfiliadoDTO });
+      /* res.json({ data: unAfiliadoDTO }); */
 
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);

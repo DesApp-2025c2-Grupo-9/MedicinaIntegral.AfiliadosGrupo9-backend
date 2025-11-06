@@ -1,6 +1,6 @@
 import { IAfiliadoDocument } from '../models/Afiliado';
 
-interface IAfiliadoPopulated extends Omit<IAfiliadoDocument, 'grupoFamiliar'> {
+export interface IAfiliadoPopulated extends Omit<IAfiliadoDocument, 'grupoFamiliar'> {
   grupoFamiliar: IAfiliadoDocument[];
 }
 

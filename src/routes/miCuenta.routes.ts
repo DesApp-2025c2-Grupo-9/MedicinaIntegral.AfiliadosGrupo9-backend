@@ -1,12 +1,10 @@
-
 import { Router } from 'express';
-import { MiCuentaController } from '../controllers/miCuenta.controller';
-import { verifyJWT } from '../middlewares/verifyJWT';
+import { miCuentaController } from '../controllers/miCuenta.controller';
 
 const router = Router();
 
-
-router.get('/mi-cuenta',verifyJWT, MiCuentaController.obtenerMiCuenta);
-router.post('/mi-cuenta/cbu', verifyJWT, MiCuentaController.registrarCBU);
+router.get('/mi-cuenta', miCuentaController.getMiCuenta);
+router.post('/mi-cuenta/cbu', miCuentaController.registrarCbu);
+router.put('/mi-cuenta/cbu', miCuentaController.setCbuPrincipal);
 
 export default router;
