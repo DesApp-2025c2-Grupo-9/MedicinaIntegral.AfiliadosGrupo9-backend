@@ -21,6 +21,27 @@
     "estado": "pendiente"
   },
   {
+    "idAfiliado": "6717b1234f1a2b0012a45678",
+    "paraAfiliado": "Carlos González",
+    "nroAfiliado": "000001-01",
+    "fechaSolicitud": "2025-10-12T10:00:00.000Z",
+    "practica": "Resonancia magnética",
+    "especialidad": "Neurología",
+    "medicoSolicitante": "Dr. Juan Pérez",
+    "lugarAtencion": "Hospital Central",
+    "diagnostico": "Dolor de cabeza crónico",
+    "observaciones": [
+      {
+        "emisor": "650f1d2a3b4c5d6e7f8a9012",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Solicitar prioridad por síntomas graves",
+        "fecha": "2025-10-12T12:00:00.000Z"
+      }
+    ],
+    "diasDeInternacion": 3,
+    "estado": "observado"
+  },
+  {
     "idAfiliado": "6717b1234f1a2b0012a45679", 
     "paraAfiliado": "Laura Martínez",
     "nroAfiliado": "000001-02",
