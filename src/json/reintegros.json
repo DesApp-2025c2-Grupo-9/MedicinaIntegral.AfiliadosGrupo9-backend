@@ -13,7 +13,7 @@
       "personaAFacturar": "Carlos González"
     },
     "formaDePago": "transferencia",
-    "cbu": "2850590940090418135201",
+    "cbu": "28505909-40090418135201",
     "observaciones": [
       {
         "idEmisor": "6717b1234f1a2b0012a45678",
@@ -45,7 +45,7 @@
       "personaAFacturar": "Laura Martínez"
     },
     "formaDePago": "transferencia",
-    "cbu": "2850590940090418135201",
+    "cbu": "28505909-40090418135201",
     "estado": "pendiente",
     "observaciones": [
       {
@@ -139,7 +139,7 @@
       "personaAFacturar": "Hernán López"
     },
     "formaDePago": "transferencia",
-    "cbu": "2850590940090418135202",
+    "cbu": "28505909-40090418135202",
     "estado": "pendiente",
     "observaciones": [],
     "idAfiliado": "6717b1234f1a2b0012a4567c"
@@ -158,7 +158,7 @@
       "personaAFacturar": "Julián Rossi"
     },
     "formaDePago": "transferencia",
-    "cbu": "2850590940090418135202",
+    "cbu": "28505909-40090418135202",
     "observaciones": [
       {
         "idEmisor": "6717b1234f1a2b0012a4567d",
@@ -190,7 +190,7 @@
       "personaAFacturar": "Valentina Fernández"
     },
     "formaDePago": "transferencia",
-    "cbu": "2850590940090418135201",
+    "cbu": "28505909-40090418135201",
     "estado": "rechazado",
     "observaciones": [
       {

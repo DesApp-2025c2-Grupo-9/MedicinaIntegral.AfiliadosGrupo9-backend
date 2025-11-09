@@ -27,7 +27,19 @@ const afiliadoSchema = new Schema<IAfiliadoDocument>(
     registrado: { type: Boolean, default: false },
     situacionTerapeutica: { type: String, required: true, default: 'No presenta enfermedades preexistentes.' },
     planMedico: { type: String, enum: Object.values(PlanMedico), required: true, default: PlanMedico.PLAN_100 },
-    cbu: { type: String },
+    cbus: {
+      type: [
+        {
+          tipoDeCuenta: { type: String, required: true },
+          cuil: { type: String, required: true },
+          nombre: { type: String, required: true },
+          apellido: { type: String, required: true },
+          cbu: { type: String, required: true }
+        }
+      ],
+      default: []
+    },
+    cbuPrincipal: String,
     rol: { type: String, enum: Object.values(RolAfiliado), default: RolAfiliado.TITULAR },
     refreshToken: { type: String }
   },
