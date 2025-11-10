@@ -15,8 +15,16 @@ import { EstadoTramite } from "../enums/EstadoTramite";
 import { errorPersonalizado } from "../middlewares/genericMiddleware";
 
 interface IRecetaController {
-  getAllRecetas(req: Request, res: Response<ApiResponse>, next: NextFunction): Promise<void>;
-  createReceta(req: Request, res: Response<ApiResponse>, next: NextFunction): Promise<void>;
+  getAllRecetas(
+    req: Request,
+    res: Response<ApiResponse>,
+    next: NextFunction
+  ): Promise<void>;
+  createReceta(
+    req: Request,
+    res: Response<ApiResponse>,
+    next: NextFunction
+  ): Promise<void>;
   updateReceta: (
     req: Request<{ id: string }>,
     res: Response<ApiResponse>,
@@ -33,7 +41,11 @@ interface IRecetaController {
     res: Response<ApiResponse>,
     next: NextFunction
   ) => Promise<void>;
-  getRecetaById(req: Request, res: Response<ApiResponse>, next: NextFunction): Promise<void>;
+  getRecetaById(
+    req: Request,
+    res: Response<ApiResponse>,
+    next: NextFunction
+  ): Promise<void>;
 }
 type UpdatedReceta = Omit<IReceta, "observaciones"> & {
   observaciones: string;
@@ -58,13 +70,12 @@ const recetaController: IRecetaController = {
       console.log(recetasDTO);
       res.json({ data: recetasDTO });
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
   createReceta: async (req, res, next) => {
-    const idAfiliado = req.familiaresPermitidos?.[0]; // El primer id corresponde a quien hizo la petición
+    const idAfiliado = req.familiaresPermitidos?.[0];
     const observacion: IObservacion = {
-      // construimos la observación con el comentario que envió el afiliado
       idEmisor: idAfiliado!,
       rolEmisor: "Afiliado",
       descripcion: req.body.observaciones,
@@ -73,8 +84,7 @@ const recetaController: IRecetaController = {
     try {
       const unAfiliado = await Afiliado.findById(idAfiliado);
       if (!unAfiliado) {
-        
-        return errorPersonalizado('No se encontró el afiliado', 404, next);
+        return errorPersonalizado("No se encontró el afiliado", 404, next);
       }
       const recetaBody = {
         ...req.body,
@@ -90,7 +100,7 @@ const recetaController: IRecetaController = {
         message: SUCCESS_MESSAGES.RECETA.CREATED,
       });
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
 
@@ -126,7 +136,7 @@ const recetaController: IRecetaController = {
         message: SUCCESS_MESSAGES.RECETA.UPDATED,
       });
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
 
@@ -146,7 +156,7 @@ const recetaController: IRecetaController = {
         message: SUCCESS_MESSAGES.RECETA.DELETED,
       });
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
 
@@ -177,33 +187,24 @@ const recetaController: IRecetaController = {
         message: SUCCESS_MESSAGES.RECETA.COMMENTED,
       });
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
   getRecetaById: async (req, res, next) => {
-  // 1. Obtenemos el 'id' que viene en la URL (ej: /api/receta/690b...)
-  const { id } = req.params;
+    const { id } = req.params;
 
-  try {
-    // 2. Buscamos la receta por ese ID.
-    //    Sabemos que existe, porque el middleware 'existsModelById(Receta)'
-    //    ya corrió y lo validó. Si no existiera, nunca habría llegado aquí.
-    const receta = await Receta.findById(id);
+    try {
+      const receta = await Receta.findById(id);
 
-    // 3. (Opcional pero recomendado) Doble chequeo por si acaso.
-    if (!receta) {
-      res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
-      return 
+      if (!receta) {
+        res.status(404).json({ message: ERROR_MESSAGES.RECETA.NOT_FOUND });
+        return;
+      }
+
+      res.status(200).json({ data: new GetRecetasDTO(receta) });
+    } catch (error) {
+      next(error);
     }
-    
-    // 4. Devolvemos la receta encontrada.
-    res.status(200).json({ data: new GetRecetasDTO(receta) });
-
-  } catch (error) {
-    // Si el 'id' tiene un formato inválido (no es un MongoID válido),
-    // Receta.findById(id) lanzará un error que capturamos aquí.
-    next(error);
-  }
-},
+  },
 };
 export default recetaController;
