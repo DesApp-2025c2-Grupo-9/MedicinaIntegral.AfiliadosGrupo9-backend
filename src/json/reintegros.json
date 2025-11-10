@@ -89,6 +89,68 @@
     "idAfiliado": "6717b1234f1a2b0012a4567a"
   },
   {
+    "_id": "6717b1234f1a2b0012a4567b",
+    "paraAfiliado": "Sofía González",
+    "fechaDePrestacion": "2025-01-22T00:00:00.000Z",
+    "especialidad": "Pediatría",
+    "medico": "Juan Herrera",
+    "lugarDeAtencion": "Hospital Italiano",
+    "factura": {
+      "fecha": "2025-01-23T00:00:00.000Z",
+      "cuit": "20456789012",
+      "valorTotal": 8500,
+      "personaAFacturar": "Carlos González"
+    },
+    "formaDePago": "efectivo",
+    "observaciones": [
+      {
+        "idEmisor": "652ab1b2f4a3c6a12d4e9ba1",
+        "rolEmisor": "Prestador",
+        "descripcion": "Hola, el reintegro de Sofía está en revisión. Nos falta confirmar la fecha exacta de la prestación.",
+        "fecha": "2025-01-25T09:50:00.000Z"
+      },
+      {
+        "idEmisor": "6717b1234f1a2b0012a45678",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Gracias por avisar. La prestación fue el 22 de enero, adjunto el comprobante nuevamente.",
+        "fecha": "2025-01-25T12:40:00.000Z"
+      }
+    ],
+    "estado": "rechazado",
+    "idAfiliado": "6717b1234f1a2b0012a4567a"
+  },
+  {
+    "_id": "6717b1234f1a2b0012a4567f",
+    "paraAfiliado": "Sofía González",
+    "fechaDePrestacion": "2025-01-22T00:00:00.000Z",
+    "especialidad": "Pediatría",
+    "medico": "Juan Herrera",
+    "lugarDeAtencion": "Hospital Italiano",
+    "factura": {
+      "fecha": "2025-01-23T00:00:00.000Z",
+      "cuit": "20456789012",
+      "valorTotal": 8500,
+      "personaAFacturar": "Carlos González"
+    },
+    "formaDePago": "efectivo",
+    "observaciones": [
+      {
+        "idEmisor": "652ab1b2f4a3c6a12d4e9ba1",
+        "rolEmisor": "Prestador",
+        "descripcion": "Hola, el reintegro de Sofía está en revisión. Nos falta confirmar la fecha exacta de la prestación.",
+        "fecha": "2025-01-25T09:50:00.000Z"
+      },
+      {
+        "idEmisor": "6717b1234f1a2b0012a45678",
+        "rolEmisor": "Afiliado",
+        "descripcion": "Gracias por avisar. La prestación fue el 22 de enero, adjunto el comprobante nuevamente.",
+        "fecha": "2025-01-25T12:40:00.000Z"
+      }
+    ],
+    "estado": "en análisis",
+    "idAfiliado": "6717b1234f1a2b0012a4567a"
+  },
+  {
     "_id": "6717b1234f1a2b0012a45673",
     "paraAfiliado": "Mariana Pérez",
     "fechaDePrestacion": "2025-04-05T00:00:00.000Z",
