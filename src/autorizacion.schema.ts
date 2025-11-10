@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { EstadoTramite } from "../enums/EstadoTramite";
+import { EstadoTramite } from "./enums/EstadoTramite";
 
 //validacion para una observacion
 
@@ -22,8 +22,8 @@ export const autorizacionSchema = z.object({
   medicoSolicitante: z.string().min(1, "El médico solicitante es obligatorio"),
   lugarAtencion: z.string().min(1, "El lugar de atención es obligatorio"),
   diagnostico: z.string().optional(),
-  observaciones: z.array(observacionShema).optional(),
+  observaciones: z.array(observacionSchema).optional(),
   diasDeInternacion: z.number().min(0, "Debe ser un número positivo"),
-  estado: z.nativeEnum(EstadoTramite), //chequear 
+  estado: z.nativeEnum(EstadoTramite), //chequear
   fechaBaja: z.date().optional(),
 });
