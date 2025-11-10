@@ -43,16 +43,7 @@
     ],
     "estado": "observado"
   },
-  {
-    "nroAfiliado": "000001-03",
-    "paraAfiliado": "Sofía González",
-    "idAfiliado": "6717b1234f1a2b0012a4567a",
-    "medicamento": "Desloratadina",
-    "cantidad": 1,
-    "presentacion": "Jarabe",
-    "observaciones": [],
-    "estado": "rechazado"
-  },
+
   {
     "nroAfiliado": "000002-01",
     "paraAfiliado": "Mariana Pérez",
@@ -119,5 +110,32 @@
     "presentacion": "Jarabe",
     "observaciones": [],
     "estado": "pendiente"
+  },
+  {
+    "nroAfiliado": "000001-01",
+    "paraAfiliado": "Carlos González",
+    "idAfiliado": "6717b1234f1a2b0012a45678",
+    "medicamento": "Metamizol",
+    "cantidad": 4,
+    "presentacion": "Tabletas",
+    "observaciones": [
+      {
+        "idEmisor": "652fa1b2f4a3c6a12d4e91b2",
+        "rolEmisor": "Prestador",
+        "descripcion": "Receta rechazada por dosis incorrecta",
+        "fecha": "2025-11-01T15:00:00.000Z"
+      }
+    ],
+    "estado": "rechazado"
+  },
+  {
+    "nroAfiliado": "000001-03",
+    "paraAfiliado": "Sofía González",
+    "idAfiliado": "6717b1234f1a2b0012a4567a",
+    "medicamento": "Desloratadina",
+    "cantidad": 1,
+    "presentacion": "Jarabe",
+    "observaciones": [],
+    "estado": "rechazado"
   }
 ]
