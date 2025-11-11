@@ -29,6 +29,17 @@
     "estado": "aceptado"
   },
   {
+    "nroAfiliado": "000001-01",
+    "paraAfiliado": "Carlos González",
+    "idAfiliado": "6717b1234f1a2b0012a45678",
+    "medicamento": "Losartán 100d",
+    "cantidad": 2,
+    "presentacion": "Cápsulas",
+    "createdAt": "2025-08-27T14:30:00.000Z",
+    "observaciones": [],
+    "estado": "aceptado"
+  },
+  {
     "nroAfiliado": "000001-02",
     "paraAfiliado": "Laura Martínez",
     "idAfiliado": "6717b1234f1a2b0012a45679",
@@ -53,7 +64,7 @@
     "medicamento": "Amoxicilina",
     "cantidad": 10,
     "presentacion": "Cápsulas",
-    "createdAt": "2025-10-22T08:45:00.000Z",
+    "createdAt": "2025-11-08T08:45:00.000Z",
     "observaciones": [
       {
         "idEmisor": "650f1d2a3b4c5d6e7f8a9013",
