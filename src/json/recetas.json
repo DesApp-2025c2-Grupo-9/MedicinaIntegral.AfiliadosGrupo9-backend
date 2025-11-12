@@ -6,13 +6,13 @@
     "medicamento": "Ibuprofeno 600mg",
     "cantidad": 5,
     "presentacion": "Tabletas",
-    "createdAt": "2025-10-28T10:15:00.000Z",
+    "createdAt": "2025-11-08T10:15:00.000Z",
     "observaciones": [
       {
         "idEmisor": "650f1d2a3b4c5d6e7f8a9012",
         "rolEmisor": "Afiliado",
         "descripcion": "Tomar después de las comidas",
-        "fecha": "2025-10-28T10:15:00.000Z"
+        "fecha": "2025-11-08T12:00:00.000Z"
       }
     ],
     "estado": "pendiente"
@@ -24,101 +24,11 @@
     "medicamento": "Losartán",
     "cantidad": 2,
     "presentacion": "Cápsulas",
-    "createdAt": "2025-10-27T14:30:00.000Z",
+    "createdAt": "2025-11-09T14:30:00.000Z",
     "observaciones": [],
     "estado": "aceptado"
   },
-  {
-    "nroAfiliado": "000001-02",
-    "paraAfiliado": "Laura Martínez",
-    "idAfiliado": "6717b1234f1a2b0012a45679",
-    "medicamento": "Amoxidal Duo",
-    "cantidad": 12,
-    "presentacion": "Cápsulas",
-    "createdAt": "2025-10-25T09:20:00.000Z",
-    "observaciones": [
-      {
-        "idEmisor": "652fa1b2f4a3c6a12d4e91a1",
-        "rolEmisor": "Prestador",
-        "descripcion": "Indicar si es tratamiento de 7 o 10 días.",
-        "fecha": "2025-10-26T11:00:00.000Z"
-      }
-    ],
-    "estado": "observado"
-  },
-  {
-    "nroAfiliado": "000002-01",
-    "paraAfiliado": "Mariana Pérez",
-    "idAfiliado": "6717b1234f1a2b0012a4567b",
-    "medicamento": "Amoxicilina",
-    "cantidad": 10,
-    "presentacion": "Cápsulas",
-    "createdAt": "2025-10-22T08:45:00.000Z",
-    "observaciones": [
-      {
-        "idEmisor": "650f1d2a3b4c5d6e7f8a9013",
-        "rolEmisor": "Afiliado",
-        "descripcion": "Paciente con alergia a penicilina",
-        "fecha": "2025-10-22T08:45:00.000Z"
-      }
-    ],
-    "estado": "observado"
-  },
-  {
-    "nroAfiliado": "000002-02",
-    "paraAfiliado": "Hernán López",
-    "idAfiliado": "6717b1234f1a2b0012a4567c",
-    "medicamento": "Paracetamol 500mg",
-    "cantidad": 10,
-    "presentacion": "Tabletas",
-    "createdAt": "2025-10-26T13:10:00.000Z",
-    "observaciones": [],
-    "estado": "pendiente"
-  },
-  {
-    "nroAfiliado": "000002-02",
-    "paraAfiliado": "Hernán López",
-    "idAfiliado": "6717b1234f1a2b0012a4567c",
-    "medicamento": "Loratadina",
-    "cantidad": 7,
-    "presentacion": "Comprimidos",
-    "createdAt": "2025-10-24T11:00:00.000Z",
-    "observaciones": [],
-    "estado": "aceptado"
-  },
-  {
-    "nroAfiliado": "000003-01",
-    "paraAfiliado": "Julián Rossi",
-    "idAfiliado": "6717b1234f1a2b0012a4567d",
-    "medicamento": "Omeprazol 20mg",
-    "cantidad": 7,
-    "presentacion": "Cápsulas",
-    "createdAt": "2025-10-21T15:25:00.000Z",
-    "observaciones": [],
-    "estado": "aceptado"
-  },
-  {
-    "nroAfiliado": "000004-01",
-    "paraAfiliado": "Valentina Fernández",
-    "idAfiliado": "6717b1234f1a2b0012a4567e",
-    "medicamento": "Metformina",
-    "cantidad": 6,
-    "presentacion": "Tabletas",
-    "createdAt": "2025-10-20T09:50:00.000Z",
-    "observaciones": [],
-    "estado": "aceptado"
-  },
-  {
-    "nroAfiliado": "000004-02",
-    "paraAfiliado": "Lucas Fernández",
-    "idAfiliado": "6717b1234f1a2b0012a4567f",
-    "medicamento": "Ibuprofeno pediátrico",
-    "cantidad": 1,
-    "presentacion": "Jarabe",
-    "createdAt": "2025-10-26T17:15:00.000Z",
-    "observaciones": [],
-    "estado": "pendiente"
-  },
+
   {
     "nroAfiliado": "000001-01",
     "paraAfiliado": "Carlos González",
@@ -126,17 +36,48 @@
     "medicamento": "Metamizol",
     "cantidad": 4,
     "presentacion": "Tabletas",
-    "createdAt": "2025-10-23T12:30:00.000Z",
+    "createdAt": "2025-11-10T12:30:00.000Z",
     "observaciones": [
       {
         "idEmisor": "652fa1b2f4a3c6a12d4e91b2",
         "rolEmisor": "Prestador",
-        "descripcion": "Receta rechazada por dosis incorrecta",
-        "fecha": "2025-10-24T10:00:00.000Z"
+        "descripcion": "Informar la dosis diaria",
+        "fecha": "2025-11-10T14:00:00.000Z"
       }
     ],
-    "estado": "rechazado"
+    "estado": "observado"
   },
+
+  {
+    "nroAfiliado": "000001-02",
+    "paraAfiliado": "Laura Martínez",
+    "idAfiliado": "6717b1234f1a2b0012a45679",
+    "medicamento": "Amoxidal Duo",
+    "cantidad": 12,
+    "presentacion": "Cápsulas",
+    "createdAt": "2025-11-08T09:20:00.000Z",
+    "observaciones": [
+      {
+        "idEmisor": "652fa1b2f4a3c6a12d4e91a1",
+        "rolEmisor": "Prestador",
+        "descripcion": "Indicar si es tratamiento de 7 o 10 días.",
+        "fecha": "2025-11-08T11:00:00.000Z"
+      }
+    ],
+    "estado": "observado"
+  },
+  {
+    "nroAfiliado": "000001-02",
+    "paraAfiliado": "Laura Martínez",
+    "idAfiliado": "6717b1234f1a2b0012a45679",
+    "medicamento": "Diclofenac 50mg",
+    "cantidad": 10,
+    "presentacion": "Comprimidos",
+    "createdAt": "2025-11-09T15:00:00.000Z",
+    "observaciones": [],
+    "estado": "pendiente"
+  },
+
   {
     "nroAfiliado": "000001-03",
     "paraAfiliado": "Sofía González",
@@ -144,15 +85,27 @@
     "medicamento": "Desloratadina",
     "cantidad": 1,
     "presentacion": "Jarabe",
-    "createdAt": "2025-10-20T14:40:00.000Z",
+    "createdAt": "2025-11-08T14:40:00.000Z",
     "observaciones": [
       {
         "idEmisor": "652fa1b2f4a3c6a12d4e91b2",
         "rolEmisor": "Prestador",
         "descripcion": "No se puede autorizar esta receta porque el medicamento no está incluido en su plan de cobertura.",
-        "fecha": "2025-10-24T10:00:00.000Z"
+        "fecha": "2025-11-08T15:00:00.000Z"
       }
     ],
     "estado": "rechazado"
+  },
+
+  {
+    "nroAfiliado": "000001-03",
+    "paraAfiliado": "Sofía González",
+    "idAfiliado": "6717b1234f1a2b0012a4567a",
+    "medicamento": "Salbutamol Inhalador",
+    "cantidad": 1,
+    "presentacion": "Inhalador",
+    "createdAt": "2025-11-11T08:30:00.000Z",
+    "observaciones": [],
+    "estado": "aceptado"
   }
 ]
