@@ -16,13 +16,12 @@ export const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
   const token = formatedAuthHeader.split(' ')[1];
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!, (error, decoded) => {
     if (error) return res.sendStatus(403); // Si accessToken del header 'authorization' ya está vencido, error 403;
-    
-    const decodedPayload = decoded as {nroDocumento: string; familiaresPermitidos: string[] };
+
+    const decodedPayload = decoded as { nroDocumento: string; familiaresPermitidos: string[] };
     console.log('Decoded payload:', decodedPayload);
     req.nroDocumento = decodedPayload.nroDocumento;
     req.familiaresPermitidos = decodedPayload.familiaresPermitidos;
 
-    
     next();
   });
 };

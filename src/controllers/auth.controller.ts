@@ -12,8 +12,8 @@ import { validateRegisterUser } from '../utils/registerUser.validacion';
 import { validateLoginUser } from '../utils/login.validacion';
 
 interface IUserController {
-  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<Response|void>;
-  login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<Response|void>;
+  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<Response | void>;
+  login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<Response | void>;
   logout: (req: Request, res: Response<ApiResponse>) => Promise<void>;
   refresh: (req: Request, res: Response<ApiResponse>) => Promise<void>;
 }
@@ -25,40 +25,37 @@ const userController: IUserController = {
     const errores = await validateRegisterUser(user);
     if (errores.length > 0) {
       return res.status(400).json({ message: errores.join(' | ') });
-
     }
 
-  try {
-    const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
-    if (!foundUser) {
-      return res.status(401).json({ message: ERROR_MESSAGES.USER.NOT_FOUND });
-    }
-    if (foundUser.registrado) {
-      return res.status(409).json({ message: ERROR_MESSAGES.USER.ALREADY_EXISTS });
-    }
-    if (user.password !== user.confirmPassword) {
-      return res.status(400).json({ message: 'Las contraseñas ingresadas no coinciden.' });
-    }
+    try {
+      const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
+      if (!foundUser) {
+        return res.status(401).json({ message: ERROR_MESSAGES.USER.NOT_FOUND });
+      }
+      if (foundUser.registrado) {
+        return res.status(409).json({ message: ERROR_MESSAGES.USER.ALREADY_EXISTS });
+      }
+      if (user.password !== user.confirmPassword) {
+        return res.status(400).json({ message: 'Las contraseñas ingresadas no coinciden.' });
+      }
 
-    const hashedPassword = await bcrypt.hash(user.password, 10);
-    foundUser.password = hashedPassword;
-    foundUser.registrado = true;
-    const userRegistrado = await foundUser.save();
-    const userRegistradoDTO = new RegisterUserDTO(userRegistrado);
-    res.json({ data: userRegistradoDTO, message: SUCCESS_MESSAGES.USER.REGISTERED });
-  } catch (error) {
-    const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
-    res.status(500).json({ message });
-  }
-
+      const hashedPassword = await bcrypt.hash(user.password, 10);
+      foundUser.password = hashedPassword;
+      foundUser.registrado = true;
+      const userRegistrado = await foundUser.save();
+      const userRegistradoDTO = new RegisterUserDTO(userRegistrado);
+      res.json({ data: userRegistradoDTO, message: SUCCESS_MESSAGES.USER.REGISTERED });
+    } catch (error) {
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
+    }
   },
   login: async (req, res) => {
     const { nroDocumento, password } = req.body;
-    const errores = await validateLoginUser( nroDocumento, password );
+    const errores = await validateLoginUser(nroDocumento, password);
 
     if (errores.length > 0) {
       return res.status(400).json({ message: errores.join(' | ') });
-
     }
 
     try {
@@ -96,7 +93,7 @@ const userController: IUserController = {
         familiaresPermitidos = [foundUser._id];
       }
 
-      const accessToken = jwt.sign({ nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '60m' });
+      const accessToken = jwt.sign({ nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '20s' });
       const refreshToken = jwt.sign({ nroDocumento }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '1d' });
 
       foundUser.refreshToken = refreshToken;
@@ -141,7 +138,6 @@ const userController: IUserController = {
       return;
     }
     const refreshToken = cookies.jwt;
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'lax', secure: false });
 
     try {
       const foundUser = await Afiliado.findOne({ refreshToken }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
@@ -153,6 +149,7 @@ const userController: IUserController = {
       jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!, async (error, decoded) => {
         const decodedPayload = decoded as { nroDocumento: string; familiaresPermitidos: string[] };
         if (error || foundUser.nroDocumento !== decodedPayload?.nroDocumento) {
+          res.clearCookie('jwt', { httpOnly: true, sameSite: 'lax', secure: false });
           foundUser.refreshToken = '';
           await foundUser.save();
           res.sendStatus(401);
@@ -175,11 +172,13 @@ const userController: IUserController = {
           familiaresPermitidos = [foundUser._id];
         }
 
-        const accessToken = jwt.sign({ nroDocumento: foundUser.nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '60m' });
+        const accessToken = jwt.sign({ nroDocumento: foundUser.nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '20s' });
         const newRefreshToken = jwt.sign({ nroDocumento: foundUser.nroDocumento }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '1d' });
 
         foundUser.refreshToken = newRefreshToken;
         await foundUser.save();
+
+        res.clearCookie('jwt', { httpOnly: true, sameSite: 'lax', secure: false });
 
         res.cookie('jwt', newRefreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
         res.json({ accessToken });
