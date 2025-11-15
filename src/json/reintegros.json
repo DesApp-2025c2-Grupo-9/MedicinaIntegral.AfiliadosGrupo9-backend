@@ -24,7 +24,7 @@
       {
         "idEmisor": "652fa1b2f4a3c6a12d4e91a1",
         "rolEmisor": "Prestador",
-        "descripcion": "Gracias, Carlos. Hemos recibido la documentación y estamos verificando los montos de la factura.",
+        "descripcion": "Hola, Carlos. Revisamos la solicitud enviada, pero notamos que falta información para poder continuar. ¿Podrías enviarnos los detalles que faltan, por favor?",
         "fecha": "2025-02-21T14:32:00.000Z"
       }
     ],
@@ -51,7 +51,7 @@
       {
         "idEmisor": "6717b1234f1a2b0012a45679",
         "rolEmisor": "Afiliado",
-        "descripcion": "Perfecto, muchas gracias. Quedo atenta a cualquier novedad.",
+        "descripcion": "Quisiera agregar que el monto indicado corresponde a la atención realizada el 5 de marzo y fue abonado en efectivo.",
         "fecha": "2025-03-12T11:47:00.000Z"
       }
     ],
@@ -89,7 +89,7 @@
     "idAfiliado": "6717b1234f1a2b0012a4567a"
   },
   {
-    "_id": "6717b1234f1a2b0012a4567b",
+    "_id": "6717b1234f1a2b0012a45679",
     "paraAfiliado": "Sofía González",
     "fechaDePrestacion": "2025-01-22T00:00:00.000Z",
     "especialidad": "Pediatría",
@@ -106,21 +106,27 @@
       {
         "idEmisor": "652ab1b2f4a3c6a12d4e9ba1",
         "rolEmisor": "Prestador",
-        "descripcion": "Hola, el reintegro de Sofía está en revisión. Nos falta confirmar la fecha exacta de la prestación.",
-        "fecha": "2025-01-25T09:50:00.000Z"
+        "descripcion": "Hola, Sofía. Revisamos la documentación y notamos que la factura no cumple con los requisitos formales para su reintegro. Es necesario que figure el nombre del afiliado como persona facturada.",
+        "fecha": "2025-01-26T10:15:00.000Z"
       },
       {
         "idEmisor": "6717b1234f1a2b0012a45678",
         "rolEmisor": "Afiliado",
-        "descripcion": "Gracias por avisar. La prestación fue el 22 de enero, adjunto el comprobante nuevamente.",
-        "fecha": "2025-01-25T12:40:00.000Z"
+        "descripcion": "Entiendo, gracias por la aclaración. En ese caso, volveré a gestionar una nueva factura a nombre de Sofía para presentarla correctamente.",
+        "fecha": "2025-01-26T13:05:00.000Z"
+      },
+      {
+        "idEmisor": "652ab1b2f4a3c6a12d4e9ba1",
+        "rolEmisor": "Prestador",
+        "descripcion": "El reintegro fue rechazado, ya que la factura presentada no cumple con los requisitos vigentes. Podrás volver a enviarlo una vez que cuentes con la factura corregida.",
+        "fecha": "2025-01-27T09:40:00.000Z"
       }
     ],
     "estado": "rechazado",
     "idAfiliado": "6717b1234f1a2b0012a4567a"
   },
   {
-    "_id": "6717b1234f1a2b0012a4567f",
+    "_id": "6717b1234f1a2b0012a456be",
     "paraAfiliado": "Sofía González",
     "fechaDePrestacion": "2025-01-22T00:00:00.000Z",
     "especialidad": "Pediatría",
@@ -137,13 +143,13 @@
       {
         "idEmisor": "652ab1b2f4a3c6a12d4e9ba1",
         "rolEmisor": "Prestador",
-        "descripcion": "Hola, el reintegro de Sofía está en revisión. Nos falta confirmar la fecha exacta de la prestación.",
+        "descripcion": "Hola, Sofía. Al revisar la solicitud notamos que falta el detalle del profesional que realizó la atención. ¿Podrías confirmarlo, por favor?",
         "fecha": "2025-01-25T09:50:00.000Z"
       },
       {
         "idEmisor": "6717b1234f1a2b0012a45678",
         "rolEmisor": "Afiliado",
-        "descripcion": "Gracias por avisar. La prestación fue el 22 de enero, adjunto el comprobante nuevamente.",
+        "descripcion": "Claro, la atención fue realizada por el Dr. Juan Herrera en el Hospital Italiano.",
         "fecha": "2025-01-25T12:40:00.000Z"
       }
     ],
@@ -305,7 +311,7 @@
       {
         "idEmisor": "652fa1b2f4a3c6a12d4e91a2",
         "rolEmisor": "Prestador",
-        "descripcion": "Hola Carlos, el reintegro fue aprobado parcialmente por diferencia en el valor facturado.",
+        "descripcion": "Hola, Carlos. Para continuar con la evaluación del reintegro, necesitamos que nos confirmes el detalle del monto facturado y el concepto correspondiente.",
         "fecha": "2025-08-18T09:10:00.000Z"
       }
     ],
