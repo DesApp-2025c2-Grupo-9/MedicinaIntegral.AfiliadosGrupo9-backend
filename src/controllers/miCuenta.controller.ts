@@ -96,52 +96,43 @@ export const miCuentaController: IMiCuentaController = {
       res.json({ message: 'El CBU ha sido elegido como principal exitosamente.' });
     } catch (error) {}
   },
-  editarCbu: async (req, res) => {
-  const { cbu } = req.params;
-  const datosActualizados = req.body;
+  editarCbu: async (
+  req: Request<{ cbu: string }, {}, DatosActualizados & { nroCbu?: string; principal?: boolean }>,
+  res: Response<ApiResponse>
+): Promise<void> => {
+  try {
+    const { cbu } = req.params;
+    const datosActualizados = req.body;
+    const cbuNormalizado = cbu.replace(/[-\s]/g, '');
 
-  const cbuExistente = await CbuModel.findOne({ cbu });
+    const cbuExistente = await CbuModel.findOne({ cbu: cbuNormalizado });
+    if (!cbuExistente) {
+      res.status(404).json({ message: 'CBU no encontrado' });
+      return;
+    }
 
-  if (!cbuExistente) {
-    res.status(404).json({ message: 'CBU no encontrado' });
-    return;
+    
+    if (datosActualizados.principal === true) {
+      
+      const unAfiliado = await Afiliado.findOne({ cuil: cbuExistente.cuil });
+      if (!unAfiliado) {
+        res.status(404).json({ message: 'Afiliado no encontrado' });
+        return;
+      }
+
+      
+      unAfiliado.cbuPrincipal = cbuExistente.cbu;
+      await unAfiliado.save();
+    }
+
+    Object.assign(cbuExistente, datosActualizados);
+    const actualizado = await cbuExistente.save();
+
+    res.status(200).json({ message: 'CBU actualizado correctamente', data: actualizado });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error inesperado' });
   }
-
-  Object.assign(cbuExistente, datosActualizados);
-  const actualizado = await cbuExistente.save();
-
-  res.status(200).json({ message: 'CBU actualizado correctamente', data: actualizado });
 }
 }
-/* export const MiCuentaController2 = {
-  obtenerMiCuenta: async (req: AuthenticatedRequest, res: Response) => {
-    try {
-      const nroDocumento = req.nroDocumento;
-      if (!nroDocumento) return res.status(401).json({ error: 'Usuario no autenticado' });
 
-      const afiliado = await getAfiliadoByDocumento(nroDocumento);
-      const grupoFamiliar = await obtenerGrupoFamiliar(nroDocumento);
-
-      res.json({ afiliado, grupoFamiliar });
-    } catch (error) {
-      console.error('Error al obtener mi cuenta:', error);
-      res.status(500).json({ error: 'Error interno del servidor' });
-    }
-  },
-
-  registrarCBU: async (req: AuthenticatedRequest, res: Response) => {
-    try {
-      const userId = req.user?.id;
-      if (!userId) return res.status(401).json({ error: 'Usuario no autenticado' });
-
-      const { nombre, apellido, cbu, tipoDeCuenta, cuil } = req.body;
-
-      await registrarCBU(userId, { nombre, apellido, cbu, tipoDeCuenta, cuil });
-
-      res.status(201).json({ mensaje: 'CBU registrado correctamente' });
-    } catch (error) {
-      console.error('Error al registrar CBU:', error);
-      res.status(400).json({ error: 'No se pudo registrar el CBU' });
-    }
-  }
-}; */

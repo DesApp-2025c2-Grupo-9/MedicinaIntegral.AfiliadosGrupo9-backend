@@ -3,4 +3,5 @@ export type DatosActualizados = {
   cuil: string;
   nombre: string;
   apellido: string;
+  cbu?: string;
 };
