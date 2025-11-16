@@ -1,9 +1,12 @@
 import { Request, Response } from 'express';
 // import { getAfiliadoByDocumento, obtenerGrupoFamiliar, registrarCBU } from '../validators/afiliado.validator';
 import Afiliado from '../models/Afiliado';
+import  CbuModel  from '../models/Cbu';
 import { ApiResponse } from '../types/ApiResponse';
 import { MiCuentaDTO } from '../dtos/miCuenta.dto';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
+import { DatosActualizados } from '../types/CbuTypes';
+
 
 interface AuthenticatedRequest extends Request {
   user?: {
@@ -25,6 +28,8 @@ interface IMiCuentaController {
   getMiCuenta: (req: Request, res: Response<ApiResponse>) => Promise<void>;
   registrarCbu: (req: Request<{}, {}, CBU>, res: Response<ApiResponse>) => Promise<void>;
   setCbuPrincipal: (req: Request<{}, {}, { nroCbu: string }>, res: Response<ApiResponse>) => Promise<void>;
+  editarCbu: (req: Request<{ cbu: string }, {}, DatosActualizados>,res: Response<ApiResponse>) => Promise<void>;
+
 }
 
 export const miCuentaController: IMiCuentaController = {
@@ -90,9 +95,24 @@ export const miCuentaController: IMiCuentaController = {
 
       res.json({ message: 'El CBU ha sido elegido como principal exitosamente.' });
     } catch (error) {}
-  }
-};
+  },
+  editarCbu: async (req, res) => {
+  const { cbu } = req.params;
+  const datosActualizados = req.body;
 
+  const cbuExistente = await CbuModel.findOne({ cbu });
+
+  if (!cbuExistente) {
+    res.status(404).json({ message: 'CBU no encontrado' });
+    return;
+  }
+
+  Object.assign(cbuExistente, datosActualizados);
+  const actualizado = await cbuExistente.save();
+
+  res.status(200).json({ message: 'CBU actualizado correctamente', data: actualizado });
+}
+}
 /* export const MiCuentaController2 = {
   obtenerMiCuenta: async (req: AuthenticatedRequest, res: Response) => {
     try {
