@@ -28,7 +28,7 @@ interface IMiCuentaController {
   getMiCuenta: (req: Request, res: Response<ApiResponse>) => Promise<void>;
   registrarCbu: (req: Request<{}, {}, CBU>, res: Response<ApiResponse>) => Promise<void>;
   setCbuPrincipal: (req: Request<{}, {}, { nroCbu: string }>, res: Response<ApiResponse>) => Promise<void>;
-  editarCbu: (req: Request<{ cbu: string }, {}, DatosActualizados>,res: Response<ApiResponse>) => Promise<void>;
+  editarCbu: (req: Request<{ id: string }, {}, DatosActualizados>,res: Response<ApiResponse>) => Promise<void>;
 
 }
 
@@ -97,42 +97,42 @@ export const miCuentaController: IMiCuentaController = {
     } catch (error) {}
   },
   editarCbu: async (
-  req: Request<{ cbu: string }, {}, DatosActualizados & { nroCbu?: string; principal?: boolean }>,
+  req: Request<{ id: string }, {}, DatosActualizados>,
   res: Response<ApiResponse>
-): Promise<void> => {
+  ): Promise<void> => {
   try {
-    const { cbu } = req.params;
-    const datosActualizados = req.body;
-    const cbuNormalizado = cbu.replace(/[-\s]/g, '');
-
-    const cbuExistente = await CbuModel.findOne({ cbu: cbuNormalizado });
-    if (!cbuExistente) {
-      res.status(404).json({ message: 'CBU no encontrado' });
+    const { id } = req.params;
+    
+    const afiliado = await Afiliado.findById(id);
+    if (!afiliado) {
+      res.status(404).json({ message: 'Afiliado no encontrado' });
       return;
     }
 
-    
-    if (datosActualizados.principal === true) {
-      
-      const unAfiliado = await Afiliado.findOne({ cuil: cbuExistente.cuil });
-      if (!unAfiliado) {
-        res.status(404).json({ message: 'Afiliado no encontrado' });
-        return;
-      }
+    const cbuPrincipal = afiliado.cbuPrincipal;
 
-      
-      unAfiliado.cbuPrincipal = cbuExistente.cbu;
-      await unAfiliado.save();
+    if (!cbuPrincipal) {
+      res.status(404).json({ message: 'El afiliado no tiene un CBU principal asignado' });
+      return;
     }
 
-    Object.assign(cbuExistente, datosActualizados);
+
+    const cbuExistente = await CbuModel.findOne({ cbu: cbuPrincipal });
+    if (!cbuExistente) {
+      res.status(404).json({ message: 'CBU principal no encontrado en la base de datos' });
+      return;
+    }
+
+    Object.assign(cbuExistente, req.body);
     const actualizado = await cbuExistente.save();
 
-    res.status(200).json({ message: 'CBU actualizado correctamente', data: actualizado });
+    res.status(200).json({ message: 'CBU principal actualizado correctamente', data: actualizado });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error inesperado' });
   }
 }
 }
+
+
 
