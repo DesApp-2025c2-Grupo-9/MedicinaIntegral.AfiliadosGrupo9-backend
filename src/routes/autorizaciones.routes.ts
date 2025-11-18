@@ -1,16 +1,11 @@
 import { Router } from "express";
 import autorizacionController from "../controllers/autorizacion.controller";
 import Autorizacion from "../models/Autorizacion";
-import {
-  logRequest,
-  existsModelById,
-  validarCamposExactos,
-  existModelRequest,
-} from "../middlewares/genericMiddleware";
+import { logRequest, existsModelById, validarCamposExactos, validarObservacion } from "../middlewares/genericMiddleware";
 import { filtroAfiliadoActual } from "../middlewares/filtroAfiliadoActual";
 import Afiliado from "../models/Afiliado";
-import { Prestador } from "../models/Prestador";
-
+import { autorizacionSchema } from "../schemas/autorizacion.schema";
+import { validarAutorizacion } from '../middlewares/autorizacionMiddleware';
 const router = Router();
 
 router.use(logRequest);
@@ -26,24 +21,26 @@ router.get(
 router.post(
   "/autorizaciones",
   validarCamposExactos(Autorizacion),
+  validarAutorizacion(autorizacionSchema),
   autorizacionController.createAutorizacion
 );
 
 router
   .route("/autorizaciones/:id")
   .put(
-    //Middelware genérico
+    //Middleware genérico
     existsModelById(Autorizacion), 
     validarCamposExactos(Autorizacion),
-    //existModelRequest(Prestador), DESCOMENTAR SI SE PUEDE CAMBIAR DE PRESTADOR
+    validarAutorizacion(autorizacionSchema),
     autorizacionController.updateAutorizacion
   )
   .patch(
-    existsModelById(Autorizacion), //Middelware genérico
+    existsModelById(Autorizacion), //Middleware genérico
     autorizacionController.deleteAutorizacion
   )
   .post(
     existsModelById(Autorizacion),
+    validarObservacion,
     autorizacionController.commentAutorizacionById);
 
-export default router;
+export default router

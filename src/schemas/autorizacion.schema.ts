@@ -1,28 +1,24 @@
 import { z } from "zod";
-import { estadoTramiteSchema } from "../schemas/estados.autorizacion.schema";
-
-//validacion para observaciones
-
-const observacionSchema = z.object({
-    idEmisor: z.string().regex(/^[0-9a-fA-F]{24}$/),
-    rolEmisor: z.string(),
-    descripcion: z.string().optional(),
-    fecha: z.date().optional(),
-});
-
-
-
-//validacion de autorizacion
 
 export const autorizacionSchema = z.object ({
-    idAfiliado: z.string().regex(/^[0-9a-fA-F]{24}$/),
-    fechaSolicitud: z.date(),
-    practica: z.any().refine(val => typeof val === 'string', {
-    message: 'Debe ser un texto',
-    }),
-    especialidad: z.string(),
-    medicoSolicitante: z.string(),
-    lugarAtencion: z.string(),
+    fechaSolicitud: z.string()
+      .min(1, 'Debe ingresar la fecha para la solicitud.')
+      .transform((val) => new Date(val))
+      .refine(
+        (val) => {
+          const hoy = new Date();
+          hoy.setHours(0,0,0,0);
+          return val >= hoy;
+        },
+        {message: 'La fecha de solicitud no puede ser anterior.'}
+      ),
+    practica : z.string().trim().min(3, "Debe ingresar una práctica.").regex(/^[\p{L}.\s]+$/u, "Sólo se permiten letras."), 
+    especialidad : z.string().trim().min(1,'Debe ingresar una especialidad.'),
+    medicoSolicitante: z.string().min(3, "Debe ingresar el médico").regex(/^(?!.*\bdr|dra|doc|doctor|doctora\.?\b)[\p{L}.\s]+$/iu, "Sólo se permite el nombre y apellido.").refine(val => {
+      const partes = val.trim().split(/\s+/);
+      return partes.length >= 2;
+    }, {message: 'Debe contener el nombre y apellido.'}),
+    lugarAtencion: z.string().trim().min(3, 'Debe ingresar un lugar de atención válido.'),
     observaciones: z.string().optional(),
-    diasDeInternacion: z.number().int().nonnegative(),
+    diasDeInternacion : z.coerce.number().min(0, 'Debe ingresar una cantidad de dias.'),
 });
