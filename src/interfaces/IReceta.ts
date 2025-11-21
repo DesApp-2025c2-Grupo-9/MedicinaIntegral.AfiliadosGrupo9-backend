@@ -15,6 +15,7 @@ export interface IReceta {
   fechaBaja?: Date;
   createdAt?: Date;
   updatedAt?: Date;
+  fechaAprobacion?: Date;
 }
 
 export default IReceta;
