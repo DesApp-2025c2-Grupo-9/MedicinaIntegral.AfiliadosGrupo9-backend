@@ -8,6 +8,7 @@ export class GetRecetasDTO {
   medicamento: string;
   cantidad: number;
   presentacion: string;
+  idAfiliado?: string;
   observaciones?: IObservacion[];
   estado: string;
   createdAt?: Date;
@@ -22,6 +23,7 @@ export class GetRecetasDTO {
     this.observaciones = data.observaciones;
     this.estado = data.estado;
     this.createdAt = data.createdAt;
+    this.idAfiliado = data.idAfiliado.toString();
   }
 }
 

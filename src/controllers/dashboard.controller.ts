@@ -35,11 +35,11 @@ const dashboardController : IDashboardController = {
     getLatestTurnos: async (req, res) => {
         const idsAfiliados = req.familiaresPermitidos;
         try {
-            const turnos = await Turno.find({idAfiliado: { $in: idsAfiliados }})
+            const turnos = await Turno.find({ $and:[{fechaTurno: {$gte: new Date()}},{idAfiliado: { $in: idsAfiliados }}] })
                 .select('_id idPrestador fechaTurno')
                 .populate('idPrestador', 'nombre especialidad lugarAtencion')
                 .populate('idAfiliado', 'nombre apellido')
-                .sort('fechaTurno').limit(5)
+                .sort('fechaTurno').limit(4)
                 .lean(); // traer como objeto plano
 
             const turnosDto: TurnoDTO[] = turnos.map((turno: any) => {

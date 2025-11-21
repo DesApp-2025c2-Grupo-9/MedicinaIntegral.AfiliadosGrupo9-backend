@@ -4,11 +4,12 @@ import Receta from "../models/Receta";
 import {
   logRequest,
   existsModelById,
-  existsAnyByModel,
   validarCamposExactos,
 } from "../middlewares/genericMiddleware";
 import { filtroAfiliadoActual } from "../middlewares/filtroAfiliadoActual";
 import Afiliado from "../models/Afiliado";
+import { validarReceta } from "../middlewares/recetaMiddleware";
+import { recetaSchema } from "../schemas/receta.schema";
 
 const router = Router();
 
@@ -16,8 +17,7 @@ router.use(logRequest);
 
 router.get(
   "/recetas/:idAfiliado",
-  //MIddlewares
-  existsModelById(Afiliado, 'idAfiliado'),
+  existsModelById(Afiliado, "idAfiliado"),
   filtroAfiliadoActual,
   recetaController.getAllRecetas
 );
@@ -25,6 +25,7 @@ router.post(
   "/recetas",
   //Middlewares
   validarCamposExactos(Receta),
+  validarReceta(recetaSchema),
   recetaController.createReceta
 );
 router.put(
@@ -32,6 +33,7 @@ router.put(
   //Middlewares
   existsModelById(Receta),
   validarCamposExactos(Receta),
+  validarReceta(recetaSchema),
   recetaController.updateReceta
 );
 router.patch(
@@ -41,14 +43,15 @@ router.patch(
   recetaController.deleteReceta
 );
 router.post(
-  "/recetas/:id", 
+  "/recetas/:id",
   existsModelById(Receta),
-  recetaController.commentRecetaById);
+  recetaController.commentRecetaById
+);
 
 router.get(
-  '/receta/:id',
+  "/receta/:id",
   existsModelById(Receta),
   recetaController.getRecetaById
-)
+);
 
 export default router;

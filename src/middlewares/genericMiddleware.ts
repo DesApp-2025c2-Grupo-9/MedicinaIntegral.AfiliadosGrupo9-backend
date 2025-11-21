@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import mongoose, { Model } from 'mongoose';
+import { observacionSchema } from '../schemas/observaciones.schema';
+import { ZodError } from 'zod';
 
 /* ============= LOG DE PETICIONES ============= */
 export const logRequest = (req: Request, _: Response, next: NextFunction) => {
@@ -165,4 +167,20 @@ export const manejoDeErroresGlobales = (
     return res.status(err.status).json({ error: err.message });
   }
   return res.status(500).json({ error: 'Error interno del servidor' });
+};
+
+export const validarObservacion = (req: Request, res: Response, next: NextFunction) => {
+  const data = req.body;    
+    try { 
+      observacionSchema.parse(data); 
+    } catch (error) {
+       if(error instanceof ZodError) {
+        return errorPersonalizado(
+          error.issues[0].message,
+          400,
+          next
+        );
+       };
+    }
+    next();   
 };
