@@ -7,32 +7,15 @@ import Reintegro from '../models/Reintegro';
 
 const router = Router();
 
-router.get(
-    '/reintegros/:idAfiliado',
-    //Middleware
-    existsModelById(Afiliado, 'idAfiliado'),
-    filtroAfiliadoActual,
-    reintegroController.getAllReintegros);
-router.post(
-    '/reintegros', 
-    //Middleware
-    validarCamposExactos(Reintegro),
-    reintegroController.createReintegro);
-router.put(
-    '/reintegros/:id', 
-    //Middelware
-    existsModelById(Reintegro),
-    validarQueryExactos(Reintegro),
-    reintegroController.updateReintegro);
-router.patch(
-    '/reintegros/:id', 
-    //Middleware
-    existsModelById(Reintegro),
-    reintegroController.deleteReintegro);
-router.post(
-    '/reintegros/:id', 
-    //Middelware
-    existsModelById(Reintegro),
-    reintegroController.commentReintegroById);
+/* router.get('/reintegros/:idAfiliado', existsModelById(Afiliado, 'idAfiliado'), filtroAfiliadoActual, reintegroController.getAllReintegros);
+router.post('/reintegros', validarCamposExactos(Reintegro), reintegroController.createReintegro);
+router.put('/reintegros/:id', existsModelById(Reintegro), validarQueryExactos(Reintegro), reintegroController.updateReintegro);
+router.patch('/reintegros/:id', existsModelById(Reintegro), reintegroController.deleteReintegro);
+router.post('/reintegros/:id', existsModelById(Reintegro), reintegroController.commentReintegroById); */
+router.get('/reintegros/:idAfiliado', filtroAfiliadoActual, reintegroController.getAllReintegros);
+router.post('/reintegros', reintegroController.createReintegro);
+router.put('/reintegros/:id', reintegroController.updateReintegro);
+router.patch('/reintegros/:id', reintegroController.deleteReintegro);
+router.post('/reintegros/:id', reintegroController.commentReintegroById);
 
 export default router;

@@ -6,7 +6,6 @@ export const filtroAfiliadoActual = (req: Request<{ idAfiliado: string }>, res: 
   const indexAfiliadoEledigo = familiaresPermitidos?.indexOf(idAfiliadoElegido);
   const idsAfiliadosFiltered = familiaresPermitidos?.filter((_, index) => index >= indexAfiliadoEledigo!);
 
-  console.log('Soy idAfiliadoElegido:', idAfiliadoElegido);
   req.familiaresPermitidos = idsAfiliadosFiltered;
   next();
 };

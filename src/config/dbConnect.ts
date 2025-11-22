@@ -9,7 +9,7 @@ const connectDatabase = async () => {
     });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Error desconocido.';
-    console.log('Error en la conexión a MongoDB. ', message);
+    console.log('Error en la conexión a MongoDB.', message);
   }
 };
 

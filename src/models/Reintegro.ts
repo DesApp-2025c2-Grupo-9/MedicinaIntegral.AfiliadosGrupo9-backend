@@ -24,7 +24,6 @@ const reintegroSchema = new Schema<IReintegroDocument>(
     },
     especialidad: {
       type: String,
-      enum: Object.values(Especialidad),
       required: true
     },
     lugarDeAtencion: {
@@ -63,7 +62,6 @@ const reintegroSchema = new Schema<IReintegroDocument>(
         return this.formaDePago === FormaPago.TRANSFERENCIA;
       }
     },
-    // observaciones: String,
     observaciones: {
       type: [
         {
