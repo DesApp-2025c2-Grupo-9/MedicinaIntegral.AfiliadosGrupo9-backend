@@ -6,7 +6,7 @@ interface IrecetaWithRol extends Omit<IRecetaDocument, "idAfiliado"> {
 }
 export class GetRecetasDTO {
   id: string;
-  nroAfiliado: string;
+  // nroAfiliado: string;
   rolAfiliado: string;
   paraAfiliado: string;
   medicamento: string;
@@ -21,7 +21,7 @@ export class GetRecetasDTO {
   constructor(data: unknown) {
     const castedData = data as IrecetaWithRol;
     this.id = castedData._id.toString();
-    this.nroAfiliado = castedData.nroAfiliado;
+    // this.nroAfiliado = castedData.nroAfiliado;
     this.paraAfiliado = castedData.paraAfiliado;
     this.rolAfiliado = castedData.idAfiliado.rol;
     this.medicamento = castedData.medicamento;

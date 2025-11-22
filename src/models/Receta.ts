@@ -8,11 +8,11 @@ export interface IRecetaDocument extends Omit<IReceta, "id">, Document {
 
 const recetaSchema = new Schema<IRecetaDocument>(
   {
-    nroAfiliado: {
+    /* nroAfiliado: {
       type: String,
       required: true,
       //ref: "Afiliado",
-    },
+    }, */
     paraAfiliado: {
       type: String,
       required: true,

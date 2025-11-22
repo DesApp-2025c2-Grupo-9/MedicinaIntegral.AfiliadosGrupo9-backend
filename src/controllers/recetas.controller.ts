@@ -88,22 +88,12 @@ const recetaController: IRecetaController = {
       // nroAfiliado: unAfiliado.nroAfiliado,
       observaciones: [observacion],
     };
-    /*const recetaBody ={
-      ...req.body, observaciones:[observacion]
-    }*/
+
     try {
       /*const unAfiliado = await Afiliado.findById(idAfiliado);
       if (!unAfiliado) {
         return errorPersonalizado("No se encontró el afiliado", 404, next);*/
-
-      /*const recetaBody = {
-        ...req.body,
-       // idAfiliado,
-        nroAfiliado: unAfiliado.nroAfiliado,
-        observaciones: [observacion],
-      };*/
-
-      const newReceta = await Receta.create(recetaBody);
+        const newReceta = await Receta.create(recetaBody);
       const newRecetaDTO = new IdRecetaDTO(newReceta);
       res.json({
         data: newRecetaDTO,
