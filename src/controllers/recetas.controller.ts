@@ -54,14 +54,14 @@ type UpdatedReceta = Omit<IReceta, "observaciones"> & {
 const recetaController: IRecetaController = {
   getAllRecetas: async (req, res, next) => {
     const idsAfiliados = req.familiaresPermitidos;
-
+    console.log("BODY RECIBIDO:", req.body);
     try {
       const recetas = await Receta.find({
         $and: [
           { idAfiliado: { $in: idsAfiliados } },
           { fechaBaja: { $exists: false } },
         ],
-      });
+      }).populate<{ idAfiliado: { rol: string } }>("idAfiliado", "rol");
       if (recetas.length === 0) {
         res.status(204).json({ message: "No hay recetas." });
         return;
@@ -70,28 +70,38 @@ const recetaController: IRecetaController = {
       console.log(recetasDTO);
       res.json({ data: recetasDTO });
     } catch (error) {
+      console.log("ERROR AL CREAR RECETA:", error);
       next(error);
     }
   },
   createReceta: async (req, res, next) => {
-    const idAfiliado = req.familiaresPermitidos?.[0];
+    //const idAfiliado = req.familiaresPermitidos?.[0];
     const observacion: IObservacion = {
-      idEmisor: idAfiliado!,
+      idEmisor: req.body.idAfiliado,
       rolEmisor: "Afiliado",
       descripcion: req.body.observaciones,
       fecha: new Date(),
     };
+    const recetaBody = {
+      ...req.body,
+      // idAfiliado,
+      // nroAfiliado: unAfiliado.nroAfiliado,
+      observaciones: [observacion],
+    };
+    /*const recetaBody ={
+      ...req.body, observaciones:[observacion]
+    }*/
     try {
-      const unAfiliado = await Afiliado.findById(idAfiliado);
+      /*const unAfiliado = await Afiliado.findById(idAfiliado);
       if (!unAfiliado) {
-        return errorPersonalizado("No se encontró el afiliado", 404, next);
-      }
-      const recetaBody = {
+        return errorPersonalizado("No se encontró el afiliado", 404, next);*/
+
+      /*const recetaBody = {
         ...req.body,
-        idAfiliado,
+       // idAfiliado,
         nroAfiliado: unAfiliado.nroAfiliado,
         observaciones: [observacion],
-      };
+      };*/
 
       const newReceta = await Receta.create(recetaBody);
       const newRecetaDTO = new IdRecetaDTO(newReceta);

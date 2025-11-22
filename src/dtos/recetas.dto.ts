@@ -1,31 +1,37 @@
 import { IRecetaDocument } from "../models/Receta";
 import { IObservacion } from "../interfaces/IObservacion";
 
+interface IrecetaWithRol extends Omit<IRecetaDocument, "idAfiliado"> {
+  idAfiliado: { rol: string };
+}
 export class GetRecetasDTO {
   id: string;
   nroAfiliado: string;
+  rolAfiliado: string;
   paraAfiliado: string;
   medicamento: string;
   cantidad: number;
   presentacion: string;
-  idAfiliado?: string;
+  //idAfiliado?: string;
   observaciones?: IObservacion[];
   estado: string;
   createdAt?: Date;
   fechaAprobacion?: Date;
 
-  constructor(data: IRecetaDocument) {
-    this.id = data._id.toString();
-    this.nroAfiliado = data.nroAfiliado;
-    this.paraAfiliado = data.paraAfiliado;
-    this.medicamento = data.medicamento;
-    this.cantidad = data.cantidad;
-    this.presentacion = data.presentacion;
-    this.observaciones = data.observaciones;
-    this.estado = data.estado;
-    this.createdAt = data.createdAt;
-    this.idAfiliado = data.idAfiliado.toString();
-    this.fechaAprobacion = data.fechaAprobacion;
+  constructor(data: unknown) {
+    const castedData = data as IrecetaWithRol;
+    this.id = castedData._id.toString();
+    this.nroAfiliado = castedData.nroAfiliado;
+    this.paraAfiliado = castedData.paraAfiliado;
+    this.rolAfiliado = castedData.idAfiliado.rol;
+    this.medicamento = castedData.medicamento;
+    this.cantidad = castedData.cantidad;
+    this.presentacion = castedData.presentacion;
+    this.observaciones = castedData.observaciones;
+    this.estado = castedData.estado;
+    this.createdAt = castedData.createdAt;
+    //this.idAfiliado = castedData.idAfiliado.toString();
+    this.fechaAprobacion = castedData.fechaAprobacion;
   }
 }
 
