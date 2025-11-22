@@ -1,9 +1,14 @@
 import { IObservacion } from '../interfaces/IObservacion';
 import { IReintegroDocument } from '../models/Reintegro';
 
+interface IReintegroWithRole extends Omit<IReintegroDocument, 'idAfiliado'> {
+  idAfiliado: { rol: string };
+}
+
 export class GetReintegrosDTO {
   id: string;
   paraAfiliado: string;
+  rolAfiliado: string;
   fechaDePrestacion: Date;
   especialidad: string;
   medico: string;
@@ -19,24 +24,25 @@ export class GetReintegrosDTO {
   observaciones?: IObservacion[];
   estado: string;
 
-  constructor(data: IReintegroDocument) {
-    // Recibe un documento de Mongo
-    this.id = data._id.toString();
-    this.paraAfiliado = data.paraAfiliado;
-    this.fechaDePrestacion = data.fechaDePrestacion;
-    this.especialidad = data.especialidad;
-    this.medico = data.medico;
-    this.lugarDeAtencion = data.lugarDeAtencion;
+  constructor(data: unknown) {
+    const castedData = data as IReintegroWithRole;
+    this.id = castedData._id.toString();
+    this.paraAfiliado = castedData.paraAfiliado;
+    this.rolAfiliado = castedData.idAfiliado.rol;
+    this.fechaDePrestacion = castedData.fechaDePrestacion;
+    this.especialidad = castedData.especialidad;
+    this.medico = castedData.medico;
+    this.lugarDeAtencion = castedData.lugarDeAtencion;
     this.factura = {
-      fecha: data.factura.fecha,
-      cuit: data.factura.cuit,
-      valorTotal: data.factura.valorTotal,
-      personaAFacturar: data.factura.personaAFacturar
+      fecha: castedData.factura.fecha,
+      cuit: castedData.factura.cuit,
+      valorTotal: castedData.factura.valorTotal,
+      personaAFacturar: castedData.factura.personaAFacturar
     };
-    this.formaDePago = data.formaDePago;
-    this.cbu = data.cbu;
-    this.observaciones = data.observaciones;
-    this.estado = data.estado;
+    this.formaDePago = castedData.formaDePago;
+    this.cbu = castedData.cbu;
+    this.observaciones = castedData.observaciones;
+    this.estado = castedData.estado;
   }
 }
 

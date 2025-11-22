@@ -8,8 +8,7 @@ import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { RolAfiliado } from '../enums/RolAfiliado';
 import { SUCCESS_MESSAGES } from '../utils/successMessages';
 import { RegisterUserDTO } from '../dtos/auth.dto';
-import { validateRegisterUser } from '../utils/registerUser.validacion';
-import { validateLoginUser } from '../utils/login.validacion';
+// import { validateRegisterUser } from '../utils/registerUser.validacion';
 
 interface IUserController {
   registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<Response | void>;
@@ -22,10 +21,10 @@ const userController: IUserController = {
   registerUser: async (req, res) => {
     const user = req.body;
 
-    const errores = await validateRegisterUser(user);
+    /* const errores = await validateRegisterUser(user);
     if (errores.length > 0) {
       return res.status(400).json({ message: errores.join(' | ') });
-    }
+    } */
 
     try {
       const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
@@ -34,9 +33,6 @@ const userController: IUserController = {
       }
       if (foundUser.registrado) {
         return res.status(409).json({ message: ERROR_MESSAGES.USER.ALREADY_EXISTS });
-      }
-      if (user.password !== user.confirmPassword) {
-        return res.status(400).json({ message: 'Las contraseñas ingresadas no coinciden.' });
       }
 
       const hashedPassword = await bcrypt.hash(user.password, 10);
@@ -52,11 +48,6 @@ const userController: IUserController = {
   },
   login: async (req, res) => {
     const { nroDocumento, password } = req.body;
-    const errores = await validateLoginUser(nroDocumento, password);
-
-    if (errores.length > 0) {
-      return res.status(400).json({ message: errores.join(' | ') });
-    }
 
     try {
       const foundUser = await Afiliado.findOne({ nroDocumento }).populate<{ grupoFamiliar: Pick<IAfiliadoDocument, '_id' | 'rol'>[] }>('grupoFamiliar', '_id rol');
@@ -99,11 +90,11 @@ const userController: IUserController = {
       foundUser.refreshToken = refreshToken;
       await foundUser.save();
 
-      // Agregado
       const idAfiliado = foundUser._id.toString();
+      const rolSesion = foundUser.rol;
 
       res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
-      res.json({ data: { idAfiliado }, accessToken, message: SUCCESS_MESSAGES.USER.LOGGED_IN });
+      res.json({ data: { idAfiliado, rolSesion }, accessToken, message: SUCCESS_MESSAGES.USER.LOGGED_IN });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
@@ -156,7 +147,7 @@ const userController: IUserController = {
           return;
         }
 
-        let familiaresPermitidos; // Arreglo de _id de los afiliados de los cuales el usuario puede ver su información dependiendo el rol.
+        let familiaresPermitidos;
 
         if (foundUser.rol === RolAfiliado.TITULAR) {
           const arr = foundUser.grupoFamiliar.map(familiar => familiar._id);
