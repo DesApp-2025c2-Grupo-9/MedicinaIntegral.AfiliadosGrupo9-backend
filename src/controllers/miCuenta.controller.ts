@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction} from 'express';
 // import { getAfiliadoByDocumento, obtenerGrupoFamiliar, registrarCBU } from '../validators/afiliado.validator';
 import Afiliado from '../models/Afiliado';
 import  CbuModel  from '../models/Cbu';
@@ -28,8 +28,9 @@ interface IMiCuentaController {
   getMiCuenta: (req: Request, res: Response<ApiResponse>) => Promise<void>;
   registrarCbu: (req: Request<{}, {}, CBU>, res: Response<ApiResponse>) => Promise<void>;
   setCbuPrincipal: (req: Request<{}, {}, { nroCbu: string }>, res: Response<ApiResponse>) => Promise<void>;
-  editarCbu: (req: Request<{ id: string }, {}, DatosActualizados>,res: Response<ApiResponse>) => Promise<void>;
-
+  editarCbu: (req: Request<{ cbu: string }, {}, DatosActualizados>,res: Response<ApiResponse>,next: NextFunction) => Promise<void>;
+  eliminarCbu: (req: Request<{ id: string }, {}, { nroCbu: string }>, res: Response<ApiResponse>) => Promise<void>;
+ 
 }
 
 export const miCuentaController: IMiCuentaController = {
@@ -96,42 +97,67 @@ export const miCuentaController: IMiCuentaController = {
       res.json({ message: 'El CBU ha sido elegido como principal exitosamente.' });
     } catch (error) {}
   },
-  editarCbu: async (
-  req: Request<{ id: string }, {}, DatosActualizados>,
+  
+  editarCbu: async (req, res, next) => {
+  const { cbu } = req.params; // ahora este param es el número de CBU
+  const datosActualizados = req.body;
+
+  try {
+    // Buscar el CBU directamente por su número principal
+    const cbuExistente = await CbuModel.findOne({ cbu });
+    if (!cbuExistente) {
+       res.status(404).json({ message: 'CBU no encontrado' });
+       return;
+    }
+
+    Object.assign(cbuExistente, datosActualizados);
+    const actualizado = await cbuExistente.save();
+
+    res.status(200).json({
+      data: actualizado,
+      message: 'CBU actualizado correctamente',
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+},
+
+eliminarCbu: async (
+  req: Request<{ id: string }, {}, { nroCbu: string }>,
   res: Response<ApiResponse>
-  ): Promise<void> => {
+): Promise<void> => {
   try {
     const { id } = req.params;
-    
+    const { nroCbu } = req.body;
+
     const afiliado = await Afiliado.findById(id);
     if (!afiliado) {
       res.status(404).json({ message: 'Afiliado no encontrado' });
       return;
     }
 
-    const cbuPrincipal = afiliado.cbuPrincipal;
-
-    if (!cbuPrincipal) {
-      res.status(404).json({ message: 'El afiliado no tiene un CBU principal asignado' });
+    const existe = afiliado.cbus.some(cbu => cbu.cbu === nroCbu);
+    if (!existe) {
+      res.status(404).json({ message: 'El CBU no existe en este afiliado' });
       return;
     }
 
+    afiliado.cbus = afiliado.cbus.filter(cbu => cbu.cbu !== nroCbu);
 
-    const cbuExistente = await CbuModel.findOne({ cbu: cbuPrincipal });
-    if (!cbuExistente) {
-      res.status(404).json({ message: 'CBU principal no encontrado en la base de datos' });
-      return;
+    if (afiliado.cbuPrincipal === nroCbu) {
+      afiliado.cbuPrincipal = null;
     }
 
-    Object.assign(cbuExistente, req.body);
-    const actualizado = await cbuExistente.save();
+    await afiliado.save();
 
-    res.status(200).json({ message: 'CBU principal actualizado correctamente', data: actualizado });
+    res.status(200).json({ message: 'CBU eliminado correctamente', data: afiliado });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error inesperado' });
   }
 }
+
 }
 
 

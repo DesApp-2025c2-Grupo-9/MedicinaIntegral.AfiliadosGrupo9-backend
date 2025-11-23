@@ -7,7 +7,7 @@ export class MiCuentaDTO {
   planMedico: string;
   dni: string;
   email: string;
-  cbuPrincipal: string;
+  cbuPrincipal: string | null;
   cbus: {
     tipoDeCuenta: string;
     cuil: string;
