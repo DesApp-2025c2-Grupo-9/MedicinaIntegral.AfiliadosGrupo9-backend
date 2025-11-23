@@ -6,6 +6,7 @@ export interface ICbu extends Document {
   cuil: string;
   nombre: string;
   apellido: string;
+  activo: boolean;
   
 }
 
@@ -14,7 +15,8 @@ const cbuSchema: Schema<ICbu> = new Schema({
   tipoDeCuenta: { type: String, required: true },
   cuil: { type: String, required: true },
   nombre: { type: String, required: true },
-  apellido: { type: String, required: true }
+  apellido: { type: String, required: true },
+  activo: { type: Boolean, default: true }
   
 });
 

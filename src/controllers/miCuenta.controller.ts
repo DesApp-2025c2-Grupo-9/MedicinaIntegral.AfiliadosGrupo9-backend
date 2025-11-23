@@ -29,7 +29,7 @@ interface IMiCuentaController {
   registrarCbu: (req: Request<{}, {}, CBU>, res: Response<ApiResponse>) => Promise<void>;
   setCbuPrincipal: (req: Request<{}, {}, { nroCbu: string }>, res: Response<ApiResponse>) => Promise<void>;
   editarCbu: (req: Request<{ cbu: string }, {}, DatosActualizados>,res: Response<ApiResponse>,next: NextFunction) => Promise<void>;
-  eliminarCbu: (req: Request<{ id: string }, {}, { nroCbu: string }>, res: Response<ApiResponse>) => Promise<void>;
+  eliminarCbu: (req: Request<{ id: string }>, res: Response<ApiResponse>,next: NextFunction) => Promise<void>;
  
 }
 
@@ -99,23 +99,36 @@ export const miCuentaController: IMiCuentaController = {
   },
   
   editarCbu: async (req, res, next) => {
-  const { cbu } = req.params; // ahora este param es el número de CBU
+  const { cbu } = req.params; // número de CBU nuevo elegido como principal
   const datosActualizados = req.body;
+  const nroDocumento = req.nroDocumento;
+
 
   try {
-    // Buscar el CBU directamente por su número principal
-    const cbuExistente = await CbuModel.findOne({ cbu });
-    if (!cbuExistente) {
-       res.status(404).json({ message: 'CBU no encontrado' });
+    // Buscar al afiliado por número de documento
+    const afiliado = await Afiliado.findOne({ nroDocumento });
+    if (!afiliado) {
+       res.status(404).json({ message: "Afiliado no encontrado" });
        return;
     }
 
-    Object.assign(cbuExistente, datosActualizados);
-    const actualizado = await cbuExistente.save();
+    // Actualizar el campo cbuPrincipal
+    afiliado.cbuPrincipal = cbu;
 
-    res.status(200).json({
+    // Actualizar también los datos del CBU dentro del array
+    const cbuExistente = afiliado.cbus.find(item => item.cbu === cbu);
+    if (cbuExistente) {
+      Object.assign(cbuExistente, datosActualizados);
+    } else {
+      // opcional: agregar el CBU si no existe
+      afiliado.cbus.push({ cbu, ...datosActualizados });
+    }
+
+    const actualizado = await afiliado.save();
+
+     res.status(200).json({
       data: actualizado,
-      message: 'CBU actualizado correctamente',
+      message: "CBU principal actualizado correctamente",
     });
   } catch (error) {
     console.error(error);
@@ -123,42 +136,40 @@ export const miCuentaController: IMiCuentaController = {
   }
 },
 
-eliminarCbu: async (
-  req: Request<{ id: string }, {}, { nroCbu: string }>,
-  res: Response<ApiResponse>
-): Promise<void> => {
+eliminarCbu: async (req, res, next) => {
+  const { cbu } = req.params; 
   try {
-    const { id } = req.params;
-    const { nroCbu } = req.body;
-
-    const afiliado = await Afiliado.findById(id);
+    const afiliado = await Afiliado.findOne({ "cbus.cbu": cbu });
     if (!afiliado) {
-      res.status(404).json({ message: 'Afiliado no encontrado' });
+      res.status(404).json({ message: "Afiliado no encontrado" });
       return;
     }
 
-    const existe = afiliado.cbus.some(cbu => cbu.cbu === nroCbu);
-    if (!existe) {
-      res.status(404).json({ message: 'El CBU no existe en este afiliado' });
+    // buscar el CBU dentro del array por su número
+    const cbuEncontrado = afiliado.cbus.find(c => c.cbu === cbu);
+    if (!cbuEncontrado) {
+      res.status(404).json({ message: "CBU no encontrado" });
       return;
     }
 
-    afiliado.cbus = afiliado.cbus.filter(cbu => cbu.cbu !== nroCbu);
+    // eliminación lógica
+    cbuEncontrado.activo = false;
 
-    if (afiliado.cbuPrincipal === nroCbu) {
-      afiliado.cbuPrincipal = null;
-    }
+    
+    if (afiliado.cbuPrincipal === cbuEncontrado.cbu) {
+    const otroActivo = afiliado.cbus.find(c => c.activo);
+    afiliado.cbuPrincipal = otroActivo ? otroActivo.cbu : null;
+}
+
 
     await afiliado.save();
 
-    res.status(200).json({ message: 'CBU eliminado correctamente', data: afiliado });
+    res.status(200).json({ message: "CBU marcado como eliminado" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error inesperado' });
+    next(error);
   }
 }
 
 }
-
 
 
