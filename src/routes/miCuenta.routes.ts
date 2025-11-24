@@ -7,7 +7,7 @@ router.get('/mi-cuenta', miCuentaController.getMiCuenta);
 router.post('/mi-cuenta/cbu', miCuentaController.registrarCbu);
 router.put('/mi-cuenta/cbu', miCuentaController.setCbuPrincipal);
 router.put('/mi-cuenta/cbu-principal/:cbu', miCuentaController.editarCbu);
-router.delete('/mi-cuenta/cbu-principal/:cbu', miCuentaController.eliminarCbu);
+//router.delete('/mi-cuenta/cbu-principal/:cbu', miCuentaController.eliminarCbu);
 
 
 

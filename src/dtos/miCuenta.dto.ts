@@ -14,7 +14,7 @@ export class MiCuentaDTO {
     nombre: string;
     apellido: string;
     cbu: string;
-    activo: boolean
+   
   }[];
   situacionTerapeutica: string;
   grupoFamiliar: {
@@ -41,7 +41,6 @@ export class MiCuentaDTO {
       nombre: c.nombre,
       apellido: c.apellido,
       cbu: c.cbu,
-      activo: c.activo
     }));
 
 

@@ -28,7 +28,6 @@ interface IAfiliado {
     nombre: string;
     apellido: string;
     cbu: string;
-    activo: boolean; 
   }[];
   cbuPrincipal: string | null;
   rol: RolAfiliado; // 'Titular' | 'Cónyuge' | 'Hijo Menor' | 'Hijo Mayor' | 'Otro'

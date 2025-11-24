@@ -35,7 +35,6 @@ const afiliadoSchema = new Schema<IAfiliadoDocument>(
           nombre: { type: String, required: true },
           apellido: { type: String, required: true },
           cbu: { type: String, required: true },
-          activo: { type: Boolean, default: true } //agregue
         }
       ],
       default: []
