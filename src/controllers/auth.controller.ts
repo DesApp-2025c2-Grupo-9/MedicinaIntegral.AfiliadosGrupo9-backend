@@ -29,11 +29,18 @@ const userController: IUserController = {
     try {
       const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
       if (!foundUser) {
-        return res.status(401).json({ message: ERROR_MESSAGES.USER.NOT_FOUND });
+        return res.status(404).json({ message: ERROR_MESSAGES.USER.NOT_FOUND });//Se cambió 401 a 404 para que el tipo de error sea el apropiado a not found
       }
       if (foundUser.registrado) {
         return res.status(409).json({ message: ERROR_MESSAGES.USER.ALREADY_EXISTS });
       }
+
+      if (foundUser.rol === RolAfiliado.HIJO_MENOR){
+        return res.status(403).json({
+          message: "Los usuarios con rol 'Hijo menor' no pueden registrarse en el sistema"
+        })
+      }
+
 
       const hashedPassword = await bcrypt.hash(user.password, 10);
       foundUser.password = hashedPassword;
