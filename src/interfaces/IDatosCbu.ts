@@ -4,4 +4,5 @@ interface DatosCBU {
   cbu: string;
   tipoDeCuenta: string;
   cuil: string;
+  activo ?: boolean;
 }

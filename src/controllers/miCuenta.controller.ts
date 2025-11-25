@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction} from 'express';
 // import { getAfiliadoByDocumento, obtenerGrupoFamiliar, registrarCBU } from '../validators/afiliado.validator';
 import Afiliado from '../models/Afiliado';
-import  CbuModel  from '../models/Cbu';
 import { ApiResponse } from '../types/ApiResponse';
 import { MiCuentaDTO } from '../dtos/miCuenta.dto';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
