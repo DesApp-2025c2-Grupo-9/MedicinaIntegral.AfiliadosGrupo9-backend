@@ -5,8 +5,22 @@ import { Prestador } from "../models/Prestador";
 
 const router = Router();
 
-router.get("/especialidades", (_, res) => {
-  res.json(Object.values(Especialidad));
+router.get("/especialidades", async (_, res) => {
+  
+  
+  //res.json(Object.values(Especialidad));
+
+  //Se modificó la obtención de datos, para que tenga consistencia con los prestadores cargados en la base de datos.
+  try {
+    const especialidadesUnicas = await Prestador.distinct('especialidad')
+    res.status(200).json(especialidadesUnicas)
+    
+  } catch (error) {
+    console.error('Error al obtener especialidades:', error)
+    res.status(500).json({message: 'Error interno en el servidor'})
+  }
+
+
 });
 // Ahora trae las localidades de los prestadores que hay en la db
 // router.get("/localidades", (_, res) => {
@@ -20,7 +34,7 @@ router.get('/localidades', async (_, res)=> {
     const localidadesUnicas = await Prestador.distinct('lugarAtencion.localidad');
 
     // Devolvemos el array de strings con las localidades
-    console.log({localidadesUnicas: localidadesUnicas})
+    
     res.status(200).json(localidadesUnicas);
 
   } catch (error) {

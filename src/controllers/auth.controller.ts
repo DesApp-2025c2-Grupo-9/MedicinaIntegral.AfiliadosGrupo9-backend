@@ -10,7 +10,7 @@ import { SUCCESS_MESSAGES } from '../utils/successMessages';
 import { RegisterUserDTO } from '../dtos/auth.dto';
 
 interface IUserController {
-  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<void>;
+  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<Response<ApiResponse> | void>;
   login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<void>;
   logout: (req: Request, res: Response<ApiResponse>) => Promise<void>;
   refresh: (req: Request, res: Response<ApiResponse>) => Promise<void>;
@@ -23,13 +23,19 @@ const userController: IUserController = {
     try {
       const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
       if (!foundUser) {
-        res.status(401).json({ message: ERROR_MESSAGES.USER.NOT_FOUND });
-        return;
+        return res.status(404).json({ message: ERROR_MESSAGES.USER.NOT_FOUND });//Se cambió 401 a 404 para que el tipo de error sea el apropiado a not found
       }
       if (foundUser.registrado) {
         res.status(409).json({ message: ERROR_MESSAGES.USER.ALREADY_EXISTS });
         return;
       }
+
+      if (foundUser.rol === RolAfiliado.HIJO_MENOR){
+        return res.status(403).json({
+          message: "Los usuarios con rol 'Hijo menor' no pueden registrarse en el sistema"
+        })
+      }
+
 
       const hashedPassword = await bcrypt.hash(user.password, 10);
       foundUser.password = hashedPassword;
