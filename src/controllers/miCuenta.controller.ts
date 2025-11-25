@@ -1,9 +1,12 @@
+
 import { Request, Response, NextFunction} from 'express';
 // import { getAfiliadoByDocumento, obtenerGrupoFamiliar, registrarCBU } from '../validators/afiliado.validator';
+
 import Afiliado from '../models/Afiliado';
 import { ApiResponse } from '../types/ApiResponse';
 import { MiCuentaDTO } from '../dtos/miCuenta.dto';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
+
 import { DatosActualizados } from '../types/CbuTypes';
 
 
@@ -25,13 +28,11 @@ type CBU = {
 
 interface IMiCuentaController {
   getMiCuenta: (req: Request, res: Response<ApiResponse>) => Promise<void>;
-  registrarCbu: (req: Request<{}, {}, CBU>, res: Response<ApiResponse>) => Promise<void>;
-  setCbuPrincipal: (req: Request<{}, {}, { nroCbu: string }>, res: Response<ApiResponse>) => Promise<void>;
-  editarCbu: (req: Request<{ cbu: string }, {}, DatosActualizados>,res: Response<ApiResponse>,next: NextFunction) => Promise<void>;
+  registerCbu: (req: Request<{}, {}, CBU>, res: Response<ApiResponse>) => Promise<void>;
+  setMainCbu: (req: Request<{}, {}, { nroCbu: string }>, res: Response<ApiResponse>) => Promise<void>;
+  editCbu: (req: Request<{ cbu: string }, {}, DatosActualizados>,res: Response<ApiResponse>,next: NextFunction) => Promise<void>;
   
- 
 }
-
 export const miCuentaController: IMiCuentaController = {
   getMiCuenta: async (req, res) => {
     const nroDocumento = req.nroDocumento;
@@ -43,7 +44,7 @@ export const miCuentaController: IMiCuentaController = {
         match: { _id: { $in: idsAfiliados } }
       });
       if (!unAfiliado) {
-        res.status(404).json({ message: 'No se pudieron encontrar datos del afiliado solicitado.' });
+        res.status(404).json({ message: 'No se encontraron datos del afiliado solicitado.' });
         return;
       }
 
@@ -54,50 +55,51 @@ export const miCuentaController: IMiCuentaController = {
       res.status(500).json({ message });
     }
   },
-  registrarCbu: async (req, res) => {
+  registerCbu: async (req, res) => {
     const nroDocumento = req.nroDocumento;
 
     try {
-      const cbuRecibido = req.body;
+      const cbuBody = req.body;
       const unAfiliado = await Afiliado.findOne({ nroDocumento });
       if (!unAfiliado) {
-        res.status(404).json({ message: 'No se pudieron encontrar datos del afiliado solicitado.' });
+        res.status(404).json({ message: 'No se encontraron datos del afiliado solicitado.' });
         return;
       }
 
-      const cbuYaRegistrado = unAfiliado.cbus.some(cbu => cbu.cbu === cbuRecibido.cbu);
-      if (cbuYaRegistrado) {
-        res.status(409).json({ message: 'Este CBU ya está registrado.' });
+      const cbuEnUso = unAfiliado.cbus.some(entry => entry.cbu === cbuBody.cbu);
+      if (cbuEnUso) {
+        res.status(409).json({ message: 'El CBU ingresado ya se encuentra registrado.' });
         return;
       }
 
-      unAfiliado.cbus = [...unAfiliado.cbus, cbuRecibido];
+      unAfiliado.cbus = [...unAfiliado.cbus, cbuBody];
       await unAfiliado.save();
 
-      res.json({ message: 'CBU registrado exitosamente.' });
+      res.json({ message: 'El CBU fue registrado exitosamente.' });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
     }
   },
-  setCbuPrincipal: async (req, res) => {
+  setMainCbu: async (req, res) => {
     const nroDocumento = req.nroDocumento;
 
     try {
       const unAfiliado = await Afiliado.findOne({ nroDocumento });
       if (!unAfiliado) {
-        res.status(404).json({ message: 'No se pudieron encontrar datos del afiliado solicitado.' });
+        res.status(404).json({ message: 'No se encontraron datos del afiliado solicitado.' });
         return;
       }
 
       unAfiliado.cbuPrincipal = req.body.nroCbu;
       await unAfiliado.save();
 
+
       res.json({ message: 'El CBU ha sido elegido como principal exitosamente.' });
     } catch (error) {}
   },
   
-  editarCbu: async (req, res, next) => {
+  editCbu: async (req, res, next) => {
   const { cbu } = req.params; 
   const datosActualizados = req.body;
   const nroDocumento = req.nroDocumento;
@@ -133,8 +135,7 @@ export const miCuentaController: IMiCuentaController = {
     console.error(error);
     next(error);
   }
-},
-
 }
 
+}
 

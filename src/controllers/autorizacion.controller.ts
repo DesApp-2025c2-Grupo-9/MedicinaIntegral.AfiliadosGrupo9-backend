@@ -26,7 +26,7 @@ const autorizacionController: IAutorizacionController = {
     getAllAutorizaciones : async (req, res, next) => {
         const idsAfiliados = req.familiaresPermitidos;
         try {
-            const autorizaciones = await Autorizacion.find({ $and:[{fechaBaja: {$exists: false}} , {idAfiliado: { $in: idsAfiliados }} ]});
+            const autorizaciones = await Autorizacion.find({ $and:[{fechaBaja: {$exists: false}} , {idAfiliado: { $in: idsAfiliados }} ]}).populate('idAfiliado', 'rol');
             if(autorizaciones.length === 0) {
                 res.status(204).json({ message: 'No hay autorizaciones.' }); 
                 return;
@@ -38,15 +38,14 @@ const autorizacionController: IAutorizacionController = {
         }
     },
     createAutorizacion : async (req, res, next) => {
-        const idAfiliado = req.familiaresPermitidos?.[0]; 
         const observacion: IObservacion = {
-            idEmisor: idAfiliado!,
+            idEmisor: req.body.idAfiliado,
             rolEmisor: 'Afiliado',
             descripcion: req.body.observaciones,
             fecha: new Date()
         };
         try {
-            const nuevaAutorizacion = await Autorizacion.create({...req.body, idAfiliado, observaciones: [observacion]});
+            const nuevaAutorizacion = await Autorizacion.create({...req.body, observaciones: [observacion]});
             res.status(200).json({ data: new IdAutorizacionDTO(nuevaAutorizacion), message: SUCCESS_MESSAGES.AUTORIZACION.CREATED });
         } catch(error) {
             next(error)

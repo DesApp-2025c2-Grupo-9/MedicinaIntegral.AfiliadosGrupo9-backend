@@ -7,8 +7,9 @@ import { IObservacion } from './IObservacion';
 interface IReintegro {
   id: string;
   paraAfiliado: string;
+  idAfiliado: Types.ObjectId;
   fechaDePrestacion: Date;
-  especialidad: Especialidad; // 'Medicina General' | 'Pediatría' | 'Ginecología' | 'Cardiología' | 'Dermatología' | 'Neurología' | 'Psiquiatría' | 'Traumatología' | 'Oftalmología' | 'Cirugía General'
+  especialidad: string;
   medico: string;
   lugarDeAtencion: string;
   factura: {
@@ -17,11 +18,10 @@ interface IReintegro {
     valorTotal: number;
     personaAFacturar: string;
   };
-  formaDePago: FormaPago; // 'transferencia' | 'efectivo' | 'cheque'
-  cbu?: string; // Si formaDePago === 'transferencia', cbu es required
+  formaDePago: FormaPago;
+  cbu?: string;
   observaciones: IObservacion[];
-  estado: EstadoTramite; // 'pendiente' | 'observado' | 'aceptado' | 'rechazado'
-  idAfiliado: Types.ObjectId;
+  estado: EstadoTramite;
   fechaBaja?: Date;
   nroGestion: number;
 }

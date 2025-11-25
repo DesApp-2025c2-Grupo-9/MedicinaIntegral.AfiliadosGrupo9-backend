@@ -8,6 +8,6 @@ export const recetaSchema = z.object({
   presentacion: z
     .string()
     .min(3, "La presentación debe tener al menos 3 caracteres"),
-
+  fechaAprobacion: z.date().optional(),
   observaciones: z.string().optional(),
 });

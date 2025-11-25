@@ -18,7 +18,7 @@ import afiliadosRoutes from './routes/afiliados.routes';
 import { manejoDeErroresGlobales } from './middlewares/genericMiddleware';
 import miCuentaRoutes from './routes/miCuenta.routes';
 import enumsRoutes from './routes/enums.route';
-import turnosRoutes from './routes/turnos.routes'
+import turnosRoutes from './routes/turnos.routes';
 
 export const app = express();
 export const PORT = process.env.PORT || 3000;
@@ -34,37 +34,28 @@ app.use(express.urlencoded({ extended: false }));
 
 // Rutas públicas
 app.use('/api/auth', authRoutes);
-app.use('/api', especialidadesRoutes);
 
 // Verificamos JWT
 app.use(verifyJWT);
 
 // Rutas protegidas
-
-/* app.use('/api', afiliadosRoutes);
-app.use('/api', autorizacionesRoutes);
-app.use('/api', reintegrosRoutes);
-app.use('/api', recetasRoutes);
-app.use('/api', especialidadesRoutes); */
-
-app.use('/api', miCuentaRoutes);
 app.use('/api', afiliadosRoutes);
-app.use('/api', autorizacionesRoutes);
+app.use('/api', dashboard);
+app.use('/api', miCuentaRoutes);
+app.use('/api', turnosRoutes);
 app.use('/api', reintegrosRoutes);
 app.use('/api', recetasRoutes);
-app.use('/api', especialidadesRoutes);
+app.use('/api', autorizacionesRoutes);
 app.use('/api', prestadoresRoutes);
+app.use('/api', especialidadesRoutes);
 app.use('/api/enums', enumsRoutes);
-app.use('/api', dashboard);
-
-app.use('/api', turnosRoutes)
 
 //Middleware global
 app.use(manejoDeErroresGlobales);
 
 // Escuchar puerto
 mongoose.connection.once('open', () => {
-  console.log('Conectado exitosamente a MongoDB');
+  console.log('Conectado exitosamente a MongoDB.');
   app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}...`);
   });

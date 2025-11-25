@@ -1,5 +1,5 @@
 export interface IObservacion {
-  idEmisor: string; // idEmisor puede ser el ObjectId de un Prestador o un Afiliado
+  idEmisor: string; // ObjectId de un Prestador o Afiliado
   rolEmisor: string; // 'Prestador' | 'Afiliado'
   descripcion: string;
   fecha: Date;

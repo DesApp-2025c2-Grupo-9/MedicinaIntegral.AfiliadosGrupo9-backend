@@ -8,11 +8,11 @@ export interface IRecetaDocument extends Omit<IReceta, "id">, Document {
 
 const recetaSchema = new Schema<IRecetaDocument>(
   {
-    nroAfiliado: {
+    /* nroAfiliado: {
       type: String,
       required: true,
       //ref: "Afiliado",
-    },
+    }, */
     paraAfiliado: {
       type: String,
       required: true,
@@ -42,6 +42,7 @@ const recetaSchema = new Schema<IRecetaDocument>(
       enum: Object.values(EstadoTramite),
       default: EstadoTramite.PENDIENTE,
     },
+    fechaAprobacion: { type: Date },
 
     idAfiliado: {
       type: Schema.Types.ObjectId,

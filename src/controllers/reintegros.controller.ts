@@ -25,32 +25,28 @@ const reintegroController: IReintegroController = {
     const idsAfiliados = req.familiaresPermitidos;
 
     try {
-      const reintegros = await Reintegro.find({ $and: [{ fechaBaja: { $exists: false } }, { idAfiliado: { $in: idsAfiliados } }] });
-      
-      if (reintegros.length === 0) {
-        res.status(204).json({ message: 'No hay reintegros.' }); 
-        return; 
-      }
-      
+      const reintegros = await Reintegro.find({ $and: [{ fechaBaja: { $exists: false } }, { idAfiliado: { $in: idsAfiliados } }] })
+        .sort({ createdAt: -1 })
+        .populate<{ idAfiliado: { rol: string } }>('idAfiliado', 'rol');
+
       const reintegrosDTO = reintegros.map(reintegro => new GetReintegrosDTO(reintegro));
       res.json({ data: reintegrosDTO });
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
   createReintegro: async (req, res, next) => {
-    const idAfiliado = req.familiaresPermitidos?.[0]; // El primer id corresponde a quien hizo la petición
+    // const idAfiliado = req.familiaresPermitidos?.[0]; // El primer id corresponde a quien hizo la petición
     const observacion: IObservacion = {
-      // construimos la observación con el comentario que envió el afiliado
-      idEmisor: idAfiliado!,
+      idEmisor: req.body.idAfiliado,
       rolEmisor: 'Afiliado',
       descripcion: req.body.observaciones,
       fecha: new Date()
     };
     const reintegroBody = {
       ...req.body,
-      idAfiliado,
       observaciones: [observacion]
+      // idAfiliado
     };
 
     try {
@@ -58,7 +54,7 @@ const reintegroController: IReintegroController = {
       const newReintegroDTO = new PostReintegroDTO(newReintegro);
       res.json({ data: newReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.CREATED });
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
   updateReintegro: async (req, res, next) => {
@@ -73,7 +69,6 @@ const reintegroController: IReintegroController = {
       }
 
       const updatedObservacion: IObservacion = {
-        // Esta es una única observación
         ...unReintegro.observaciones[0],
         descripcion: descripcionObservacion
       };
@@ -87,7 +82,7 @@ const reintegroController: IReintegroController = {
       const updatedReintegroDTO = new PutReintegroDTO(updatedReintegro);
       res.json({ data: updatedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.UPDATED });
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
   deleteReintegro: async (req, res, next) => {
@@ -105,7 +100,7 @@ const reintegroController: IReintegroController = {
       const deletedReintegroDTO = new DeleteReintegroDTO(reintegro);
       res.json({ data: deletedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.DELETED });
     } catch (error) {
-      next(error)
+      next(error);
     }
   },
   commentReintegroById: async (req, res, next) => {
@@ -126,13 +121,15 @@ const reintegroController: IReintegroController = {
         res.status(404).json({ message: ERROR_MESSAGES.REINTEGRO.NOT_FOUND });
         return;
       }
+
       unReintegro.observaciones = [...unReintegro.observaciones, observacion];
       unReintegro.estado = EstadoTramite.EN_ANALISIS;
       const commentedReintegro = await unReintegro.save();
+
       const commentedReintegroDTO = new CommentReintegroDTO(commentedReintegro);
       res.json({ data: commentedReintegroDTO, message: SUCCESS_MESSAGES.REINTEGRO.COMMENTED });
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 };

@@ -4,7 +4,7 @@ import { EstadoTramite } from "../enums/EstadoTramite";
 import { IObservacion } from "./IObservacion";
 
 export interface IReceta {
-  nroAfiliado: string; // clave foránea a Afiliado
+  // nroAfiliado: string; // clave foránea a Afiliado
   paraAfiliado: string;
   medicamento: string;
   cantidad: number;
@@ -15,6 +15,7 @@ export interface IReceta {
   fechaBaja?: Date;
   createdAt?: Date;
   updatedAt?: Date;
+  fechaAprobacion?: Date;
 }
 
 export default IReceta;
