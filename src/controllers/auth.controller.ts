@@ -10,7 +10,7 @@ import { SUCCESS_MESSAGES } from '../utils/successMessages';
 import { RegisterUserDTO } from '../dtos/auth.dto';
 
 interface IUserController {
-  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<void>;
+  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<Response<ApiResponse> | void>;
   login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<void>;
   logout: (req: Request, res: Response<ApiResponse>) => Promise<void>;
   refresh: (req: Request, res: Response<ApiResponse>) => Promise<void>;
