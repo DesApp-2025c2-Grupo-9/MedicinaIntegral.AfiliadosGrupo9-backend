@@ -25,10 +25,9 @@ const reintegroController: IReintegroController = {
     const idsAfiliados = req.familiaresPermitidos;
 
     try {
-      const reintegros = await Reintegro.find({ $and: [{ fechaBaja: { $exists: false } }, { idAfiliado: { $in: idsAfiliados } }] }).populate<{ idAfiliado: { rol: string } }>(
-        'idAfiliado',
-        'rol'
-      );
+      const reintegros = await Reintegro.find({ $and: [{ fechaBaja: { $exists: false } }, { idAfiliado: { $in: idsAfiliados } }] })
+        .sort({ createdAt: -1 })
+        .populate<{ idAfiliado: { rol: string } }>('idAfiliado', 'rol');
 
       const reintegrosDTO = reintegros.map(reintegro => new GetReintegrosDTO(reintegro));
       res.json({ data: reintegrosDTO });

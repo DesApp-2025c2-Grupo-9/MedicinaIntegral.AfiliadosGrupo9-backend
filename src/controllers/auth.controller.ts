@@ -8,11 +8,10 @@ import { ERROR_MESSAGES } from '../utils/errorMessages';
 import { RolAfiliado } from '../enums/RolAfiliado';
 import { SUCCESS_MESSAGES } from '../utils/successMessages';
 import { RegisterUserDTO } from '../dtos/auth.dto';
-// import { validateRegisterUser } from '../utils/registerUser.validacion';
 
 interface IUserController {
-  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<Response | void>;
-  login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<Response | void>;
+  registerUser: (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse>) => Promise<void>;
+  login: (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse>) => Promise<void>;
   logout: (req: Request, res: Response<ApiResponse>) => Promise<void>;
   refresh: (req: Request, res: Response<ApiResponse>) => Promise<void>;
 }
@@ -21,18 +20,14 @@ const userController: IUserController = {
   registerUser: async (req, res) => {
     const user = req.body;
 
-    /* const errores = await validateRegisterUser(user);
-    if (errores.length > 0) {
-      return res.status(400).json({ message: errores.join(' | ') });
-    } */
-
     try {
       const foundUser = await Afiliado.findOne({ nroDocumento: user.nroDocumento });
       if (!foundUser) {
         return res.status(404).json({ message: ERROR_MESSAGES.USER.NOT_FOUND });//Se cambió 401 a 404 para que el tipo de error sea el apropiado a not found
       }
       if (foundUser.registrado) {
-        return res.status(409).json({ message: ERROR_MESSAGES.USER.ALREADY_EXISTS });
+        res.status(409).json({ message: ERROR_MESSAGES.USER.ALREADY_EXISTS });
+        return;
       }
 
       if (foundUser.rol === RolAfiliado.HIJO_MENOR){

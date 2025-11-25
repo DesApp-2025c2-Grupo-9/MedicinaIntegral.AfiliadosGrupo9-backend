@@ -1,9 +1,6 @@
+import { RegisterBody } from '../types/AuthTypes';
 
-export async function validateRegisterUser(user: {
-  nroDocumento: string;
-  password: string;
-  confirmPassword: string;
-}) {
+export function validateRegisterUser(user: RegisterBody) {
   const errors: string[] = [];
 
   // Validación de campos obligatorios
@@ -13,18 +10,18 @@ export async function validateRegisterUser(user: {
 
   // Validación de formato de DNI
   const dniRegex = /^\d{7,8}$/;
-  if (!dniRegex.test(user.nroDocumento)) {
+  if (user.nroDocumento && !dniRegex.test(user.nroDocumento)) {
     errors.push('El DNI debe tener 7 u 8 dígitos numéricos.');
   }
 
   // Validación de contraseña
   const passwordRegex = /^[A-Z].{5}$/;
-  if (!passwordRegex.test(user.password)) {
+  if (user.password && !passwordRegex.test(user.password)) {
     errors.push('La contraseña debe tener 5 caracteres y comenzar con una letra mayúscula.');
   }
 
   // Validación de coincidencia
-  if (user.password !== user.confirmPassword) {
+  if (user.password && user.confirmPassword && user.password !== user.confirmPassword) {
     errors.push('Las contraseñas ingresadas no coinciden.');
   }
 

@@ -34,12 +34,12 @@ const afiliadoSchema = new Schema<IAfiliadoDocument>(
           cuil: { type: String, required: true },
           nombre: { type: String, required: true },
           apellido: { type: String, required: true },
-          cbu: { type: String, required: true }
+          cbu: { type: String, required: true },
         }
       ],
       default: []
     },
-    cbuPrincipal: String,
+    cbuPrincipal: { type: String, default: null },
     rol: { type: String, enum: Object.values(RolAfiliado), default: RolAfiliado.TITULAR },
     refreshToken: { type: String }
   },

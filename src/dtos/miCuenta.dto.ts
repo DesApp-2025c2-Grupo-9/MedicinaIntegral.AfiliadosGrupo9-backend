@@ -7,13 +7,14 @@ export class MiCuentaDTO {
   planMedico: string;
   dni: string;
   email: string;
-  cbuPrincipal: string;
+  cbuPrincipal: string | null;
   cbus: {
     tipoDeCuenta: string;
     cuil: string;
     nombre: string;
     apellido: string;
     cbu: string;
+   
   }[];
   situacionTerapeutica: string;
   grupoFamiliar: {
@@ -34,7 +35,15 @@ export class MiCuentaDTO {
     this.dni = castedData.nroDocumento;
     this.email = castedData.email;
     this.cbuPrincipal = castedData.cbuPrincipal;
-    this.cbus = castedData.cbus;
+    this.cbus = castedData.cbus.map(c => ({
+      tipoDeCuenta: c.tipoDeCuenta,
+      cuil: c.cuil,
+      nombre: c.nombre,
+      apellido: c.apellido,
+      cbu: c.cbu,
+    }));
+
+
     this.situacionTerapeutica = castedData.situacionTerapeutica;
     this.grupoFamiliar = castedData.grupoFamiliar?.map(doc => ({
       id: doc._id.toString(),
