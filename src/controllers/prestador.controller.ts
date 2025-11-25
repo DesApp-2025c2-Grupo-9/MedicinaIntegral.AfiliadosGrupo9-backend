@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
 import { PrestadorDTO } from "../dtos/prestador.dto";
-import { Especialidad } from "../enums/Especialidad";
-import { Localidad } from "../enums/Localidad";
 import { Prestador } from "../models/Prestador";
 
 
-const prestadoresData: any[] = require("../json/prestadores.json");
 
 const prestadorController = {
   //  prestadores filtrados por especialidad y/o localidad

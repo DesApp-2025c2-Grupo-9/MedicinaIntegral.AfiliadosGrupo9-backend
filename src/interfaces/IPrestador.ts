@@ -4,7 +4,7 @@ import { Localidad } from "../enums/Localidad";
 
 export interface ILugarAtencion {
   nombre: string;
-  localidad: Localidad;
+  localidad: string;
   calle: string;
   numero: string;
   telefono: string;
@@ -12,7 +12,7 @@ export interface ILugarAtencion {
 
 export interface IPrestador {
   nombre: string;
-  especialidad: Especialidad;
+  especialidad: string;
   lugarAtencion: ILugarAtencion;
 }
 
