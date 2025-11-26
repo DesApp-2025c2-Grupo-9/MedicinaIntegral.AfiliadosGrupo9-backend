@@ -24,6 +24,8 @@ interface IReintegro {
   estado: EstadoTramite;
   fechaBaja?: Date;
   nroGestion: number;
+  createdAt?: Date;
+  fechaAprobacion?: Date;
 }
 
 export default IReintegro;
