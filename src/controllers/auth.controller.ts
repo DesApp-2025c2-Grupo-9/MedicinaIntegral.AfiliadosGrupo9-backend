@@ -94,9 +94,10 @@ const userController: IUserController = {
 
       const idAfiliado = foundUser._id.toString();
       const rolSesion = foundUser.rol;
+      const grupoFamiliar = foundUser.grupoFamiliar;
 
       res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'lax', secure: false, maxAge: 1000 * 60 * 60 * 24 });
-      res.json({ data: { idAfiliado, rolSesion }, accessToken, message: SUCCESS_MESSAGES.USER.LOGGED_IN });
+      res.json({ data: { idAfiliado, rolSesion, grupoFamiliar }, accessToken, message: SUCCESS_MESSAGES.USER.LOGGED_IN });
     } catch (error) {
       const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
       res.status(500).json({ message });
