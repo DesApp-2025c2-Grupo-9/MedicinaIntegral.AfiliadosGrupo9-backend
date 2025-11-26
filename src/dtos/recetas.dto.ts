@@ -16,6 +16,7 @@ export class GetRecetasDTO {
   observaciones?: IObservacion[];
   estado: string;
   createdAt?: Date;
+  updatedAt?: Date;
   fechaAprobacion?: Date;
 
   constructor(data: unknown) {
@@ -30,6 +31,7 @@ export class GetRecetasDTO {
     this.observaciones = castedData.observaciones;
     this.estado = castedData.estado;
     this.createdAt = castedData.createdAt;
+    this.updatedAt = castedData.updatedAt;
     //this.idAfiliado = castedData.idAfiliado.toString();
     this.fechaAprobacion = castedData.fechaAprobacion;
   }
