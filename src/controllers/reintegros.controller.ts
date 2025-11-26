@@ -72,8 +72,10 @@ const reintegroController: IReintegroController = {
         ...unReintegro.observaciones[0],
         descripcion: descripcionObservacion
       };
+
       const reintegroBody = {
         ...req.body,
+        cbu: req.body.formaDePago === 'transferencia' ? req.body.cbu : '',
         observaciones: [updatedObservacion]
       };
 

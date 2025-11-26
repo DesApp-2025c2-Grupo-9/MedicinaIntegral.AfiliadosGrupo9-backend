@@ -1,5 +1,4 @@
-
-import { Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 // import { getAfiliadoByDocumento, obtenerGrupoFamiliar, registrarCBU } from '../validators/afiliado.validator';
 
 import Afiliado from '../models/Afiliado';
@@ -8,7 +7,6 @@ import { MiCuentaDTO } from '../dtos/miCuenta.dto';
 import { ERROR_MESSAGES } from '../utils/errorMessages';
 
 import { DatosActualizados } from '../types/CbuTypes';
-
 
 interface AuthenticatedRequest extends Request {
   user?: {
@@ -30,8 +28,8 @@ interface IMiCuentaController {
   getMiCuenta: (req: Request, res: Response<ApiResponse>) => Promise<void>;
   registerCbu: (req: Request<{}, {}, CBU>, res: Response<ApiResponse>) => Promise<void>;
   setMainCbu: (req: Request<{}, {}, { nroCbu: string }>, res: Response<ApiResponse>) => Promise<void>;
-  editCbu: (req: Request<{ cbu: string }, {}, DatosActualizados>,res: Response<ApiResponse>,next: NextFunction) => Promise<void>;
-  
+  editCbu: (req: Request<{ cbu: string }, {}, DatosActualizados>, res: Response<ApiResponse>, next: NextFunction) => Promise<void>;
+  deleteCbu: (req: Request<{ cbu: string }>, res: Response, next: NextFunction) => Promise<void>;
 }
 export const miCuentaController: IMiCuentaController = {
   getMiCuenta: async (req, res) => {
@@ -94,48 +92,63 @@ export const miCuentaController: IMiCuentaController = {
       unAfiliado.cbuPrincipal = req.body.nroCbu;
       await unAfiliado.save();
 
-
-      res.json({ message: 'El CBU ha sido elegido como principal exitosamente.' });
-    } catch (error) {}
+      res.json({ message: 'El CBU se ha establecido como principal.' });
+    } catch (error) {
+      const message = ERROR_MESSAGES.GENERAL.UNKNOWN(error);
+      res.status(500).json({ message });
+    }
   },
-  
   editCbu: async (req, res, next) => {
-  const { cbu } = req.params; 
-  const datosActualizados = req.body;
-  const nroDocumento = req.nroDocumento;
+    const { cbu } = req.params;
+    const datosActualizados = req.body;
+    const nroDocumento = req.nroDocumento;
 
+    console.log('Soy datosActualizados',datosActualizados);
 
-  try {
-    
-    const afiliado = await Afiliado.findOne({ nroDocumento });
-    if (!afiliado) {
-       res.status(404).json({ message: "Afiliado no encontrado" });
-       return;
-    }
+    try {
+      const afiliado = await Afiliado.findOne({ nroDocumento });
+      if (!afiliado) {
+        res.status(404).json({ message: 'No se encontraron datos del afiliado solicitado.' });
+        return;
+      }
 
-    
-    afiliado.cbuPrincipal = cbu;
+      // afiliado.cbuPrincipal = cbu;
+      const cbuExistente = afiliado.cbus.find(entry => entry.cbu === cbu);
+      if (!cbuExistente) {
+        res.status(404).json({ message: 'No se encontraron datos del CBU solicitado.' });
+        return;
+      }
 
-    
-    const cbuExistente = afiliado.cbus.find(item => item.cbu === cbu);
-    if (cbuExistente) {
+      /* if (cbuExistente) {
+        Object.assign(cbuExistente, datosActualizados);
+        } else {
+          afiliado.cbus.push({ cbu, ...datosActualizados });
+      } */
+
       Object.assign(cbuExistente, datosActualizados);
-    } else {
-      
-      afiliado.cbus.push({ cbu, ...datosActualizados });
+      const cbuActualizado = await afiliado.save();
+      res.json({ data: cbuActualizado, message: 'El CBU fue actualizado correctamente.' });
+    } catch (error) {
+      next(error);
     }
+  },
+  deleteCbu: async (req, res, next) => {
+    const nroDocumento = req.nroDocumento;
+    const { cbu } = req.params;
 
-    const actualizado = await afiliado.save();
+    try {
+      const unAfiliado = await Afiliado.findOne({ nroDocumento });
+      if (!unAfiliado) {
+        res.status(404).json({ message: 'No se encontraron datos del afiliado solicitado.' });
+        return;
+      }
 
-     res.status(200).json({
-      data: actualizado,
-      message: "CBU principal actualizado correctamente",
-    });
-  } catch (error) {
-    console.error(error);
-    next(error);
+      const cbuArrFiltered = unAfiliado.cbus.filter(entry => entry.cbu !== cbu);
+      unAfiliado.cbus = [...cbuArrFiltered];
+      await unAfiliado.save();
+      res.json({ message: 'El CBU fue eliminado exitosamente.' });
+    } catch (error) {
+      next(error);
+    }
   }
-}
-
-}
-
+};
