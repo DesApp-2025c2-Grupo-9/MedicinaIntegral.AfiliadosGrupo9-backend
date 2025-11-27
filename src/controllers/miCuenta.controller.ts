@@ -103,8 +103,6 @@ export const miCuentaController: IMiCuentaController = {
     const datosActualizados = req.body;
     const nroDocumento = req.nroDocumento;
 
-    console.log('Soy datosActualizados',datosActualizados);
-
     try {
       const afiliado = await Afiliado.findOne({ nroDocumento });
       if (!afiliado) {

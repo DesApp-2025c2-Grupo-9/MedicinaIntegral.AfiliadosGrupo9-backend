@@ -78,7 +78,7 @@ const userController: IUserController = {
       }
 
       if (foundUser.rol === RolAfiliado.CONYUGE) {
-        const arr = foundUser.grupoFamiliar.filter(familiar => familiar.rol !== RolAfiliado.TITULAR && familiar.rol !== RolAfiliado.HIJO_MAYOR).map(familiar => familiar._id);
+        const arr = foundUser.grupoFamiliar.filter(familiar => familiar.rol !== RolAfiliado.TITULAR && familiar.rol !== RolAfiliado.HIJO_MAYOR  && familiar.rol !== RolAfiliado.OTRO).map(familiar => familiar._id);
         familiaresPermitidos = [...arr];
       }
 
