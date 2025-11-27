@@ -26,7 +26,7 @@
     "presentacion": "Cápsulas",
     "createdAt": "2025-11-09T14:30:00.000Z",
     "observaciones": [],
-    "fechaAprobacion": "2025-11-20T09:00:00.000Z",
+    "fechaAprobacion": "2025-11-22T09:00:00.000Z",
     "estado": "aceptado"
   },
 
@@ -92,7 +92,7 @@
         "idEmisor": "652fa1b2f4a3c6a12d4e91b2",
         "rolEmisor": "Prestador",
         "descripcion": "No se puede autorizar esta receta porque el medicamento no está incluido en su plan de cobertura.",
-        "fecha": "2025-11-19T15:00:00.000Z"
+        "fecha": "2025-11-23T15:00:00.000Z"
       }
     ],
     "estado": "rechazado"
@@ -125,7 +125,7 @@
     "presentacion": "Inhalador",
     "createdAt": "2025-11-11T08:30:00.000Z",
     "observaciones": [],
-    "fechaAprobacion": "2025-11-19T09:00:00.000Z",
+    "fechaAprobacion": "2025-11-24T09:00:00.000Z",
     "estado": "aceptado"
   }
 ]

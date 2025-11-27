@@ -29,6 +29,7 @@
       }
     ],
     "estado": "aceptado",
+    "fechaAprobacion": "2025-11-19T09:00:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a45678"
   },
   {
@@ -86,6 +87,7 @@
       }
     ],
     "estado": "aceptado",
+    "fechaAprobacion": "2025-11-05T09:00:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a4567a"
   },
   {
@@ -242,6 +244,7 @@
       }
     ],
     "estado": "aceptado",
+    "fechaAprobacion": "2025-11-26T09:00:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a4567d"
   },
   {
@@ -291,6 +294,7 @@
     },
     "formaDePago": "efectivo",
     "estado": "aceptado",
+    "fechaAprobacion": "2025-11-24T09:00:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a4567f"
   },
   {

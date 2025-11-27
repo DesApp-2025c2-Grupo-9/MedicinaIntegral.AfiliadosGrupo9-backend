@@ -33,16 +33,16 @@
     "observaciones": [
       {
         "emisor": "650f1d2a3b4c5d6e7f8a9012",
-        "rolEmisor": "Afiliado",
-        "descripcion": "Solicitar prioridad por síntomas graves",
-        "fecha": "2025-10-12T12:00:00.000Z"
+        "rolEmisor": "Prestador",
+        "fecha": "2025-10-21T12:00:00.000Z",
+        "descripcion": "Solicitar resonancia magnética"
       }
     ],
     "diasDeInternacion": 3,
     "estado": "observado"
   },
   {
-    "idAfiliado": "6717b1234f1a2b0012a45679", 
+    "idAfiliado": "6717b1234f1a2b0012a45679",
     "paraAfiliado": "Laura Martínez",
     "nroAfiliado": "000001-02",
     "fechaSolicitud": "2025-10-12T11:30:00.000Z",
@@ -56,9 +56,9 @@
     "estado": "pendiente"
   },
   {
-    "idAfiliado": "6717b1234f1a2b0012a4567b",
-    "paraAfiliado": "Mariana Pérez",
-    "nroAfiliado": "000002-01",
+    "idAfiliado": "6717b1234f1a2b0012a45678",
+    "paraAfiliado": "Carlos González",
+    "nroAfiliado": "000001-01",
     "fechaSolicitud": "2025-10-11T09:00:00.000Z",
     "practica": "Tomografía computarizada",
     "especialidad": "Cardiología",
@@ -68,9 +68,9 @@
     "observaciones": [
       {
         "emisor": "650f1d2a3b4c5d6e7f8a9013",
-        "rolEmisor": "Afiliado",
-        "descripcion": "Revisar con prioridad",
-        "fecha": "2025-10-11T10:00:00.000Z"
+        "rolEmisor": "Prestador",
+        "descripcion": "Enviar estudios previos",
+        "fecha": "2025-11-15T10:00:00.000Z"
       }
     ],
     "diasDeInternacion": 2,
@@ -88,6 +88,7 @@
     "diagnostico": "Palpitaciones",
     "observaciones": [],
     "diasDeInternacion": 1,
+    "fechaAprobacion": "2025-11-22T09:00:00.000Z",
     "estado": "aceptado"
   },
   {
@@ -105,7 +106,7 @@
         "emisor": "650f1d2a3b4c5d6e7f8a9014",
         "rolEmisor": "Afiliado",
         "descripcion": "Verificar cobertura",
-        "fecha": "2025-10-10T15:00:00.000Z"
+        "fecha": "2025-11-10T15:00:00.000Z"
       }
     ],
     "diasDeInternacion": 2,
@@ -123,12 +124,13 @@
     "diagnostico": "Chequeo general",
     "observaciones": [],
     "diasDeInternacion": 1,
+    "fechaAprobacion": "2025-11-19T09:00:00.000Z",
     "estado": "aceptado"
   },
   {
-    "idAfiliado": "6717b1234f1a2b0012a4567c",
-    "paraAfiliado": "Hernán López",
-    "nroAfiliado": "000002-02",
+    "idAfiliado": "6717b1234f1a2b0012a45678",
+    "paraAfiliado": "Carlos González",
+    "nroAfiliado": "000001-01",
     "fechaSolicitud": "2025-10-08T10:45:00.000Z",
     "practica": "Tomografía torácica",
     "especialidad": "Cardiología",
@@ -138,9 +140,9 @@
     "observaciones": [
       {
         "emisor": "650f1d2a3b4c5d6e7f8a9015",
-        "rolEmisor": "Afiliado",
-        "descripcion": "Revisar historial previo",
-        "fecha": "2025-10-08T11:00:00.000Z"
+        "rolEmisor": "Prestador",
+        "descripcion": "Rechazado por presentar historial previo",
+        "fecha": "2025-11-23T11:00:00.000Z"
       }
     ],
     "diasDeInternacion": 3,
@@ -173,18 +175,18 @@
     "observaciones": [
       {
         "emisor": "650f1d2a3b4c5d6e7f8a9016",
-        "rolEmisor": "Afiliado",
-        "descripcion": "Paciente con antecedentes",
-        "fecha": "2025-10-06T10:00:00.000Z"
+        "rolEmisor": "Prestador",
+        "fecha": "2025-10-06T10:00:00.000Z",
+        "descripcion": "Presentar pedido de estudio"
       }
     ],
     "diasDeInternacion": 2,
     "estado": "observado"
   },
   {
-    "idAfiliado": "6717b1234f1a2b0012a4567e",
-    "paraAfiliado": "Valentina Fernández",
-    "nroAfiliado": "000004-01",
+    "idAfiliado": "6717b1234f1a2b0012a45679",
+    "paraAfiliado": "Laura Martínez",
+    "nroAfiliado": "000001-02",
     "fechaSolicitud": "2025-10-05T07:45:00.000Z",
     "practica": "Prueba de esfuerzo",
     "especialidad": "Cardiología",
@@ -193,6 +195,7 @@
     "diagnostico": "Fatiga al caminar",
     "observaciones": [],
     "diasDeInternacion": 1,
+    "fechaAprobacion": "2025-11-26T09:00:00.000Z",
     "estado": "aceptado"
   }
 ]
