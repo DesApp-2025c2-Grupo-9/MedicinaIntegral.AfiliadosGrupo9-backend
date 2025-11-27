@@ -32,7 +32,7 @@ const userController: IUserController = {
 
       if (foundUser.rol === RolAfiliado.HIJO_MENOR){
         return res.status(403).json({
-          message: "Los usuarios con rol 'Hijo menor' no pueden registrarse en el sistema"
+          message: "Los usuarios con rol 'Hijo menor' no pueden registrarse en el sistema."
         })
       }
 
@@ -86,7 +86,7 @@ const userController: IUserController = {
         familiaresPermitidos = [foundUser._id];
       }
 
-      const accessToken = jwt.sign({ nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '1h' });
+      const accessToken = jwt.sign({ nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '6h' });
       const refreshToken = jwt.sign({ nroDocumento }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '1d' });
 
       foundUser.refreshToken = refreshToken;
@@ -166,7 +166,7 @@ const userController: IUserController = {
           familiaresPermitidos = [foundUser._id];
         }
 
-        const accessToken = jwt.sign({ nroDocumento: foundUser.nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '1h' });
+        const accessToken = jwt.sign({ nroDocumento: foundUser.nroDocumento, familiaresPermitidos }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '6h' });
         // const newRefreshToken = jwt.sign({ nroDocumento: foundUser.nroDocumento }, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: '1d' });
 
         // foundUser.refreshToken = newRefreshToken;

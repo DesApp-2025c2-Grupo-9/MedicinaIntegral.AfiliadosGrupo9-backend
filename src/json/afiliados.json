@@ -20,7 +20,7 @@
     "cbus": [
       {
         "tipoDeCuenta": "Cuenta corriente",
-        "cuil": "20301234567",
+        "cuil": "20-30123456-7",
         "nombre": "Carlos",
         "apellido": "González",
         "cbu": "28505909-40090418135201"

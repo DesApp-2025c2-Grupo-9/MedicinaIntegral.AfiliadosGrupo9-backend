@@ -45,6 +45,7 @@ const reintegroController: IReintegroController = {
     };
     const reintegroBody = {
       ...req.body,
+      cbu: req.body.formaDePago === 'transferencia' ? req.body.cbu : '',
       observaciones: [observacion]
       // idAfiliado
     };
