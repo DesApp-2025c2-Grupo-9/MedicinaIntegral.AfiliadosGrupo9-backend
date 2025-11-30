@@ -90,7 +90,6 @@ const reintegroSchema = new Schema<IReintegroDocument>(
       required: true
     },
     fechaBaja: { type: Date },
-    fechaAprobacion: { type: Date },
     nroGestion: Number
   },
   { timestamps: true }

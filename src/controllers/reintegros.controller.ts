@@ -26,7 +26,7 @@ const reintegroController: IReintegroController = {
 
     try {
       const reintegros = await Reintegro.find({ $and: [{ fechaBaja: { $exists: false } }, { idAfiliado: { $in: idsAfiliados } }] })
-        .sort({ createdAt: -1 })
+        .sort('-updatedAt')
         .populate<{ idAfiliado: { rol: string } }>('idAfiliado', 'rol');
 
       const reintegrosDTO = reintegros.map(reintegro => new GetReintegrosDTO(reintegro));

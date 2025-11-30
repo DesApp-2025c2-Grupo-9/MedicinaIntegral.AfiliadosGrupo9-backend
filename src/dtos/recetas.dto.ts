@@ -15,9 +15,7 @@ export class GetRecetasDTO {
   //idAfiliado?: string;
   observaciones?: IObservacion[];
   estado: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  fechaAprobacion?: Date;
+  fechaActualizacion?: Date;
 
   constructor(data: unknown) {
     const castedData = data as IrecetaWithRol;
@@ -30,10 +28,8 @@ export class GetRecetasDTO {
     this.presentacion = castedData.presentacion;
     this.observaciones = castedData.observaciones;
     this.estado = castedData.estado;
-    this.createdAt = castedData.createdAt;
-    this.updatedAt = castedData.updatedAt;
+    this.fechaActualizacion = castedData.estado == 'pendiente' ? castedData.createdAt : castedData.updatedAt;
     //this.idAfiliado = castedData.idAfiliado.toString();
-    this.fechaAprobacion = castedData.fechaAprobacion;
   }
 }
 

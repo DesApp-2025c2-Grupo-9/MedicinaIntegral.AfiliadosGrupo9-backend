@@ -61,7 +61,7 @@ const recetaController: IRecetaController = {
           { idAfiliado: { $in: idsAfiliados } },
           { fechaBaja: { $exists: false } },
         ],
-      }).populate<{ idAfiliado: { rol: string } }>("idAfiliado", "rol").sort('-createdAt');
+      }).populate<{ idAfiliado: { rol: string } }>("idAfiliado", "rol").sort('-updatedAt');
       if (recetas.length === 0) {
         res.status(204).json({ message: "No hay recetas." });
         return;

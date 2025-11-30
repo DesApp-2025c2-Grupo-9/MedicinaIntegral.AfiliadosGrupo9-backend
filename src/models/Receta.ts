@@ -42,8 +42,6 @@ const recetaSchema = new Schema<IRecetaDocument>(
       enum: Object.values(EstadoTramite),
       default: EstadoTramite.PENDIENTE,
     },
-    fechaAprobacion: { type: Date },
-
     idAfiliado: {
       type: Schema.Types.ObjectId,
       ref: "Afiliado",

@@ -17,7 +17,7 @@ export interface IAutorizacion {
   diasDeInternacion: number;
   estado: EstadoTramite;
   fechaBaja?: Date;
-  fechaAprobacion?: Date;
+  updatedAt?: Date;
   createdAt?: Date;
 }
 

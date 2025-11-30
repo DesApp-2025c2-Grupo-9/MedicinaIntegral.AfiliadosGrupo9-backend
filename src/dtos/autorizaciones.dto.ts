@@ -18,8 +18,7 @@ export class GetAutorizacionesDTO {
     observaciones: IObservacion[];
     diasDeInternacion: number;
     estado: string;
-    createdAt?: Date;
-    fechaAprobacion?: Date;
+    fechaActualizacion?: Date;
 
     constructor(data: unknown) {
         const castedData = data as IAutorizacionWithRol;
@@ -35,9 +34,7 @@ export class GetAutorizacionesDTO {
         this.observaciones = castedData.observaciones;
         this.diasDeInternacion = castedData.diasDeInternacion;
         this.estado = castedData.estado;
-        this.createdAt = castedData.createdAt;
-        this.fechaAprobacion = castedData.fechaAprobacion;
-
+        this.fechaActualizacion = castedData.estado == 'pendiente' ? castedData.createdAt : castedData.updatedAt;
     }
 }
 

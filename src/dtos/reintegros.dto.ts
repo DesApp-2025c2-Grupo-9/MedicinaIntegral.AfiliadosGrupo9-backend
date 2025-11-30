@@ -23,8 +23,7 @@ export class GetReintegrosDTO {
   cbu?: string;
   observaciones?: IObservacion[];
   estado: string;
-  createdAt?: Date;
-  fechaAprobacion?: Date;
+  fechaActualizacion?: Date;
 
   constructor(data: unknown) {
     const castedData = data as IReintegroWithRole;
@@ -45,8 +44,7 @@ export class GetReintegrosDTO {
     this.cbu = castedData.cbu;
     this.observaciones = castedData.observaciones;
     this.estado = castedData.estado;
-    this.createdAt = castedData.createdAt;
-    this.fechaAprobacion = castedData.fechaAprobacion;
+    this.fechaActualizacion = castedData.estado == 'pendiente' ? castedData.createdAt : castedData.updatedAt;
   }
 }
 

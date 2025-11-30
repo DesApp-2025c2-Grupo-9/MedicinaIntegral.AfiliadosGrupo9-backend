@@ -50,7 +50,6 @@ const autorizacionSchema = new Schema<IAutorizacionDocument>(
       default: EstadoTramite.PENDIENTE,
     },
     fechaBaja: { type: Date, required: false },
-    fechaAprobacion: { type: Date },
   },
   { timestamps: true }
 );

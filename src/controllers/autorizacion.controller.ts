@@ -26,7 +26,7 @@ const autorizacionController: IAutorizacionController = {
     getAllAutorizaciones : async (req, res, next) => {
         const idsAfiliados = req.familiaresPermitidos;
         try {
-            const autorizaciones = await Autorizacion.find({ $and:[{fechaBaja: {$exists: false}} , {idAfiliado: { $in: idsAfiliados }} ]}).populate('idAfiliado', 'rol').sort('-createdAt');
+            const autorizaciones = await Autorizacion.find({ $and:[{fechaBaja: {$exists: false}} , {idAfiliado: { $in: idsAfiliados }} ]}).populate('idAfiliado', 'rol').sort('-updatedAt');
             if(autorizaciones.length === 0) {
                 res.status(204).json({ message: 'No hay autorizaciones.' }); 
                 return;

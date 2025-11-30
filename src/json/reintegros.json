@@ -29,7 +29,7 @@
       }
     ],
     "estado": "aceptado",
-    "fechaAprobacion": "2025-11-19T09:00:00.000Z",
+    "updatedAt": "2025-11-19T09:00:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a45678"
   },
   {
@@ -87,7 +87,7 @@
       }
     ],
     "estado": "aceptado",
-    "fechaAprobacion": "2025-11-05T09:00:00.000Z",
+    "updatedAt": "2025-01-27T09:00:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a4567a"
   },
   {
@@ -125,7 +125,8 @@
       }
     ],
     "estado": "rechazado",
-    "idAfiliado": "6717b1234f1a2b0012a4567a"
+    "idAfiliado": "6717b1234f1a2b0012a4567a",
+    "updatedAt": "2025-01-27T09:00:00.000Z"
   },
   {
     "_id": "6717b1234f1a2b0012a456be",
@@ -156,7 +157,8 @@
       }
     ],
     "estado": "en análisis",
-    "idAfiliado": "6717b1234f1a2b0012a4567a"
+    "idAfiliado": "6717b1234f1a2b0012a4567a",
+    "updatedAt": "2025-01-25T12:40:00.000Z"
   },
   {
     "_id": "6717b1234f1a2b0012a45673",
@@ -185,15 +187,10 @@
         "rolEmisor": "Prestador",
         "descripcion": "Hola Mariana, gracias. Lamentablemente la imagen no tiene buena resolución. Por favor vuelve a subirla.",
         "fecha": "2025-04-08T12:10:00.000Z"
-      },
-      {
-        "idEmisor": "6717b1234f1a2b0012a4567b",
-        "rolEmisor": "Afiliado",
-        "descripcion": "Ya subí una nueva foto con mejor calidad.",
-        "fecha": "2025-04-08T14:55:00.000Z"
       }
     ],
-    "idAfiliado": "6717b1234f1a2b0012a4567b"
+    "idAfiliado": "6717b1234f1a2b0012a4567b",
+    "updatedAt": "2025-04-08T12:40:00.000Z"
   },
   {
     "_id": "6717b1234f1a2b0012a45674",
@@ -244,7 +241,7 @@
       }
     ],
     "estado": "aceptado",
-    "fechaAprobacion": "2025-11-26T09:00:00.000Z",
+    "updatedAt": "2025-05-24T15:22:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a4567d"
   },
   {
@@ -277,6 +274,7 @@
         "fecha": "2025-06-27T11:30:00.000Z"
       }
     ],
+    "updatedAt": "2025-06-27T11:30:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a4567e"
   },
   {
@@ -294,7 +292,7 @@
     },
     "formaDePago": "efectivo",
     "estado": "aceptado",
-    "fechaAprobacion": "2025-11-24T09:00:00.000Z",
+    "updatedAt": "2025-07-14T09:00:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a4567f"
   },
   {
@@ -320,6 +318,7 @@
       }
     ],
     "estado": "observado",
+    "updatedAt": "2025-08-18T09:10:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a45678"
   }
 ]
