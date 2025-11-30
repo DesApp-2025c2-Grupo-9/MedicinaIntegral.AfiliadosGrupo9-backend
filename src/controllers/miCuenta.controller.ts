@@ -110,18 +110,11 @@ export const miCuentaController: IMiCuentaController = {
         return;
       }
 
-      // afiliado.cbuPrincipal = cbu;
       const cbuExistente = afiliado.cbus.find(entry => entry.cbu === cbu);
       if (!cbuExistente) {
         res.status(404).json({ message: 'No se encontraron datos del CBU solicitado.' });
         return;
       }
-
-      /* if (cbuExistente) {
-        Object.assign(cbuExistente, datosActualizados);
-        } else {
-          afiliado.cbus.push({ cbu, ...datosActualizados });
-      } */
 
       Object.assign(cbuExistente, datosActualizados);
       const cbuActualizado = await afiliado.save();
@@ -143,6 +136,7 @@ export const miCuentaController: IMiCuentaController = {
 
       const cbuArrFiltered = unAfiliado.cbus.filter(entry => entry.cbu !== cbu);
       unAfiliado.cbus = [...cbuArrFiltered];
+      unAfiliado.cbuPrincipal = undefined;
       await unAfiliado.save();
       res.json({ message: 'El CBU fue eliminado exitosamente.' });
     } catch (error) {
