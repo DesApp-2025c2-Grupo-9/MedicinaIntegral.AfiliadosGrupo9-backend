@@ -2,11 +2,11 @@ import { IRecetaDocument } from "../models/Receta";
 import { IObservacion } from "../interfaces/IObservacion";
 
 interface IrecetaWithRol extends Omit<IRecetaDocument, "idAfiliado"> {
-  idAfiliado: { rol: string };
+  idAfiliado: { rol: string, nroAfiliado: string };
 }
 export class GetRecetasDTO {
   id: string;
-  // nroAfiliado: string;
+  nroAfiliado: string;
   rolAfiliado: string;
   paraAfiliado: string;
   medicamento: string;
@@ -20,7 +20,7 @@ export class GetRecetasDTO {
   constructor(data: unknown) {
     const castedData = data as IrecetaWithRol;
     this.id = castedData._id.toString();
-    // this.nroAfiliado = castedData.nroAfiliado;
+    this.nroAfiliado = castedData.idAfiliado.nroAfiliado;
     this.paraAfiliado = castedData.paraAfiliado;
     this.rolAfiliado = castedData.idAfiliado.rol;
     this.medicamento = castedData.medicamento;
@@ -28,7 +28,7 @@ export class GetRecetasDTO {
     this.presentacion = castedData.presentacion;
     this.observaciones = castedData.observaciones;
     this.estado = castedData.estado;
-    this.fechaActualizacion = castedData.estado == 'pendiente' ? castedData.createdAt : castedData.updatedAt;
+    this.fechaActualizacion = castedData.estado === 'pendiente' ? castedData.createdAt : castedData.updatedAt;
     //this.idAfiliado = castedData.idAfiliado.toString();
   }
 }

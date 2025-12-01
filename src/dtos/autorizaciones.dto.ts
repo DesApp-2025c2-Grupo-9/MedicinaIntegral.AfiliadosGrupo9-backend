@@ -34,7 +34,7 @@ export class GetAutorizacionesDTO {
         this.observaciones = castedData.observaciones;
         this.diasDeInternacion = castedData.diasDeInternacion;
         this.estado = castedData.estado;
-        this.fechaActualizacion = castedData.estado == 'pendiente' ? castedData.createdAt : castedData.updatedAt;
+        this.fechaActualizacion = castedData.estado === 'pendiente' ? castedData.createdAt : castedData.updatedAt;
     }
 }
 

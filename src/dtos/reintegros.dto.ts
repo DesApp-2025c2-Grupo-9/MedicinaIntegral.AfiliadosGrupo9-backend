@@ -44,7 +44,7 @@ export class GetReintegrosDTO {
     this.cbu = castedData.cbu;
     this.observaciones = castedData.observaciones;
     this.estado = castedData.estado;
-    this.fechaActualizacion = castedData.estado == 'pendiente' ? castedData.createdAt : castedData.updatedAt;
+    this.fechaActualizacion = castedData.estado === 'pendiente' ? castedData.createdAt : castedData.updatedAt;
   }
 }
 
