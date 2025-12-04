@@ -49,7 +49,7 @@ const especialidadesDisponibles = async (req: Request, res: Response) => {
   //De los turnos disponibles, devolver las especialidades únicas.
   const turnos = await turnosDisponibles();
 
-  const especialidades = [...new Set(turnos.map(turno => turno.especialidad))];
+  const especialidades = [...new Set(turnos.map(turno => turno.especialidad))].sort();
   
   res.json(especialidades)
 }
@@ -64,7 +64,7 @@ const localidadesPorEspecialidad = async (req: Request, res:Response) => {
         .filter(turno => turno.especialidad === especialidad)//Filtrar los turnos que coincidan con la especialidad
         .map(turno => turno.localidad)//Guardar la localidad de los turnos filtrados
     )
-  ]
+  ].sort();
 
   res.json(localidades);
 }
@@ -79,7 +79,7 @@ const prestadoresPorEspecialidadYLocalidad = async (req: Request, res: Response)
         .filter(turno => turno.especialidad === especialidad && turno.localidad === localidad)
         .map(turno => turno.prestador)
     )
-  ]
+  ].sort();
   prestadores.push('Todos');
   res.json(prestadores)
 }
