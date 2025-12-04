@@ -2,12 +2,12 @@
   {
     "_id": "6717b1234f1a2b0012a45670",
     "paraAfiliado": "Carlos González",
-    "fechaDePrestacion": "2025-02-15T00:00:00.000Z",
+    "fechaDePrestacion": "2025-11-15T00:00:00.000Z",
     "especialidad": "Cardiología",
     "medico": "Ricardo López",
     "lugarDeAtencion": "Sanatorio Mitre",
     "factura": {
-      "fecha": "2025-02-16T00:00:00.000Z",
+      "fecha": "2025-11-16T00:00:00.000Z",
       "cuit": "20234567891",
       "valorTotal": 18000,
       "personaAFacturar": "Carlos González"
@@ -19,28 +19,28 @@
         "idEmisor": "6717b1234f1a2b0012a45678",
         "rolEmisor": "Afiliado",
         "descripcion": "Buenos días, quisiera saber si mi solicitud ya fue revisada. Adjunto todos los comprobantes solicitados.",
-        "fecha": "2025-02-20T10:15:00.000Z"
+        "fecha": "2025-11-20T10:15:00.000Z"
       },
       {
         "idEmisor": "652fa1b2f4a3c6a12d4e91a1",
         "rolEmisor": "Prestador",
         "descripcion": "Hola, Carlos. Revisamos la solicitud enviada, pero notamos que falta información para poder continuar. ¿Podrías enviarnos los detalles que faltan, por favor?",
-        "fecha": "2025-02-21T14:32:00.000Z"
+        "fecha": "2025-11-21T14:32:00.000Z"
       }
     ],
     "estado": "aceptado",
-    "updatedAt": "2025-11-19T09:00:00.000Z",
+    "updatedAt": "2025-11-29T09:00:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a45678"
   },
   {
     "_id": "6717b1234f1a2b0012a45671",
     "paraAfiliado": "Laura Martínez",
-    "fechaDePrestacion": "2025-03-10T00:00:00.000Z",
+    "fechaDePrestacion": "2025-11-18T00:00:00.000Z",
     "especialidad": "Ginecología",
     "medico": "Mariana Ruiz",
     "lugarDeAtencion": "Clínica del Sol",
     "factura": {
-      "fecha": "2025-03-11T00:00:00.000Z",
+      "fecha": "2025-11-19T00:00:00.000Z",
       "cuit": "27345678901",
       "valorTotal": 12000,
       "personaAFacturar": "Laura Martínez"
@@ -53,7 +53,7 @@
         "idEmisor": "6717b1234f1a2b0012a45679",
         "rolEmisor": "Afiliado",
         "descripcion": "Quisiera agregar que el monto indicado corresponde a la atención realizada el 5 de marzo y fue abonado en efectivo.",
-        "fecha": "2025-03-12T11:47:00.000Z"
+        "fecha": "2025-11-18T11:47:00.000Z"
       }
     ],
     "idAfiliado": "6717b1234f1a2b0012a45679"
@@ -61,12 +61,12 @@
   {
     "_id": "6717b1234f1a2b0012a45672",
     "paraAfiliado": "Sofía González",
-    "fechaDePrestacion": "2025-01-22T00:00:00.000Z",
+    "fechaDePrestacion": "2025-11-22T00:00:00.000Z",
     "especialidad": "Pediatría",
     "medico": "Juan Herrera",
     "lugarDeAtencion": "Hospital Italiano",
     "factura": {
-      "fecha": "2025-01-23T00:00:00.000Z",
+      "fecha": "2025-11-23T00:00:00.000Z",
       "cuit": "20456789012",
       "valorTotal": 8500,
       "personaAFacturar": "Carlos González"
@@ -77,28 +77,28 @@
         "idEmisor": "652ab1b2f4a3c6a12d4e9ba1",
         "rolEmisor": "Prestador",
         "descripcion": "Hola, el reintegro de Sofía está en revisión. Nos falta confirmar la fecha exacta de la prestación.",
-        "fecha": "2025-01-25T09:50:00.000Z"
+        "fecha": "2025-11-25T09:50:00.000Z"
       },
       {
         "idEmisor": "6717b1234f1a2b0012a45678",
         "rolEmisor": "Afiliado",
         "descripcion": "Gracias por avisar. La prestación fue el 22 de enero, adjunto el comprobante nuevamente.",
-        "fecha": "2025-01-25T12:40:00.000Z"
+        "fecha": "2025-11-25T12:40:00.000Z"
       }
     ],
     "estado": "aceptado",
-    "updatedAt": "2025-01-27T09:00:00.000Z",
+    "updatedAt": "2025-11-29T09:00:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a4567a"
   },
   {
     "_id": "6717b1234f1a2b0012a45679",
     "paraAfiliado": "Sofía González",
-    "fechaDePrestacion": "2025-01-22T00:00:00.000Z",
+    "fechaDePrestacion": "2025-11-22T00:00:00.000Z",
     "especialidad": "Pediatría",
     "medico": "Juan Herrera",
     "lugarDeAtencion": "Hospital Italiano",
     "factura": {
-      "fecha": "2025-01-23T00:00:00.000Z",
+      "fecha": "2025-11-23T00:00:00.000Z",
       "cuit": "20456789012",
       "valorTotal": 8500,
       "personaAFacturar": "Carlos González"
@@ -109,34 +109,34 @@
         "idEmisor": "652ab1b2f4a3c6a12d4e9ba1",
         "rolEmisor": "Prestador",
         "descripcion": "Hola, Sofía. Revisamos la documentación y notamos que la factura no cumple con los requisitos formales para su reintegro. Es necesario que figure el nombre del afiliado como persona facturada.",
-        "fecha": "2025-01-26T10:15:00.000Z"
+        "fecha": "2025-11-26T10:15:00.000Z"
       },
       {
         "idEmisor": "6717b1234f1a2b0012a45678",
         "rolEmisor": "Afiliado",
         "descripcion": "Entiendo, gracias por la aclaración. En ese caso, volveré a gestionar una nueva factura a nombre de Sofía para presentarla correctamente.",
-        "fecha": "2025-01-26T13:05:00.000Z"
+        "fecha": "2025-11-26T13:05:00.000Z"
       },
       {
         "idEmisor": "652ab1b2f4a3c6a12d4e9ba1",
         "rolEmisor": "Prestador",
         "descripcion": "El reintegro fue rechazado, ya que la factura presentada no cumple con los requisitos vigentes. Podrás volver a enviarlo una vez que cuentes con la factura corregida.",
-        "fecha": "2025-01-27T09:40:00.000Z"
+        "fecha": "2025-11-28T09:40:00.000Z"
       }
     ],
     "estado": "rechazado",
     "idAfiliado": "6717b1234f1a2b0012a4567a",
-    "updatedAt": "2025-01-27T09:00:00.000Z"
+    "updatedAt": "2025-11-28T09:00:00.000Z"
   },
   {
     "_id": "6717b1234f1a2b0012a456be",
     "paraAfiliado": "Sofía González",
-    "fechaDePrestacion": "2025-01-22T00:00:00.000Z",
+    "fechaDePrestacion": "2025-11-22T00:00:00.000Z",
     "especialidad": "Pediatría",
     "medico": "Juan Herrera",
     "lugarDeAtencion": "Hospital Italiano",
     "factura": {
-      "fecha": "2025-01-23T00:00:00.000Z",
+      "fecha": "2025-11-23T00:00:00.000Z",
       "cuit": "20456789012",
       "valorTotal": 8500,
       "personaAFacturar": "Carlos González"
@@ -147,18 +147,18 @@
         "idEmisor": "652ab1b2f4a3c6a12d4e9ba1",
         "rolEmisor": "Prestador",
         "descripcion": "Hola, Sofía. Al revisar la solicitud notamos que falta el detalle del profesional que realizó la atención. ¿Podrías confirmarlo, por favor?",
-        "fecha": "2025-01-25T09:50:00.000Z"
+        "fecha": "2025-11-25T09:50:00.000Z"
       },
       {
         "idEmisor": "6717b1234f1a2b0012a45678",
         "rolEmisor": "Afiliado",
         "descripcion": "Claro, la atención fue realizada por el Dr. Juan Herrera en el Hospital Italiano.",
-        "fecha": "2025-01-25T12:40:00.000Z"
+        "fecha": "2025-11-25T12:40:00.000Z"
       }
     ],
     "estado": "en análisis",
     "idAfiliado": "6717b1234f1a2b0012a4567a",
-    "updatedAt": "2025-01-25T12:40:00.000Z"
+    "updatedAt": "2025-11-25T12:40:00.000Z"
   },
   {
     "_id": "6717b1234f1a2b0012a45673",
@@ -298,12 +298,12 @@
   {
     "_id": "6717b1234f1a2b0012a45678",
     "paraAfiliado": "Carlos González",
-    "fechaDePrestacion": "2025-08-14T00:00:00.000Z",
+    "fechaDePrestacion": "2025-11-27T00:00:00.000Z",
     "especialidad": "Oftalmología",
     "medico": "María Torres",
     "lugarDeAtencion": "Centro Óptico CABA",
     "factura": {
-      "fecha": "2025-08-15T00:00:00.000Z",
+      "fecha": "2025-11-28T00:00:00.000Z",
       "cuit": "20987654321",
       "valorTotal": 15000,
       "personaAFacturar": "Carlos González"
@@ -314,11 +314,11 @@
         "idEmisor": "652fa1b2f4a3c6a12d4e91a2",
         "rolEmisor": "Prestador",
         "descripcion": "Hola, Carlos. Para continuar con la evaluación del reintegro, necesitamos que nos confirmes el detalle del monto facturado y el concepto correspondiente.",
-        "fecha": "2025-08-18T09:10:00.000Z"
+        "fecha": "2025-11-30T09:10:00.000Z"
       }
     ],
     "estado": "observado",
-    "updatedAt": "2025-08-18T09:10:00.000Z",
+    "updatedAt": "2025-11-30T09:10:00.000Z",
     "idAfiliado": "6717b1234f1a2b0012a45678"
   }
 ]
